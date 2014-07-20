@@ -1,3 +1,10 @@
 /target
 /.settings
 /.project
+/.idea/*
+/.idea
+.idea/
+*.ipr
+*.iml
+*.iws
+/out
