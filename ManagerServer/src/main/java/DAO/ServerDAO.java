@@ -7,7 +7,7 @@ public interface ServerDAO {
     void removeUser();
     void updateUser();
 
-    void insertEent();
+    void insertEvent();
     void selectEvent();
     void removeEvent();
     void updateEvent();
