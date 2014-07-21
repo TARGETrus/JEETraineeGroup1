@@ -16,7 +16,7 @@ public class HibernateTest {
         User user2 = new User();
         user2.setUserName("Test1");
         user2.setPassword("pass1");
-        user2.setUserID(1);
+        user2.setUserID(13);
 
         serverDAO.insertUser(user);
         serverDAO.selectUser(3);
