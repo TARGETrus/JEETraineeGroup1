@@ -17,12 +17,9 @@ public interface IManagerAPI {
     void getComment(int commentID);//
     void modgifyComment(int commentID);
 
-
     Map<Integer, String> showUsers();
     Map<Integer, String> showEvents();
     Map<Integer, String> showGroups();
     Map<Integer, String> showComments();
-
-
 
 }

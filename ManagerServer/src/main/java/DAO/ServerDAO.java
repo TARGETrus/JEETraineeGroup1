@@ -1,6 +1,6 @@
+package DAO;
 
-
-public interface IManagerServerDAO {
+public interface ServerDAO {
 
     void insertUser();
     void selectUser();
@@ -24,11 +24,9 @@ public interface IManagerServerDAO {
 
     //or just
 
-    void insert(String str);//parse str
-    void select(String str);
-    void remove(String str);
-    void update(String str);
-
-
+    //void insert(String str);//parse str
+    //void select(String str);
+    //void remove(String str);
+    //void update(String str);
 
 }
