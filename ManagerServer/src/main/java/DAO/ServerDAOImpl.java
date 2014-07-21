@@ -6,38 +6,104 @@ import org.hibernate.Session;
 public class ServerDAOImpl {
 
     // Users CRUD
-    public long insertUser(User user) {
+    public void insertUser(User user) {
 
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-        session.beginTransaction();
-        Integer result = (Integer) session.save(user);
-        session.getTransaction().commit();
+        Session session = null;
 
-        return result;
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            System.out.println("Error on insert: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
 
     }
 
-    public User selectUser(User user) {
+    public User selectUser(int id) {
 
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-        session.beginTransaction();
-        User result = (User) session.load(User.class, user.getUserID());
-        session.getTransaction().commit();
+        Session session = null;
+        User user = null;
 
-        return result;
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            user = (User) session.load(User.class, id);
+
+        } catch (Exception e) {
+
+            System.out.println("Error on select: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+        return user;
 
     }
 
     public void removeUser(User user) {
 
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.delete(user);
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            System.out.println("Error on delete: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     public void updateUser(User user) {
 
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-        session.beginTransaction();
-        session.saveOrUpdate(user);
-        session.getTransaction().commit();
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            System.out.println("Error on update: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
 
     }
 

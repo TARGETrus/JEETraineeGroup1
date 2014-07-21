@@ -7,7 +7,7 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionAnnotationFactory;
+    public static SessionFactory sessionAnnotationFactory;
 
     private static SessionFactory buildSessionAnnotationFactory() {
 
@@ -36,6 +36,10 @@ public class HibernateUtil {
     public static SessionFactory getSessionAnnotationFactory() {
         if(sessionAnnotationFactory == null) sessionAnnotationFactory = buildSessionAnnotationFactory();
         return sessionAnnotationFactory;
+    }
+
+    public static void closeFactory() {
+        sessionAnnotationFactory.close();
     }
 
 }
