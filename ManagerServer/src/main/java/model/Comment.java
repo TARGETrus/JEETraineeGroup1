@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="comment")
+@Table(name="comment", schema = "web_app_db")
 public class Comment {
 
     @Id

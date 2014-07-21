@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="event")
+@Table(name="event", schema = "web_app_db")
 public class Event {
 
     @Id
@@ -16,6 +16,12 @@ public class Event {
 
     @Column(name="coordinates", length=255, nullable=false)
     private String coordinates;
+
+    @Column(name="latitude", length=255, nullable=false)
+    private String latitude;
+
+    @Column(name="longitude", length=255, nullable=false)
+    private String longitude;
 
     @Column(name="date", length=255, nullable=false)
     private String date;
@@ -47,6 +53,22 @@ public class Event {
 
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getDate() {

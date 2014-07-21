@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="group")
+@Table(name="group", schema = "web_app_db")
 public class Group {
 
     @Id
