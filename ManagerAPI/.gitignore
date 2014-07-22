@@ -2,4 +2,9 @@
 /.classpath
 /.project
 /.settings
-
+.idea/
+*.ipr
+*.iml
+*.iws
+out/
+/.gitignore
