@@ -8,7 +8,7 @@ import model.User;
 public interface ServerDAO {
 
     boolean insertUser(User user);
-    User selectUser(int userID);
+    User selectUser(int userID);// что-то мне кажется селект по АЙДИ не очень удобным...
     boolean removeUser(User user);
     boolean updateUser(User user);
 

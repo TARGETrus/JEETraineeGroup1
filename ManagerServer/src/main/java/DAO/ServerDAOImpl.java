@@ -1,12 +1,15 @@
 package DAO;
 
+import model.Comment;
+import model.Event;
+import model.Group;
 import model.User;
 import org.hibernate.Session;
 
-public class ServerDAOImpl {
+public class ServerDAOImpl implements ServerDAO{
 
     // Users CRUD
-    public void insertUser(User user) {
+    public boolean insertUser(User user) {
 
         Session session = null;
 
@@ -16,10 +19,12 @@ public class ServerDAOImpl {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
+            return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on insert: " + e.getMessage());
+            return false;
 
         } finally {
 
@@ -57,7 +62,7 @@ public class ServerDAOImpl {
 
     }
 
-    public void removeUser(User user) {
+    public boolean removeUser(User user) {
 
         Session session = null;
 
@@ -67,10 +72,12 @@ public class ServerDAOImpl {
             session.beginTransaction();
             session.delete(user);
             session.getTransaction().commit();
+            return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on delete: " + e.getMessage());
+            return false;
 
         } finally {
 
@@ -82,7 +89,7 @@ public class ServerDAOImpl {
 
     }
 
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
 
         Session session = null;
 
@@ -92,10 +99,12 @@ public class ServerDAOImpl {
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
+            return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on update: " + e.getMessage());
+            return false;
 
         } finally {
 
@@ -108,54 +117,62 @@ public class ServerDAOImpl {
     }
 
     // Events CRUD
-    public void insertEvent() {
-
+    public boolean insertEvent(Event event) {
+        return false;
     }
 
-    public void selectEvent() {
-
+    public Event selectEvent(int eventID) {
+        return null;
     }
 
-    public void removeEvent() {
-
+    public boolean removeEvent(Event event) {
+        return false;
     }
 
-    public void updateEvent() {
+    public boolean updateEvent(Event event) {
+        return false;
+    }
 
+    public boolean insertGroup(Group group) {
+        return false;
     }
 
     // Groups CRUD
-    public void insertGroup() {
-
+    public Group selectGrouo(int groupID) {
+        return null;
     }
 
-    public void selectGrouo() {
-
+    public boolean removeGroup(Group group) {
+        return false;
     }
 
-    public void removeGroup() {
-
-    }
-
-    public void updateGroup() {
-
+    public boolean updateGroup(Group group) {
+        return false;
     }
 
     // Comments CRUD
-    public void insertComment() {
-
+    public boolean insertComment(Comment comment) {
+        return false;
     }
 
-    public void selectComment() {
-
+    public Comment selectComment(int commentID) {
+        return null;
     }
 
-    public void removeComment() {
-
+    public boolean removeComment(Comment comment) {
+        return false;
     }
 
-    public void updateComment() {
-
+    public boolean updateComment(Comment comment) {
+        return false;
     }
+
+
+
+
+
+
+
+
 
 }
