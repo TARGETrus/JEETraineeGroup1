@@ -8,7 +8,7 @@ import model.User;
 public interface ServerDAO {
 
     boolean insertUser(User user);
-    User    selectUser(int userID); // Предложения?
+    User    selectUser(int userID); // Сделать возврат листа юзеров и работать уже с ним как хочешь
     boolean removeUser(User user);
     boolean updateUser(User user);
 
