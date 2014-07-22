@@ -6,7 +6,7 @@ import model.Group;
 import model.User;
 import org.hibernate.Session;
 
-public class ServerDAOImpl implements ServerDAO{
+public class ServerDAOImpl implements ServerDAO {
 
     // Users CRUD
     public boolean insertUser(User user) {
@@ -19,11 +19,13 @@ public class ServerDAOImpl implements ServerDAO{
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
+
             return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on insert: " + e.getMessage());
+
             return false;
 
         } finally {
@@ -72,11 +74,13 @@ public class ServerDAOImpl implements ServerDAO{
             session.beginTransaction();
             session.delete(user);
             session.getTransaction().commit();
+
             return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on delete: " + e.getMessage());
+
             return false;
 
         } finally {
@@ -99,11 +103,13 @@ public class ServerDAOImpl implements ServerDAO{
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
+
             return true;
 
         } catch (Exception e) {
 
             System.out.println("Error on update: " + e.getMessage());
+
             return false;
 
         } finally {
@@ -118,61 +124,344 @@ public class ServerDAOImpl implements ServerDAO{
 
     // Events CRUD
     public boolean insertEvent(Event event) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.save(event);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on insert: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
-    public Event selectEvent(int eventID) {
-        return null;
+    public Event selectEvent(int id) {
+
+        Session session = null;
+        Event event = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            event = (Event) session.load(Event.class, id);
+
+        } catch (Exception e) {
+
+            System.out.println("Error on select: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+        return event;
+
     }
 
     public boolean removeEvent(Event event) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.delete(event);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on delete: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     public boolean updateEvent(Event event) {
-        return false;
-    }
 
-    public boolean insertGroup(Group group) {
-        return false;
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.update(event);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on update: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     // Groups CRUD
-    public Group selectGrouo(int groupID) {
-        return null;
+    public boolean insertGroup(Group group) {
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.save(group);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on insert: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+    }
+
+    public Group selectGrouo(int id) {
+
+        Session session = null;
+        Group group = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            group = (Group) session.load(Group.class, id);
+
+        } catch (Exception e) {
+
+            System.out.println("Error on select: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+        return group;
+
     }
 
     public boolean removeGroup(Group group) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.delete(group);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on delete: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     public boolean updateGroup(Group group) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.update(group);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on update: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     // Comments CRUD
     public boolean insertComment(Comment comment) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.save(comment);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on insert: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
-    public Comment selectComment(int commentID) {
-        return null;
+    public Comment selectComment(int id) {
+
+        Session session = null;
+        Comment comment = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            comment = (Comment) session.load(Comment.class, id);
+
+        } catch (Exception e) {
+
+            System.out.println("Error on select: " + e.getMessage());
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+        return comment;
+
     }
 
     public boolean removeComment(Comment comment) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.delete(comment);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on delete: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
 
     public boolean updateComment(Comment comment) {
-        return false;
+
+        Session session = null;
+
+        try {
+
+            session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            session.update(comment);
+            session.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.out.println("Error on update: " + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+
+        }
+
     }
-
-
-
-
-
-
-
-
 
 }
