@@ -1,5 +1,6 @@
 package DAO;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -7,9 +8,11 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionAnnotationFactory;
+    private static SessionFactory sessionFactory;
 
-    private static SessionFactory buildSessionAnnotationFactory() {
+    //private static SessionFactory buildSessionFactory() {
+
+    static {
 
         try {
 
@@ -21,7 +24,8 @@ public class HibernateUtil {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate Annotation serviceRegistry created");
 
-            return configuration.buildSessionFactory(serviceRegistry);
+            //return configuration.buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
         } catch (Throwable e) {
 
@@ -33,13 +37,37 @@ public class HibernateUtil {
 
     }
 
-    public static SessionFactory getSessionAnnotationFactory() {
-        if(sessionAnnotationFactory == null) sessionAnnotationFactory = buildSessionAnnotationFactory();
-        return sessionAnnotationFactory;
+    //}
+
+    public static SessionFactory getSessionFactory() {
+        //if(sessionFactory == null) sessionFactory = buildSessionFactory();
+        return sessionFactory;
     }
 
     public static void closeFactory() {
-        sessionAnnotationFactory.close();
+        sessionFactory.close();
+    }
+
+    public static Session beginTransaction() {
+        Session hibernateSession = HibernateUtil.getSession();
+        hibernateSession.beginTransaction();
+        return hibernateSession;
+    }
+
+    public static void commitTransaction() {
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public static void rollbackTransaction() {
+        HibernateUtil.getSession().getTransaction().rollback();
+    }
+
+    public static Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
+    public static void closeSession() {
+        HibernateUtil.getSession().close();
     }
 
 }
