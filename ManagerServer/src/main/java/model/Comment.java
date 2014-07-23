@@ -12,7 +12,7 @@ public class Comment {
     private int    commentID;
 
     @Column(name="comment_name", length=255, nullable=false)
-    private String commentName;
+    private String commentName;//del
 
     @Column(name="comment", length=255, nullable=false)
     private String comment;

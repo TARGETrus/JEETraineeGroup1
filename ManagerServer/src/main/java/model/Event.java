@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name="event", schema="web_app_db")
 public class Event {
 
+    // add column groupID
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="event_id", nullable=false, unique=true, length=12)
@@ -15,7 +17,7 @@ public class Event {
     private String eventName;
 
     @Column(name="coordinates", length=255, nullable=false)
-    private String coordinates;
+    private String coordinates;//change to address
 
     @Column(name="latitude", length=255, nullable=false)
     private String latitude;
