@@ -2,5 +2,5 @@ package DAO;
 
 import model.Comment;
 
-public class CommentDAOImpl extends GenericDAOImpl<Comment, Integer> implements CommentDAO {
+public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDAO {
 }

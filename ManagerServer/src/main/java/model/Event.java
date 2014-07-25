@@ -1,12 +1,12 @@
 package model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="event", schema="web_app_db")
+@Table(name="events", schema="web_app_db")
 public class Event {
-
-    // add column groupID
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -28,8 +28,17 @@ public class Event {
     @Column(name="date", length=255, nullable=false)
     private String date;
 
-    @Column(name="user_name", length=255, nullable=false)
-    private String userName;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "events")
+    private Set<User> users = new HashSet<User>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "events_groups", schema="web_app_db",
+            joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
+    private Set<Group> groups = new HashSet<Group>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
+    private Set<Comment> comments = new HashSet<Comment>();
 
     public  Event() {}
 
@@ -81,12 +90,59 @@ public class Event {
         this.date = date;
     }
 
-    public String getUserName() {
-        return userName;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString(){
+
+        String eventData =  "\nEvent data: \n" + "ID: " + eventID + ", Title: " + eventName +
+                ", Coord.: " + coordinates + ", Long.: " + longitude +
+                ", Lat.: " + latitude + ", Date.: " + date + "\n";
+
+        eventData += "User data: \n";
+
+        for (User user : users) {
+            eventData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
+                    ", Password: " + user.getPassword() + "\n";
+        }
+
+        eventData += "Group data: \n";
+
+        for (Group group : groups) {
+            eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+        }
+
+        eventData += "Comment data: \n";
+
+        for (Comment comment : comments) {
+            eventData += "ID: " + comment.getCommentID() + ", Title: " + comment.getCommentName() +
+                    ", Comment: " + comment.getComment() + "\n";
+        }
+
+        return eventData;
+
     }
 
 }

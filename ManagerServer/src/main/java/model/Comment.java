@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="comment", schema="web_app_db")
+@Table(name="comments", schema="web_app_db")
 public class Comment {
 
     @Id
@@ -17,8 +17,9 @@ public class Comment {
     @Column(name="comment", length=255, nullable=false)
     private String comment;
 
-    @Column(name="user_name", length=255, nullable=false)
-    private String userName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;
 
     public Comment() {}
 
@@ -46,12 +47,20 @@ public class Comment {
         this.comment = comment;
     }
 
-    public String getUserName() {
-        return userName;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    @Override
+    public String toString(){
+
+        return "\nComment data: \n" + "ID: " + commentID + ", Title: " + commentName +
+                ", Content: " + comment + event.getEventID() + "\n";
+
     }
 
 }

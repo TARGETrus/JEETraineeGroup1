@@ -1,9 +1,11 @@
 package model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="group", schema="web_app_db")
+@Table(name="groups", schema="web_app_db")
 public class Group {
 
     @Id
@@ -13,6 +15,12 @@ public class Group {
 
     @Column(name="group_name", length=255, nullable=false)
     private String groupName;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    private Set<User> users = new HashSet<User>();
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    private Set<Event> events = new HashSet<Event>();
 
     public Group() {}
 
@@ -30,6 +38,46 @@ public class Group {
 
     public void setGroupID(int groupID) {
         this.groupID = groupID;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
+    @Override
+    public String toString(){
+
+        String groupData =  "\nGroup data: \n" + "ID: " + groupID + ", Title: " + groupName + "\n";
+
+        groupData += "User data: \n";
+
+        for (User user : users) {
+            groupData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
+                    ", Password: " + user.getPassword() + "\n";
+        }
+
+        groupData += "Group data: \n";
+
+        for (Event event : events) {
+            groupData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
+                    ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
+                    ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+        }
+
+        return groupData;
+
     }
 
 }

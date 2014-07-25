@@ -1,10 +1,9 @@
 package DAO;
 
-import java.io.*;
 import java.util.*;
 import org.hibernate.Query;
 
-public interface GenericDAO<T, ID extends Serializable> {
+public interface GenericDAO<T> {
 
     public void save(T entity);
 

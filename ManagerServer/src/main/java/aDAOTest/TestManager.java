@@ -1,11 +1,9 @@
 package aDAOTest;
 
-import DAO.HibernateUtil;
-import DAO.UserDAO;
-import DAO.UserDAOImpl;
+import DAO.*;
+import model.Comment;
 import model.User;
 import org.hibernate.HibernateException;
-import org.hibernate.NonUniqueResultException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +11,14 @@ import java.util.List;
 public class TestManager {
 
     private UserDAO userDAO = new UserDAOImpl();
+    private CommentDAO commentDAO = new CommentDAOImpl();
 
-    public void saveNewUser(User person) {
+    public void saveNewUser(User user) {
 
         try {
 
             HibernateUtil.beginTransaction();
-            userDAO.save(person);
+            userDAO.save(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -102,6 +101,23 @@ public class TestManager {
         }
 
         return allPersons;
+
+    }
+
+    public void saveNewComment(Comment comment) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            commentDAO.save(comment);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
 
     }
 

@@ -3,10 +3,9 @@ package DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T, ID> {
+public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     protected Session getSession() {
         return HibernateUtil.getSession();
