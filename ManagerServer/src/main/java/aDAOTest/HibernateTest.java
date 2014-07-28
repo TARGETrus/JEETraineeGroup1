@@ -48,6 +48,9 @@ public class HibernateTest {
         List<User> allUsers = testManager.findAllUsers();
         System.out.println(allUsers.toString());
 
+        User userLogin = testManager.getUserLoginData("name");
+        System.out.println(userLogin);
+
         HibernateUtil.closeFactory();
 
     }
