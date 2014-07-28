@@ -37,8 +37,8 @@ public class HibernateTest {
         comment.setComment("comment description");
         comment.setEvent(event);
 
-        //testManager.saveNewUser(testUser);
-        //testManager.saveNewComment(comment);
+        testManager.saveNewUser(testUser);
+        testManager.saveNewComment(comment);
         User singleUser = testManager.findUserById(1);
         System.out.println(singleUser.toString());
         System.out.println(singleUser.getEvents().toString());
