@@ -64,6 +64,26 @@ public class TestManager {
 
     }
 
+    public User getUserLoginData(String name) {
+
+        User person = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            person = (User) userDAO.getLoginData(name);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return person;
+
+    }
+
     public User findUserById(int id) {
 
         User person = null;
