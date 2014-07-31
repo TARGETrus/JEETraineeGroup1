@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+<xs:complexType name="User">
+ <xs:sequence>
+ 	<xs:element name="userID" type="xs:integer" minOccurs="0"/>
+ 	<xs:element name="userName" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="password" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="event" type="Event" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="group" type="Group" minOccurs="0" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Event">
+ <xs:sequence>
+ 	<xs:element name="eventID" type="xs:integer" minOccurs="0"/>
+ 	<xs:element name="eventName" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="coordinates" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="latitude" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="longitude" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="date" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="user" type="User" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="group" type="Group" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="comment" type="Comment" minOccurs="0" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Group">
+ <xs:sequence>
+ 	<xs:element name="groupID" type="xs:integer" minOccurs="0"/>
+ 	<xs:element name="groupName" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="user" type="User" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="event" type="Event" minOccurs="0" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Comment">
+ <xs:sequence>
+ 	<xs:element name="commentID" type="xs:integer" minOccurs="0"/>
+ 	<xs:element name="commentName" type="xs:string" minOccurs="0"/>
+ 	<xs:element name="comment" type="xs:string" minOccurs="0"/>
+  	<xs:element name="event" type="Event" minOccurs="0"/>
+ </xs:sequence>
+</xs:complexType>
+
+<xs:element name="Entity">
+  <xs:complexType>
+    <xs:choice>
+      <xs:element name="user" type="User"/>
+      <xs:element name="event" type="Event"/>
+      <xs:element name="group" type="Group"/>
+      <xs:element name="comment" type="Comment"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>
