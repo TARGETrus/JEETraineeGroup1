@@ -25,7 +25,7 @@
         }
 
     %>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=FALSE"></script>
     <script>
         function initialize() {
             var mapOptions = {
@@ -51,7 +51,7 @@
             });
 
             google.maps.event.addListener(marker, 'click', function() {
-                map.setZoom(8);
+                map.setZoom(15);
                 map.setCenter(marker.getPosition());
             });
         }
