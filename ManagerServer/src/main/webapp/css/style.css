@@ -107,13 +107,15 @@ body {
 }
 
 .login input:focus:invalid, .contact_form textarea:focus:invalid { /* when a field is considered invalid by the browser */
-    background: #fdfdfe url(../img/invalid.png) no-repeat 85% center;
+    background: #fdfdfe url(../img/invalid.png) no-repeat 95% center;
     box-shadow: 0 0 5px #d45252;
     border-color: #b03535
 }
 
 .login input:required:valid, .contact_form textarea:required:valid {  /*when a field is considered valid by the browser */
-    background: #ffffff url(../img/valid.png) no-repeat 85% center;
+    background: #ffffff url(../img/valid.png) no-repeat 95% center;
     box-shadow: 0 0 5px #5cd053;
     border-color: #28921f;
 }
+
+

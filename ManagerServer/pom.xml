@@ -42,11 +42,6 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.3.5.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>4.3.5.Final</version>
-        </dependency>
         <!-- MySQL database driver -->
         <dependency>
             <groupId>mysql</groupId>
@@ -72,6 +67,8 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
         </dependency>
+
     </dependencies>
+
 
 </project>
