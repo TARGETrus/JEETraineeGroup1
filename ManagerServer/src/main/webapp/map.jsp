@@ -1,30 +1,66 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Карта</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Simple click event</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+    <%
+        String latitude = null;
+        String longitude = null;
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("latitude")) {
+                latitude = cookie.getValue();
+            }
+            if (cookie.getName().equals("longitude")) {
+                longitude = cookie.getValue();
+            }
+        }
 
-    <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=SET_TO_TRUE_OR_FALSE">
-    </script>
-    <script type="text/javascript">
+    %>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
         function initialize() {
             var mapOptions = {
-                center: new google.maps.LatLng(59.934280,30.335099),
-                zoom: 8,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                zoom: 4,
+                center: new google.maps.LatLng(<%= latitude %>, <%= longitude %>)
             };
-            var map = new google.maps.Map(document.getElementById("map_canvas"),
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
                     mapOptions);
+
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(59.934280,30.335099),
+                position: map.getCenter(),
                 map: map,
-                title:"Hello World!"
+                title: 'Click to zoom'
+            });
+
+            google.maps.event.addListener(map, 'center_changed', function() {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                window.setTimeout(function() {
+                    map.panTo(marker.getPosition());
+                }, 3000);
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                map.setZoom(8);
+                map.setCenter(marker.getPosition());
             });
         }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
 </head>
 <body>
-    <div id="map_canvas" style="width:100%; height:100%"></div>
+<div id="map-canvas"></div>
 </body>
 </html>
