@@ -39,8 +39,6 @@
         longitude.add("33");
         latitude.add("0");
         longitude.add("33");
-        latitude.add("12");
-        longitude.add("88");
 
     %>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=FALSE"></script>

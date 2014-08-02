@@ -36,8 +36,6 @@ public class MapServlet extends HttpServlet {
         resp.addCookie(new Cookie("latitude", lat));
         resp.addCookie(new Cookie("longitude", lon));
 
-        System.out.println(lat + "    +++   " + lon);
-
         resp.sendRedirect("map.jsp");
     }
 
