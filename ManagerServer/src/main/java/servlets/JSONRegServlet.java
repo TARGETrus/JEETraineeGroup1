@@ -26,7 +26,10 @@ public class JSONRegServlet extends HttpServlet{
         String str = null;
         if(!(name.length() == 0)){
             TestManager manager = new TestManager();
-            if(manager.getUserLoginData(name).getUserName().equals(name)){
+            String username = new String();
+            username = manager.getUserLoginData(name).getUserName();///обламывается и отправляет на сервер error 500(( жду что бы Ваня сделал функцию на exist
+
+            if(username.equals(name)){
 
                 JSONObject obj = new JSONObject();
                 obj.put("name", "exist");

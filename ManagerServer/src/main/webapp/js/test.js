@@ -1,6 +1,6 @@
 $().ready(function() {
     $('#submit').click(function(){
-        '#submit'.disabled = true;
+
         var userfrom = $('#ajaxForm').serialize();
          $.ajax({
             url:'search',
@@ -18,6 +18,7 @@ $().ready(function() {
                         break;
                     case "not_exist":
                         form.empty();
+                        form.css("color", "green");
                         form.append("name OK")
                         break;
                     case "invalid_data":
