@@ -23,26 +23,36 @@ public class JSONRegServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String name = req.getParameter("user");
+        String repeatName = req.getParameter("repeat_user");
+        String pass = req.getParameter("password");
+        String repeatPass = req.getParameter("repeat_password");
         String str = null;
-        if(!(name.length() == 0)){
-            TestManager manager = new TestManager();
-            String username = new String();
-            username = manager.getUserLoginData(name).getUserName();///обламывается и отправляет на сервер error 500(( жду что бы Ваня сделал функцию на exist
+        if(name.equals(repeatName) && pass.equals(repeatPass)){
+            if(!(name.length() == 0)){
+                TestManager manager = new TestManager();
+                String username = new String();
+                username = manager.getUserLoginData(name).getUserName();///обламывается и отправляет на сервер error 500(( жду что бы Ваня сделал функцию на exist
 
-            if(username.equals(name)){
+                if(username.equals(name)){
 
+                    JSONObject obj = new JSONObject();
+                    obj.put("name", "exist");
+                    str =  obj.toJSONString();
+
+                }else{
+                    JSONObject obj = new JSONObject();
+                    obj.put("name", "not_exist");
+                    str = obj.toJSONString();
+                }
+            }else {
                 JSONObject obj = new JSONObject();
-                obj.put("name", "exist");
-                str =  obj.toJSONString();
-
-            }else{
-                JSONObject obj = new JSONObject();
-                obj.put("name", "not_exist");
+                obj.put("name", "invalid_data");
                 str = obj.toJSONString();
             }
+
         }else {
             JSONObject obj = new JSONObject();
-            obj.put("name", "invalid_data");
+            obj.put("name", "pss_or_name_incorrect");
             str = obj.toJSONString();
         }
 

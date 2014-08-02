@@ -34,7 +34,7 @@
 
         <input type="text" id="repeat_password" name="repeat_password" placeholder="Repeat your password" required />
 
-        <input type="submit" id="submit" name="login" class="login login-submit" value="Register!" />
+        <input type="submit" id="submit" name="login" class="login login-submit" value="Register!">
 
         <%--<button type="submit" name="login" class="login login-submit" id="myButton">Register!!</button>--%>
 

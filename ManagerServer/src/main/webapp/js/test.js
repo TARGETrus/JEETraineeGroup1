@@ -25,7 +25,13 @@ $().ready(function() {
                         form.empty();
                         form.append("invalid data")
                         break;
+                    case "pss_or_name_incorrect":
+                        form.empty();
+                        form.append("Password or username don't match :(")
+                        break;
                     default :
+                        form.empty();
+                        form.append("Server error :(")
                         break;
                 }
 
