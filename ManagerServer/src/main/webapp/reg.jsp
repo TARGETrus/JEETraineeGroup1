@@ -1,3 +1,7 @@
+<%@ page import="aDAOTest.TestManager" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% TestManager manager = new TestManager();%>
+<%request.setAttribute("manager_", manager);%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,9 +9,9 @@
     <title>Registration</title>
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/test.js"></script>
+    <!--<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>-->
 
 
 </head>
@@ -19,7 +23,9 @@
 
 
         <h1>Registration on EventManager</h1><br>
-
+        <div id="userInfo">
+            <div style="color: red" id="ajaxResponse"></div>
+        </div>
         <input type="text" id="name" name="user" placeholder="Enter your name" required />
 
         <input type="text" id="repeat_name" name="repeat_user" placeholder="Repeat your name" required />
@@ -28,14 +34,12 @@
 
         <input type="text" id="repeat_password" name="repeat_password" placeholder="Repeat your password" required />
 
-        <input type="submit">
+        <input type="submit" id="submit" value="Login" />
 
         <button type="submit" name="login" class="login login-submit" id="myButton">Register!!</button>
 
     </div>
-    <div id="userInfo">
-        <div id="ajaxResponse"></div>
-    </div>
+
 </form>
 </body>
 

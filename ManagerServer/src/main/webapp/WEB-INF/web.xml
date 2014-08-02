@@ -14,8 +14,18 @@
     <servlet-mapping>
         <servlet-name>map</servlet-name>
         <url-pattern>/map</url-pattern>
+
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>reg</servlet-name>
+        <jsp-file>/reg.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>reg</servlet-name>
+        <url-pattern>/reg</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

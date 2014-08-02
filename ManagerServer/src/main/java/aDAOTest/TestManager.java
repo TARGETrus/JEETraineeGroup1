@@ -30,6 +30,7 @@ public class TestManager {
 
     }
 
+
     public void mergeUser(User user) {
 
         try {

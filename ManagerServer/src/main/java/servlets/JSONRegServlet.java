@@ -2,7 +2,7 @@ package servlets;
 
 
 import aDAOTest.TestManager;
-import model.User;
+import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,19 +22,31 @@ public class JSONRegServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         String name = req.getParameter("user");
-        TestManager manager = new TestManager();
-        User user = manager.getUserLoginData(name);
-        if(!user.getUserName().equals(null)){
-            resp.setContentType("text/html");
-            resp.setCharacterEncoding("UTF-8");
-//        JSONObject jsonObj = new JSONObject(user);
-//        String str = jsonObj.toString();
-            resp.getWriter().write("OK!" + user.getUserName());
-        }else{
-            resp.getWriter().write("NOPE!");
+        String str = null;
+        if(!(name.length() == 0)){
+            TestManager manager = new TestManager();
+            if(manager.getUserLoginData(name).getUserName().equals(name)){
+
+                JSONObject obj = new JSONObject();
+                obj.put("name", "exist");
+                str =  obj.toJSONString();
+
+            }else{
+                JSONObject obj = new JSONObject();
+                obj.put("name", "not_exist");
+                str = obj.toJSONString();
+            }
+        }else {
+            JSONObject obj = new JSONObject();
+            obj.put("name", "invalid_data");
+            str = obj.toJSONString();
         }
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(str);
+
 
     }
 
