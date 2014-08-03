@@ -16,6 +16,7 @@ import java.util.List;
 
 @WebServlet("/MapServlet")
 public class MapServlet extends HttpServlet {
+    static final long serialVersionUID = 1L;
 
     TestManager testManager = new TestManager();
     User user;
