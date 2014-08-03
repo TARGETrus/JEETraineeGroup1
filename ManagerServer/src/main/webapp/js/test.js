@@ -1,6 +1,7 @@
 $().ready(function() {
     $('#submit').click(function(){
 
+
         var userfrom = $('#ajaxForm').serialize();
          $.ajax({
             url:'search',
