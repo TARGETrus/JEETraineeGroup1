@@ -1,6 +1,6 @@
 package servlets;
 
-import aDAOTest.TestManager;
+import DAOHandler.UserDataManager;
 import model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -27,21 +27,28 @@ public class LoginServlet extends HttpServlet {
 
         // get request parameters for userID and password
         String username = request.getParameter("user");
-        String pwd = request.getParameter("pwd");
+        String password = request.getParameter("pwd");
 
-       User user = new TestManager().getUserLoginData(username);
-       if(password.equals(user.getPassword())){
-           Cookie loginCookie = new Cookie("username",username);
+        User user = new UserDataManager().getUserData(username);
+
+        if(password.equals(user.getPassword())){
+
+            user = new UserDataManager().getUserCompleteData(username);
+
+            Cookie loginCookie = new Cookie("username",username);
             //setting cookie to expiry in 30 mins
             loginCookie.setMaxAge(30*60);
             response.addCookie(loginCookie);
             response.sendRedirect("index.jsp");
-       }else {
-           RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+
+        } else {
+
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out= response.getWriter();
             out.println("<font color=red>Either username name or password is wrong.</font>");
             rd.include(request, response);
-       }
+
+        }
 
     }
 

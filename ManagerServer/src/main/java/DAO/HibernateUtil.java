@@ -12,7 +12,7 @@ public class HibernateUtil {
 
     //private static SessionFactory buildSessionFactory() {
 
-    static {
+    static  {
 
         try {
 
@@ -24,7 +24,6 @@ public class HibernateUtil {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate Annotation serviceRegistry created");
 
-            //return configuration.buildSessionFactory(serviceRegistry);
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
         } catch (Throwable e) {
@@ -40,8 +39,11 @@ public class HibernateUtil {
     //}
 
     public static SessionFactory getSessionFactory() {
+
         //if(sessionFactory == null) sessionFactory = buildSessionFactory();
+
         return sessionFactory;
+
     }
 
     public static void closeFactory() {

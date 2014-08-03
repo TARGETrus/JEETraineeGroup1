@@ -1,6 +1,6 @@
-<%@ page import="aDAOTest.TestManager" %>
+<%@ page import="DAOHandler.UserDataManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% TestManager manager = new TestManager();%>
+<% DAOHandler.UserDataManager manager = new DAOHandler.UserDataManager();%>
 <%request.setAttribute("manager_", manager);%>
 <!DOCTYPE html>
 <html>

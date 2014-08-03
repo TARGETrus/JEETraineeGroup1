@@ -1,4 +1,4 @@
-package aDAOTest;
+package DAOHandler;
 
 import DAO.HibernateUtil;
 import model.Comment;
@@ -6,13 +6,11 @@ import model.Event;
 import model.Group;
 import model.User;
 
-import java.util.List;
-
 public class HibernateTest {
 
     public static void main(String[] args) {
 
-        TestManager testManager = new TestManager();
+        UserDataManager dataManager = new UserDataManager();
 
         Group group = new Group();
         group.setGroupName("group");
@@ -37,19 +35,19 @@ public class HibernateTest {
         comment.setComment("comment description");
         comment.setEvent(event);
 
-        testManager.saveNewUser(testUser);
-        testManager.saveNewComment(comment);
-        User singleUser = testManager.findUserById(1);
+        //dataManager.saveNewUser(testUser);
+        //dataManager.saveNewComment(comment);
+        User singleUser = dataManager.findUserById(1);
         System.out.println(singleUser.toString());
-        System.out.println(singleUser.getEvents().toString());
+        //System.out.println(singleUser.getEvents().toString());
 
-        //testManager.mergeUser(singleUser);
+        //dataManager.mergeUser(singleUser);
 
-        List<User> allUsers = testManager.findAllUsers();
-        System.out.println(allUsers.toString());
+        //List<User> allUsers = dataManager.findAllUsers();
+        //System.out.println(allUsers.toString());
 
-        User userLogin = testManager.getUserLoginData("name");
-        System.out.println(userLogin);
+        //User userLogin = dataManager.getUserData("name");
+        //System.out.println(userLogin);
 
         HibernateUtil.closeFactory();
 

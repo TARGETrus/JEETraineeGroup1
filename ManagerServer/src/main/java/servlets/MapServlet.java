@@ -1,6 +1,6 @@
 package servlets;
 
-import aDAOTest.TestManager;
+import DAOHandler.UserDataManager;
 import model.Event;
 import model.User;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet("/MapServlet")
 public class MapServlet extends HttpServlet {
 
-    TestManager testManager = new TestManager();
+    UserDataManager dataManager = new UserDataManager();
     User user;
     List<Event> events;
     String lat = "";
@@ -26,7 +26,7 @@ public class MapServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
 
-        user = testManager.findUserById(Integer.parseInt(req.getParameter("user_id")));
+        user = dataManager.findUserById(Integer.parseInt(req.getParameter("user_id")));
         events = new ArrayList<>(user.getEvents());
         for(int i = 0; i < events.size(); i++) {
             lat += events.get(i).getLatitude() + " ";

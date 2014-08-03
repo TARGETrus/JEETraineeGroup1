@@ -1,14 +1,9 @@
 package xmlAPIServlets;
 
-
+import DAOHandler.EventDataManager;
 import model.Event;
 
-
 import java.io.IOException;
-
-
-
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,20 +18,20 @@ import javax.xml.stream.XMLStreamWriter;
 import xmlModelWriter.XMLEventWriter;
 import xmlModelWriter.XMLTagNames;
 
-
 /**
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/GetEvent")
 public class GetEvent extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
+    private EventDataManager eventDataManager = new EventDataManager();
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	String name = (String) request.getAttribute(XMLTagNames.event_eventName);
-    	
-    	//TO DO - Some operations with DAO
-    	Event event = null;
+
+        Event event = eventDataManager.getEventCompleteData(name);
+
         try {
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLEventWriter.write(out, event);

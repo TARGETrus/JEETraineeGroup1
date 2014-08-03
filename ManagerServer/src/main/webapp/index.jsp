@@ -14,7 +14,6 @@
 
 
 
-
 <body>
 
 <%
@@ -47,6 +46,7 @@
 <p style="text-align: center;">
 	<select multiple="false" id="groups" onchange="fillMembers();">
 		<%
+
 		java.util.Iterator<Group> itr = (user!=null) ?
 			user.getGroups().iterator():null;
 		while(itr!=null && itr.hasNext()) {
@@ -59,6 +59,7 @@
 				User next = gitr.next();
 				nameList = nameList + next.getUserName() + "<br>";
 			}
+
 	    %>	
 			<option value="<%=nameList%>"><%=gname%></option>
 		<%

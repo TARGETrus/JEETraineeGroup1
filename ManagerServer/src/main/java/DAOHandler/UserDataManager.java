@@ -1,18 +1,18 @@
-package aDAOTest;
+package DAOHandler;
 
 import DAO.*;
-import model.Comment;
 import model.User;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestManager {
+public class UserDataManager {
 
     private UserDAO userDAO = new UserDAOImpl();
-    private CommentDAO commentDAO = new CommentDAOImpl();
 
+    // Create foo
     public void saveNewUser(User user) {
 
         try {
@@ -30,49 +30,37 @@ public class TestManager {
 
     }
 
+    // Get foo
+    public User getUserData(String name) {
 
-    public void mergeUser(User user) {
+        User user = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            userDAO.merge(user);
+            user = (User) userDAO.getUserData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
 
         }
+
+        return user;
 
     }
 
-    public void deleteUser(User user) {
+    public User getUserCompleteData(String name) {
+
+        User user = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            userDAO.delete(user);
-            HibernateUtil.commitTransaction();
-
-        } catch (HibernateException e) {
-
-            System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
-
-        }
-
-    }
-
-    public User getUserLoginData(String name) {
-
-        User person = null;
-
-        try {
-
-            HibernateUtil.beginTransaction();
-            person = (User) userDAO.getLoginData(name);
+            user = (User) userDAO.getUserData(name);
+            Hibernate.initialize(user.getEvents());
+            Hibernate.initialize(user.getGroups());
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -81,18 +69,20 @@ public class TestManager {
 
         }
 
-        return person;
+        return user;
 
     }
 
     public User findUserById(int id) {
 
-        User person = null;
+        User user = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            person = (User) userDAO.findByID(User.class, id);
+            user = (User) userDAO.findByID(User.class, id);
+            Hibernate.initialize(user.getEvents());
+            Hibernate.initialize(user.getGroups());
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -101,18 +91,26 @@ public class TestManager {
 
         }
 
-        return person;
+        return user;
 
     }
 
     public List<User> findAllUsers() {
 
-        List<User> allPersons = new ArrayList<User>();
+        List<User> allUsers = new ArrayList<User>();
 
         try {
 
             HibernateUtil.beginTransaction();
-            allPersons = userDAO.findAll(User.class);
+            allUsers = userDAO.findAll(User.class);
+
+            for (User user : allUsers) {
+
+                Hibernate.initialize(user.getEvents());
+                Hibernate.initialize(user.getGroups());
+
+            }
+
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -121,24 +119,7 @@ public class TestManager {
 
         }
 
-        return allPersons;
-
-    }
-
-    public void saveNewComment(Comment comment) {
-
-        try {
-
-            HibernateUtil.beginTransaction();
-            commentDAO.save(comment);
-            HibernateUtil.commitTransaction();
-
-        } catch (HibernateException e) {
-
-            System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
-
-        }
+        return allUsers;
 
     }
 
