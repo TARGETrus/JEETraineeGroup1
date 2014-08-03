@@ -1,0 +1,21 @@
+/*ЦВЕТ И ОТСТУП СНИЗУ ДЛЯ БЛОКОВ*/
+.head-block,.top-menu,.top-material,.content,.map_content{
+    background:#ccc;
+    margin-bottom:1px;
+}
+/*ВЫСОТА ШАПКИ*/
+.head-block{
+    height:100px;
+}
+/*ВЫСОТА МЕНЮ*/
+.top-menu{
+    height:30px;
+}
+/*ГРАНИЦА У КОНТЕНТА*/
+.content{
+	height:500px;
+}
+/*ГРАНИЦЫ ДЛЯ КАРТЫ*/
+.map_content{
+	height:470px;
+}

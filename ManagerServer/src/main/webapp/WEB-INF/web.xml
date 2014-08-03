@@ -27,5 +27,15 @@
         <url-pattern>/reg</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>events</servlet-name>
+        <jsp-file>/events.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>events</servlet-name>
+        <url-pattern>/events</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
