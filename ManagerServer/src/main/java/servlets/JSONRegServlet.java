@@ -1,7 +1,8 @@
 package servlets;
 
 
-import aDAOTest.TestManager;
+import DAOHandler.UserDataManager;
+import model.User;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/search")
-public class JSONRegServlet extends HttpServlet{
+public class JSONRegServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -26,40 +29,56 @@ public class JSONRegServlet extends HttpServlet{
         String repeatName = req.getParameter("repeat_user");
         String pass = req.getParameter("password");
         String repeatPass = req.getParameter("repeat_password");
-        String str = null;
-        if(name.equals(repeatName) && pass.equals(repeatPass)){
-            if(!(name.length() == 0)){
-                TestManager manager = new TestManager();
-                String username = new String();
-                username = manager.getUserLoginData(name).getUserName();///обламывается и отправляет на сервер error 500(( жду что бы Ваня сделал функцию на exist
 
-                if(username.equals(name)){
+        String str = null;
+
+        if (name.equals(repeatName) && pass.equals(repeatPass)) {
+
+            if (!(name.length() == 0)) {
+
+                UserDataManager manager = new UserDataManager();
+                String username = new String();
+                User user = manager.getUserData(name);
+//                username = manager.getUserData(name).getUserName();
+
+                if (user != null) {
 
                     JSONObject obj = new JSONObject();
                     obj.put("name", "exist");
-                    str =  obj.toJSONString();
+                    str = obj.toJSONString();
 
-                }else{
+                } else {
+
                     JSONObject obj = new JSONObject();
                     obj.put("name", "not_exist");
                     str = obj.toJSONString();
+                    User newUser = new User();
+                    newUser.setUserName(name);
+                    newUser.setPassword(pass);
+                    manager.saveNewUser(newUser);
+                    resp.sendRedirect("login.html");
+
                 }
-            }else {
+
+            } else {
+
                 JSONObject obj = new JSONObject();
                 obj.put("name", "invalid_data");
                 str = obj.toJSONString();
+
             }
 
-        }else {
+        } else {
+
             JSONObject obj = new JSONObject();
             obj.put("name", "pss_or_name_incorrect");
             str = obj.toJSONString();
+
         }
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(str);
-
 
     }
 

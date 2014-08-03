@@ -1,6 +1,7 @@
 $().ready(function() {
     $('#submit').click(function(){
 
+
         var userfrom = $('#ajaxForm').serialize();
          $.ajax({
             url:'search',
@@ -27,7 +28,7 @@ $().ready(function() {
                         break;
                     case "pss_or_name_incorrect":
                         form.empty();
-                        form.append("Password or username don't match :(")
+                        form.append("Password or username don't match :(");
                         break;
                     default :
                         form.empty();

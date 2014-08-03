@@ -28,10 +28,10 @@ public class Event {
     @Column(name="date", length=255, nullable=false)
     private String date;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "events")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "events")
     private Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})

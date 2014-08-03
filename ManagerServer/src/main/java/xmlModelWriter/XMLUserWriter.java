@@ -1,6 +1,5 @@
 package xmlModelWriter;
 
-
 import java.util.Iterator;
 
 import javax.xml.stream.XMLStreamException;
@@ -14,13 +13,10 @@ public class XMLUserWriter{
 	public static void write(XMLStreamWriter out,User user) throws XMLStreamException{
 		if (user == null) throw new XMLStreamException();
 		//XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(
-        //        new OutputStreamWriter(stream, "utf-8"));
-		
-	
-		
+        //new OutputStreamWriter(stream, "utf-8"));
+
 		out.writeStartElement(XMLTagNames.startTag);
 		out.writeStartElement(XMLTagNames.user);
-			
 			
 			out.writeStartElement(XMLTagNames.user_userID);
 			out.writeCharacters(new Integer (user.getUserID()).toString());
@@ -59,8 +55,7 @@ public class XMLUserWriter{
 	    
 		//out.close();
 	}
-	
-	
+
 	public static void writeLikeElement(XMLStreamWriter out,User user) throws XMLStreamException{
 				
 		out.writeStartElement(XMLTagNames.user_userID);
@@ -72,8 +67,7 @@ public class XMLUserWriter{
 			out.writeCharacters(user.getUserName());
 			out.writeEndElement();
 		}
-	
-		
+
 	}
 	
-	}
+}

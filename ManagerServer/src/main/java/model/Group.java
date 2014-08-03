@@ -16,10 +16,10 @@ public class Group {
     @Column(name="group_name", length=255, nullable=false)
     private String groupName;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<Event> events = new HashSet<Event>();
 
     public Group() {}

@@ -1,14 +1,9 @@
 package xmlAPIServlets;
 
-
-import model.Group;
+import DAOHandler.UserDataManager;
 import model.User;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,14 +23,15 @@ import xmlModelWriter.XMLUserWriter;
  */
 @WebServlet("/GetUser")
 public class GetUser extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
+    private UserDataManager userDataManager = new UserDataManager();
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	String name = (String) request.getAttribute(XMLTagNames.user_userName);
-    	
-        //TO DO - Some operations with DAO like getLoginData(String name)
-        User user = null;
+
+        User user = userDataManager.getUserCompleteData(name);
+
         try {
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLUserWriter.write(out, user);
