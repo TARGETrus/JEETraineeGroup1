@@ -26,6 +26,7 @@ public class GetEvent extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private EventDataManager eventDataManager = new EventDataManager();
+    private static final String errormsg = "Internal Error occupied, while recieving an event";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	String name = (String) request.getAttribute(XMLTagNames.event_eventName);
@@ -36,7 +37,7 @@ public class GetEvent extends HttpServlet {
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLEventWriter.write(out, event);
 		} catch (XMLStreamException | FactoryConfigurationError e) {
-			response.getWriter().write("<error>");
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}
 
 

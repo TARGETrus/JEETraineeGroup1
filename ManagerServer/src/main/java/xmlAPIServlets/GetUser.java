@@ -26,6 +26,7 @@ public class GetUser extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private UserDataManager userDataManager = new UserDataManager();
+    private static final String errormsg = "Internal Error occupied, while recieving a user";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	String name = (String) request.getAttribute(XMLTagNames.user_userName);
@@ -36,7 +37,7 @@ public class GetUser extends HttpServlet {
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLUserWriter.write(out, user);
 		} catch (XMLStreamException | FactoryConfigurationError e) {
-			response.getWriter().write("<error>");
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}
 
 

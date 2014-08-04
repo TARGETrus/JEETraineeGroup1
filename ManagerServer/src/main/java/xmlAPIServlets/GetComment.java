@@ -25,6 +25,8 @@ import xmlModelWriter.XMLTagNames;
 public class GetComment extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final String errormsg = "Internal Error occupied, while recieving a comment";
+    
     private CommentDataManager commentDataManager = new CommentDataManager();
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +38,7 @@ public class GetComment extends HttpServlet {
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLCommentWriter.write(out, comment);
 		} catch (XMLStreamException | FactoryConfigurationError e) {
-			response.getWriter().write("<error>");
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}
 
 
