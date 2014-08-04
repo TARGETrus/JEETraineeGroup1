@@ -32,7 +32,7 @@
 <%
     String userName = null;
     Cookie[] cookies = request.getCookies();
-    if(cookies !=null){
+    if(cookies != null){
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("username")) userName = cookie.getValue();
         }
@@ -42,7 +42,7 @@
 %>
 
 <%
-    User user = (User) session.getAttribute("user");
+    User user = (User) session.getAttribute("user");//возвращает null....надо думать
 %>
 
 <div class="container">
