@@ -1,8 +1,8 @@
 package DAO;
+
 import org.hibernate.Query;
 
 import java.util.List;
-
 
 public interface GenericDAO<T> {
 

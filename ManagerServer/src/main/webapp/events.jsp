@@ -1,6 +1,6 @@
 <%@page import="model.User"%>
 <%@page import="model.Group"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
+<%@page language="java" contentType="text/html; charset=US-ASCII"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
