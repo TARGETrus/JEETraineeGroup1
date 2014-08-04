@@ -63,7 +63,19 @@
         </div>
         <div class="col-md-3 content">
             <h2>Events</h2>
-            <p style="text-align: center;">
+            
+        </div>
+        <div class="col-md-6">
+            <div class=".col-sm-12 top-menu">
+                Filters
+            </div>
+            <div class="col-md-12 map_content">
+                <h2>Map</h2>
+            </div>
+        </div>
+        <div class="col-md-3 content">
+            <h2>Groups</h2>
+             <p style="text-align: center;">
                 <select multiple="false" id="groups" onchange="fillMembers();">
                     <%
 
@@ -88,17 +100,6 @@
                 </select>
             </p>
             <p style="text-align: center;" id="gMembers">outmembers</p>
-        </div>
-        <div class="col-md-6">
-            <div class=".col-sm-12 top-menu">
-                Filters
-            </div>
-            <div class="col-md-12 map_content">
-                <h2>Map</h2>
-            </div>
-        </div>
-        <div class="col-md-3 content">
-            <h2>Groups</h2>
         </div>
     </div>
 </div>

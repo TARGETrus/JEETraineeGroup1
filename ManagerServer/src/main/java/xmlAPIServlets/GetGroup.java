@@ -26,17 +26,20 @@ public class GetGroup extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private GroupDataManager groupDataManager = new GroupDataManager();
+    private static final String errormsg = "Internal Error occupied, while recieving a group";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-    	String name = (String) request.getAttribute(XMLTagNames.group_groupName);
+    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
 
-        Group group = groupDataManager.getGroupCompleteData(name);
+      
 
         try {
+        	 Group group = groupDataManager.getGroupCompleteData(name);
+
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLGroupWriter.write(out, group);
-		} catch (XMLStreamException | FactoryConfigurationError e) {
-			response.getWriter().write("<error>");
+		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}
 
 

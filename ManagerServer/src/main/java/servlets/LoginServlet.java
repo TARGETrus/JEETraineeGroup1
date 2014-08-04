@@ -28,11 +28,14 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("pwd");
 
         User user = new UserDataManager().getUserData(username);
-
+                
         if(password.equals(user.getPassword())){
-
-            user = new UserDataManager().getUserCompleteData(username);
-
+        	
+        	//Hibernate Error :  failed to lazily initialize a collection
+        	//Error might occur, because of session being closed
+            //user = new UserDataManager().getUserCompleteData(username);
+            //request.getSession().setAttribute("user", user);
+            
             Cookie loginCookie = new Cookie("username",username);
             //setting cookie to expiry in 30 mins
             loginCookie.setMaxAge(30*60);
