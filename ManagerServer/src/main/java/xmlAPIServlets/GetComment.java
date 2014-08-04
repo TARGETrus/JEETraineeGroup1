@@ -30,14 +30,14 @@ public class GetComment extends HttpServlet {
     private CommentDataManager commentDataManager = new CommentDataManager();
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-    	String name = (String) request.getAttribute(XMLTagNames.comment_commentName);
+    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
 
-    	Comment comment = commentDataManager.getCommentData(name);
-
+    	
         try {
+        	Comment comment = commentDataManager.getCommentData(name);
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLCommentWriter.write(out, comment);
-		} catch (XMLStreamException | FactoryConfigurationError e) {
+		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}
 
