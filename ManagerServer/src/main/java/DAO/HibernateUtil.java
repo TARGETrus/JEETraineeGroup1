@@ -10,7 +10,7 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    //private static SessionFactory buildSessionFactory() {
+    //private static SessionFactory createSessionFactory() {
 
     static  {
 
@@ -29,7 +29,7 @@ public class HibernateUtil {
         } catch (Throwable e) {
 
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + e.getMessage());
+            System.err.println("Initial SessionFactory creation failed: " + e.getMessage());
             throw new ExceptionInInitializerError(e);
 
         }

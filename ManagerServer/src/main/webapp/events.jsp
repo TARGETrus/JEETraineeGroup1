@@ -1,6 +1,6 @@
 <%@page import="model.User"%>
 <%@page import="model.Group"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
+<%@page language="java" contentType="text/html; charset=US-ASCII"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <script src="js/bootstrap.min.js"></script>
@@ -32,7 +33,7 @@
 <%
     String userName = null;
     Cookie[] cookies = request.getCookies();
-    if(cookies !=null){
+    if(cookies != null){
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("username")) userName = cookie.getValue();
         }
@@ -42,7 +43,7 @@
 %>
 
 <%
-    User user = (User) session.getAttribute("user");
+    User user = (User) session.getAttribute("user");//возвращает null....надо думать
 %>
 
 <div class="container">
@@ -103,10 +104,5 @@
 </div>
 
 
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- <script src="//code.jquery.com/jquery.js"></script>-->
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- <script src="js/bootstrap.min.js"></script>-->
 </body>
 </html>

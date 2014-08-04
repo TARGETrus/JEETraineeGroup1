@@ -6,11 +6,14 @@ import model.Event;
 import model.Group;
 import model.User;
 
+import java.util.List;
+
 public class HibernateTest {
 
     public static void main(String[] args) {
 
-        UserDataManager dataManager = new UserDataManager();
+        UserDataManager userDataManager       = new UserDataManager();
+        CommentDataManager commentDataManager = new CommentDataManager();
 
         Group group = new Group();
         group.setGroupName("group");
@@ -35,18 +38,15 @@ public class HibernateTest {
         comment.setComment("comment description");
         comment.setEvent(event);
 
-        //dataManager.saveNewUser(testUser);
-        //dataManager.saveNewComment(comment);
-        User singleUser = dataManager.findUserById(1);
+        //userDataManager.saveNewUser(testUser);
+        //commentDataManager.saveNewComment(comment);
+        User singleUser = userDataManager.findUserById(1);
         System.out.println(singleUser.toString());
         //System.out.println(singleUser.getEvents().toString());
 
-        //dataManager.mergeUser(singleUser);
+        List<User> allUsers = userDataManager.findAllUsers();
 
-        //List<User> allUsers = dataManager.findAllUsers();
-        //System.out.println(allUsers.toString());
-
-        //User userLogin = dataManager.getUserData("name");
+        User userLogin = userDataManager.getUserData("name");
         //System.out.println(userLogin);
 
         HibernateUtil.closeFactory();
