@@ -6,10 +6,6 @@
         <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
-    <listener>
-        <listener-class>DAO.HibernateListener</listener-class>
-    </listener>
-
     <servlet>
         <servlet-name>map</servlet-name>
         <servlet-class>servlets.MapServlet</servlet-class>

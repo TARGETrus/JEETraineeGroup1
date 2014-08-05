@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -81,16 +83,24 @@ public class User {
 
         userData += "Event data: \n";
 
-        for (Event event : events) {
-            userData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
-                    ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
-                    ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+        if (Hibernate.isInitialized(events)) {
+
+            for (Event event : events) {
+                userData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
+                        ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
+                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+            }
+
         }
 
         userData += "Group data: \n";
 
-        for (Group group : groups) {
-            userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+        if (Hibernate.isInitialized(groups)) {
+
+            for (Group group : groups) {
+                userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+            }
+
         }
 
         return userData;

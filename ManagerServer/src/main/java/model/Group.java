@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,17 +65,25 @@ public class Group {
 
         groupData += "User data: \n";
 
-        for (User user : users) {
-            groupData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
-                    ", Password: " + user.getPassword() + "\n";
+        if (Hibernate.isInitialized(users)) {
+
+            for (User user : users) {
+                groupData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
+                        ", Password: " + user.getPassword() + "\n";
+            }
+
         }
 
         groupData += "Group data: \n";
 
-        for (Event event : events) {
-            groupData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
-                    ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
-                    ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+        if (Hibernate.isInitialized(users)) {
+
+            for (Event event : events) {
+                groupData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
+                        ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
+                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+            }
+
         }
 
         return groupData;

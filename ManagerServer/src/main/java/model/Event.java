@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -123,22 +125,34 @@ public class Event {
 
         eventData += "User data: \n";
 
-        for (User user : users) {
-            eventData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
-                    ", Password: " + user.getPassword() + "\n";
+        if (Hibernate.isInitialized(users)) {
+
+            for (User user : users) {
+                eventData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
+                        ", Password: " + user.getPassword() + "\n";
+            }
+
         }
 
         eventData += "Group data: \n";
 
-        for (Group group : groups) {
-            eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+        if (Hibernate.isInitialized(groups)) {
+
+            for (Group group : groups) {
+                eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+            }
+
         }
 
         eventData += "Comment data: \n";
 
-        for (Comment comment : comments) {
-            eventData += "ID: " + comment.getCommentID() + ", Title: " + comment.getCommentName() +
-                    ", Comment: " + comment.getComment() + "\n";
+        if (Hibernate.isInitialized(comments)) {
+
+            for (Comment comment : comments) {
+                eventData += "ID: " + comment.getCommentID() + ", Title: " + comment.getCommentName() +
+                        ", Comment: " + comment.getComment() + "\n";
+            }
+
         }
 
         return eventData;

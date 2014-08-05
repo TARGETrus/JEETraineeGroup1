@@ -1,6 +1,8 @@
 package DAOHandler;
 
 import DAO.*;
+import model.Event;
+import model.Group;
 import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -61,6 +63,22 @@ public class UserDataManager {
             user = (User) userDAO.getUserData(name);
             Hibernate.initialize(user.getEvents());
             Hibernate.initialize(user.getGroups());
+
+            for (Group group : user.getGroups()) {
+
+                Hibernate.initialize(group.getEvents());
+                Hibernate.initialize(group.getUsers());
+
+            }
+
+            for (Event event : user.getEvents()) {
+
+                Hibernate.initialize(event.getGroups());
+                Hibernate.initialize(event.getUsers());
+                Hibernate.initialize(event.getComments());
+
+            }
+
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

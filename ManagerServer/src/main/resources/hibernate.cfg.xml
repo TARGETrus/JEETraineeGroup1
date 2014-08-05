@@ -17,7 +17,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Set JTA -->
-        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- C3PO connections pool manager -->
         <property name="hibernate.c3p0.min_size">4</property>

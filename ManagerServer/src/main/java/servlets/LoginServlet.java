@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
         	
         	//Hibernate Error :  failed to lazily initialize a collection
         	//Error might occur, because of session being closed
-            //user = new UserDataManager().getUserCompleteData(username);
-            //request.getSession().setAttribute("user", user);
+            user = new UserDataManager().getUserCompleteData(username);
+            request.getSession().setAttribute("user", user);
             
             Cookie loginCookie = new Cookie("username",username);
             //setting cookie to expiry in 30 mins
