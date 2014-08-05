@@ -70,7 +70,7 @@
                 Filters
             </div>
             <div class="col-md-12 map_content">
-                <h2>Map</h2>
+                <jsp:include page="map.jsp"/>
             </div>
         </div>
         <div class="col-md-3 content">
