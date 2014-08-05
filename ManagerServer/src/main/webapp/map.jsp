@@ -1,5 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.google.common.collect.Maps" %>
+<%@ page import="servlets.MapServlet" %>
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="util.JsonReader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -40,6 +45,8 @@
         latitude.add("0");
         longitude.add("33");
 
+
+
     %>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=FALSE"></script>
     <script>
@@ -65,16 +72,29 @@
             });*/
 
             <%
+                final String baseUrl = "http://maps.googleapis.com/maps/api/geocode/json";// путь к Geocoding API по HTTP
+                final Map<String, String> params = Maps.newHashMap();
+                params.put("language", "engl");// язык данных, на котором мы хотим получить
+                params.put("sensor", "false");// исходит ли запрос на геокодирование от устройства с датчиком местоположения
+
                 for(int i = 0; i < latitude.size(); i++) {
+                    String latlng = latitude.get(i) + "," + longitude.get(i);
+                    params.put("latlng", latlng);
+                    final String url = baseUrl + '?' + MapServlet.encodeParams(params);// генерируем путь с параметрами
+                    final JSONObject resp = JsonReader.read(url);// делаем запрос к вебсервису и получаем от него ответ
+                    final JSONObject location = resp.getJSONArray("results").getJSONObject(0);
+                    String formattedAddress = location.getString("formatted_address");
             %>
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(<%= latitude.get(i)%>,<%= longitude.get(i)%>),
-                    map: map,
-                    title:"Hello World!"
-                });
-           <%
-            }
-           %>
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(<%= latitude.get(i)%>,<%= longitude.get(i)%>),
+                map: map,
+                title:"<%=formattedAddress%>"
+            });
+
+            <%
+                }
+            %>
 
             /*google.maps.event.addListener(map, 'center_changed', function() {
                 // 3 seconds after the center of the map has changed, pan back to the
