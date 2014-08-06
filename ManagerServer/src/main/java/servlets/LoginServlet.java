@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = new UserDataManager().getUserData(username);
                 
-        if(password.equals(user.getPassword())){
+        if(user != null && password.equals(user.getPassword())){
         	
         	//Hibernate Error :  failed to lazily initialize a collection
         	//Error might occur, because of session being closed
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out= response.getWriter();
-            out.println("<font color=red>Either username name or password is wrong.</font>");
+            out.println("<font color=red >Either username name or password is wrong.</font>");
             rd.include(request, response);
 
         }

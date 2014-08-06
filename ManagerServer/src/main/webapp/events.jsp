@@ -1,7 +1,7 @@
 <%@page import="model.User"%>
 <%@page import="model.Group"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
-         pageEncoding="UTF-8"%>
+        pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +63,7 @@
         </div>
         <div class="col-md-3 content">
             <h2>Events</h2>
-            
+
         </div>
         <div class="col-md-6">
             <div class=".col-sm-12 top-menu">
@@ -75,7 +75,8 @@
         </div>
         <div class="col-md-3 content">
             <h2>Groups</h2>
-             <p style="text-align: center;">
+            <p style="text-align: center;">
+
                 <select multiple="false" id="groups" onchange="fillMembers();">
                     <%
 
@@ -98,6 +99,7 @@
                         }
                     %>
                 </select>
+
             </p>
             <p style="text-align: center;" id="gMembers">outmembers</p>
         </div>
