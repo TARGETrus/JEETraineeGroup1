@@ -9,6 +9,8 @@
 <%@ page import="servlets.MapServlet" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="util.JsonReader" %>
+<%@ page import="java.util.Map.Entry" %>
+<%@ page import="com.google.common.base.Function" %>
 <!DOCTYPE html>
 <html>
 <head>
