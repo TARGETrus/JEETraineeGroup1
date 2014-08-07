@@ -19,7 +19,7 @@
 
 
     <meta charset="UTF-8">
-    <title>Edit profile</title>
+    <title>Edit <%=userName%> profile</title>
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -32,7 +32,7 @@
     <div class="login-card">
 
 
-        <h1>Edit profile</h1><br>
+        <h1>Edit <%=userName%>  profile</h1><br>
         <div id="userInfo">
             <div style="color: red" id="editResponse"></div>
         </div>

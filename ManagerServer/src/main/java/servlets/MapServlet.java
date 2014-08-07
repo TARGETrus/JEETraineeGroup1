@@ -29,6 +29,7 @@ public class MapServlet extends HttpServlet {
     String lat = "";
     String lon = "";
 
+
     public static String encodeParams(final Map<String, String> params) {
         final String paramsUrl = Joiner.on('&').join(// получаем значение вида key1=value1&key2=value2...
                 Iterables.transform(params.entrySet(), input -> {
