@@ -43,23 +43,21 @@
 %>
 
 <%
-    User user = (User) session.getAttribute("user");//возвращает null....надо думать
+    User user = (User) session.getAttribute("user");
 %>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12 head-block">
             <h1 align="center">ManagerEvent</h1>
-            <form action="LogoutServlet" method="post">
+            <form action="LogoutServlet"  method="post">
                 <p style="text-align: right;">
                     <label>Hi <%=userName %>, Login was successful.</label>
+                    <input type="button" value="Edit" onclick="window.location.href='/edit.jsp'">
                     <button type="submit">Logout</button>
                 </p>
             </form>
 
-        </div>
-        <div class="col-md-12 top-menu">
-            Menu
         </div>
         <div class="col-md-3 content">
             <h2>Events</h2>

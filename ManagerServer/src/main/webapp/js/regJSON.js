@@ -4,7 +4,7 @@ $().ready(function() {
 
         var userfrom = $('#ajaxForm').serialize();
          $.ajax({
-            url:'search',
+            url:'reg_servlet',
             type:'POST',
              data: userfrom,
              dataType: 'JSON',
