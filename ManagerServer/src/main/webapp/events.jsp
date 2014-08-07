@@ -1,7 +1,7 @@
 <%@page import="model.User"%>
 <%@page import="model.Group"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
-         pageEncoding="UTF-8"%>
+        pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
@@ -12,25 +12,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>EventManagerMainPage</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
-    <script src="js/bootstrap.min.js"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+    <link href="css/style.css" rel="stylesheet" media="screen">
     <script language="javascript">
 
         function fillMembers(){
             var groups = document.getElementById("groups");
             var selectedValue = groups.options[groups.selectedIndex].value;
-
             document.getElementById("gMembers").innerHTML = selectedValue;
         }
 
@@ -43,7 +37,7 @@
             height: 100%;
             margin: 0px;
             padding: 0px
-    }
+        }
     </style>
     <%
         String[] lat;
@@ -112,6 +106,23 @@
         google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
+
+    <script>
+        $().ready(function() {
+            $('#btnEvent').click(function(){
+                var address = $('#coord').val();
+                $.ajax({
+                    url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
+                    type: "POST",
+                    success: function(res){
+                        console.log(res.results[0].geometry.location.lat);
+                        console.log(res.results[0].geometry.location.lng);
+                    }
+                });
+            });
+        });
+
+    </script>
 </head>
 <body>
 <%
@@ -135,34 +146,67 @@
         <div class="col-md-12 head-block">
             <h1 align="center">ManagerEvent</h1>
             <form action="LogoutServlet"  method="post">
-                <p style="text-align: right;">
+
+                <p style="text-align: right">
                     <label>Hi <%=userName %>, Login was successful.</label>
-                    <input type="button" value="Edit" onclick="window.location.href='/edit.jsp'">
-                    <button type="submit">Logout</button>
+
+                    <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
+                    <input type="submit" class="btn btn-default" value="Logout">
                 </p>
+
             </form>
 
         </div>
         <div class="col-md-3 content">
-            <h2>Events</h2>
-            
+            <ul class="nav pull-center" role="center">
+                <li class="dropdown" id="menuLogin">
+                    <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
+                    <div class="dropdown-menu" style="padding:17px;">
+                        <form class="form" id="formEvent" style="margin: 5px">
+                            <input class="form-control" name="eventName" id="username" type="text" placeholder="Event name" style="margin: 5px">
+                            <input class="form-control" name="date" id="password" type="date" placeholder="Date" style="margin: 5px">
+                            <input class="form-control" name="coord" id="coord" type="text" placeholder="Address" style="margin: 5px"><br>
+                            <button type="button" id="btnEvent" class="btn btn-default btn-lg btn-block">Add Event!</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+
+
+            <%--<div class="btn-group">--%>
+            <%--<button type="button" class="btn btn-danger">Action</button>--%>
+            <%--<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">--%>
+            <%--<span class="caret"></span>--%>
+            <%--<span class="sr-only">Toggle Dropdown</span>--%>
+            <%--</button>--%>
+            <%--<ul class="dropdown-menu" role="menu">--%>
+            <%--<li><a href="#">Action</a></li>--%>
+            <%--<li><a href="#">Another action</a></li>--%>
+            <%--<li><a href="#">Something else here</a></li>--%>
+            <%--<li class="divider"></li>--%>
+            <%--<li><a href="#">Separated link</a></li>--%>
+            <%--</ul>--%>
+            <%--</div>--%>
+
         </div>
         <div class="col-md-6">
             <div class=".col-sm-12 top-menu">
                 Filters
+
             </div>
             <div class="col-md-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
 
 
 
-                    <div id="map-canvas"></div>
+                <div id="map-canvas"></div>
             </div>
         </div>
         <div class="col-md-3 content">
             <h2>Groups</h2>
-             <p style="text-align: center;">
-                <select multiple="false" id="groups" onchange="fillMembers();">
+            <p style="text-align: center; ">
+                <select multiple="false" id="groups" onchange="fillMembers();" style="width: 200px;">
                     <%
 
                         java.util.Iterator<Group> itr = (user!=null) ?
@@ -185,7 +229,7 @@
                     %>
                 </select>
             </p>
-            <p style="text-align: center;" id="gMembers">outmembers</p>
+            <p style="text-align: center;" id="gMembers"></p>
         </div>
     </div>
 </div>

@@ -39,7 +39,7 @@ public class JSONEditProfileServlet extends HttpServlet{
         String newPass = req.getParameter("new_pwd");
 
         String str = null;
-        if(name.length() != 0 || (newPass.equals(null) && pass.equals(null) && pass.equals(new UserDataManager().getUserData(userName).getPassword()))){
+        if(name.length() != 0 || (newPass.length() != 0 && pass.length() != 0 && pass.equals(new UserDataManager().getUserData(userName).getPassword()))){
 
             if (name.length() == 0) {
 
