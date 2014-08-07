@@ -1,5 +1,7 @@
 package servlets;
 
+import DAOHandler.UserDataManager;
+import model.User;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -11,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/edit")
-class JSONEditProfileServlet extends HttpServlet{
+public class JSONEditProfileServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        UserDataManager userDataManager = new UserDataManager();
 
         String name = req.getParameter("user");
 
@@ -27,27 +31,44 @@ class JSONEditProfileServlet extends HttpServlet{
 
             String userName = null;
             Cookie[] cookies = req.getCookies();
-            if(cookies != null){
+
+            if (cookies != null) {
+
                 for(Cookie cookie : cookies){
                     if(cookie.getName().equals("username")) userName = cookie.getValue();
                 }
+
             }
-            if(userName == null)
+
+            if (userName == null)
                 resp.sendRedirect("login.html");
 
-           if(name.length() == 0){
-               JSONObject obj = new JSONObject();
-               obj.put("name", "pass_change");
-               str = obj.toJSONString();
+            if (name.length() == 0) {
 
-               //TODO password change
-           } else {
-               JSONObject obj = new JSONObject();
-               obj.put("name", "name_and_pass_change");
-               str = obj.toJSONString();
-               //TODO password change
-               //TODO name change
-           }
+                JSONObject obj = new JSONObject();
+                obj.put("name", "pass_change");
+                str = obj.toJSONString();
+
+                userDataManager.changeUserPassword(userName, newPass);
+
+            } else if (newPass.length() == 0) {
+
+                JSONObject obj = new JSONObject();
+                obj.put("name", "name_change");
+                str = obj.toJSONString();
+
+                userDataManager.changeUserName(userName, name);
+
+            } else {
+
+                JSONObject obj = new JSONObject();
+                obj.put("name", "name_and_pass_change");
+                str = obj.toJSONString();
+
+                userDataManager.changeUserName(userName, name);
+                userDataManager.changeUserPassword(userName, newPass);
+
+            }
 
         } else {
 

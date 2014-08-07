@@ -141,4 +141,55 @@ public class UserDataManager {
 
     }
 
+    // Modify foo
+    public void changeUserPassword(String userName, String password) {
+
+        User user = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            user = userDAO.getUserData(userName);
+            HibernateUtil.commitTransaction();
+
+            user.setPassword(password);
+
+            HibernateUtil.beginTransaction();
+            userDAO.merge(user);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeUserName(String userName, String name) {
+
+        User user = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            user = userDAO.getUserData(userName);
+            HibernateUtil.commitTransaction();
+
+            user.setUserName(name);
+
+            HibernateUtil.beginTransaction();
+            userDAO.merge(user);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
 }

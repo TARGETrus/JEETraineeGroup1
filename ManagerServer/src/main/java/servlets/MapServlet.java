@@ -29,9 +29,10 @@ public class MapServlet extends HttpServlet {
     String lat = "";
     String lon = "";
 
+    /*
     public static String encodeParams(final Map<String, String> params) {
         final String paramsUrl = Joiner.on('&').join(// получаем значение вида key1=value1&key2=value2...
-                Iterables.transform(params.entrySet(), input -> {
+                Iterables.transform(params.entrySet(), input {
                     try {
                         final StringBuffer buffer = new StringBuffer();
                         buffer.append(input.getKey());// получаем значение вида key=value
@@ -43,7 +44,7 @@ public class MapServlet extends HttpServlet {
                     }
                 }));
         return paramsUrl;
-    }
+    }*/
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");

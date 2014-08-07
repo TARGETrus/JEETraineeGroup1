@@ -43,6 +43,9 @@ public class HibernateTest {
         User singleUser = userDataManager.findUserById(1);
         System.out.println(singleUser.toString());
         //System.out.println(singleUser.getEvents().toString());
+
+        userDataManager.changeUserPassword("name", "pwdsr");
+
         singleUser = userDataManager.getUserData("name");
         System.out.println(singleUser.toString());
 
