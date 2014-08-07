@@ -20,7 +20,8 @@ $().ready(function() {
                     case "not_exist":
                         form.empty();
                         form.css("color", "green");
-                        form.append("name OK")
+                        form.append("Profile created")
+                        window.location.href = "/";
                         break;
                     case "invalid_data":
                         form.empty();

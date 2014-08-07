@@ -56,7 +56,6 @@ public class JSONRegServlet extends HttpServlet {
                     newUser.setUserName(name);
                     newUser.setPassword(pass);
                     manager.saveNewUser(newUser);
-                    resp.sendRedirect("login.html");
 
                 }
 
