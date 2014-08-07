@@ -19,7 +19,7 @@
 
 
     <meta charset="UTF-8">
-    <title>Edit <%=userName%> profile</title>
+    <title id="title">Edit <%=userName%> profile</title>
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

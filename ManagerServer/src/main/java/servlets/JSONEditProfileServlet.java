@@ -39,32 +39,21 @@ public class JSONEditProfileServlet extends HttpServlet{
         String newPass = req.getParameter("new_pwd");
 
         String str = null;
-        if(name.length() != 0 || (newPass.length() != 0 && pass.length() != 0)){
+        if(name.length() != 0 || (newPass.equals(null) && pass.equals(null) && pass.equals(new UserDataManager().getUserData(userName).getPassword()))){
 
             if (name.length() == 0) {
 
                 JSONObject obj = new JSONObject();
                 obj.put("name", "pass_change");
                 str = obj.toJSONString();
-
                 userDataManager.changeUserPassword(userName, newPass);
 
-            } else if (newPass.length() == 0 && pass.equals(new UserDataManager().getUserData(userName).getPassword())) {
+            } else if (newPass.length() == 0) {
 
                 JSONObject obj = new JSONObject();
                 obj.put("name", "name_change");
                 str = obj.toJSONString();
-                for(Cookie cookie : cookies){
-                        if(cookie.getName().equals("username")){
-                            cookie.setMaxAge(0);
-                            resp.addCookie(cookie);
-                        }
-                }
-                Cookie loginCookie = new Cookie("username",name);
-                //setting cookie to expiry in 30 mins
-                loginCookie.setMaxAge(30*60);
-                resp.addCookie(loginCookie);
-
+                changeCookieName(cookies, name, resp);
                 userDataManager.changeUserName(userName, name);
 
             } else {
@@ -72,20 +61,9 @@ public class JSONEditProfileServlet extends HttpServlet{
                 JSONObject obj = new JSONObject();
                 obj.put("name", "name_and_pass_change");
                 str = obj.toJSONString();
-                for(Cookie cookie : cookies){
-                    if(cookie.getName().equals("username")){
-                        cookie.setMaxAge(0);
-                        resp.addCookie(cookie);
-                    }
-                }
-                Cookie loginCookie = new Cookie("username",name);
-                //setting cookie to expiry in 30 mins
-                loginCookie.setMaxAge(30*60);
-                resp.addCookie(loginCookie);
-
-
-                userDataManager.changeUserName(userName, name);
+                changeCookieName(cookies, name, resp);
                 userDataManager.changeUserPassword(userName, newPass);
+                userDataManager.changeUserName(userName, name);
 
             }
 
@@ -101,7 +79,20 @@ public class JSONEditProfileServlet extends HttpServlet{
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(str);
 
+
     }
 
+    private void changeCookieName( Cookie[] cookies, String name, HttpServletResponse resp){
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("username")){
+                cookie.setMaxAge(0);
+                resp.addCookie(cookie);
+            }
+        }
+        Cookie loginCookie = new Cookie("username",name);
+        //setting cookie to expiry in 30 mins
+        loginCookie.setMaxAge(30 * 60);
+        resp.addCookie(loginCookie);
+    }
 
 }
