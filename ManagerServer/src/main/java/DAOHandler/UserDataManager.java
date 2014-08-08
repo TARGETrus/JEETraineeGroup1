@@ -60,25 +60,7 @@ public class UserDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            user = (User) userDAO.getUserData(name);
-            Hibernate.initialize(user.getEvents());
-            Hibernate.initialize(user.getGroups());
-
-            for (Group group : user.getGroups()) {
-
-                Hibernate.initialize(group.getEvents());
-                Hibernate.initialize(group.getUsers());
-
-            }
-
-            for (Event event : user.getEvents()) {
-
-                Hibernate.initialize(event.getGroups());
-                Hibernate.initialize(event.getUsers());
-                Hibernate.initialize(event.getComments());
-
-            }
-
+            user = (User) userDAO.getCompleteUserData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -110,34 +92,6 @@ public class UserDataManager {
         }
 
         return user;
-
-    }
-
-    public List<User> findAllUsers() {
-
-        List<User> allUsers = new ArrayList<User>();
-
-        try {
-
-            HibernateUtil.beginTransaction();
-            allUsers = userDAO.findAll(User.class);
-
-            for (User user : allUsers) {
-
-                Hibernate.initialize(user.getEvents());
-                Hibernate.initialize(user.getGroups());
-
-            }
-
-            HibernateUtil.commitTransaction();
-
-        } catch (HibernateException e) {
-
-            System.out.println("Hibernate exception: " + e.getMessage());
-
-        }
-
-        return allUsers;
 
     }
 
