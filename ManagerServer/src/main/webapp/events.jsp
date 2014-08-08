@@ -13,13 +13,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>EventManagerMainPage</title>
+    <title>PartyMap</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="js/addEventAJAX.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
+
     <script language="javascript">
 
         function fillMembers(){
@@ -107,22 +109,22 @@
 
     </script>
 
-    <script>
-        $().ready(function() {
-            $('#btnEvent').click(function(){
-                var address = $('#coord').val();
-                $.ajax({
-                    url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
-                    type: "POST",
-                    success: function(res){
-                        console.log(res.results[0].geometry.location.lat);
-                        console.log(res.results[0].geometry.location.lng);
-                    }
-                });
-            });
-        });
+    <%--<script>--%>  <%-- return lat lng script--%>
+        <%--$().ready(function() {--%>
+            <%--$('#btnEvent').click(function(){--%>
+                <%--var address = $('#coord').val();--%>
+                <%--$.ajax({--%>
+                    <%--url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",--%>
+                    <%--type: "POST",--%>
+                    <%--success: function(res){--%>
+                        <%--console.log(res.results[0].geometry.location.lat);--%>
+                        <%--console.log(res.results[0].geometry.location.lng);--%>
+                    <%--}--%>
+                <%--});--%>
+            <%--});--%>
+        <%--});--%>
 
-    </script>
+    <%--</script>--%>
 </head>
 <body>
 <%
@@ -143,18 +145,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 head-block">
-            <h1 align="center">ManagerEvent</h1>
-            <form action="LogoutServlet"  method="post">
+        <div class="col-md-12 head-block" style="background: url('img/logo_head.png') no-repeat; background-color: #F7F7F7;">
+                <form action="LogoutServlet"  method="post">
 
-                <p style="text-align: right">
-                    <label>Hi <%=userName %>, Login was successful.</label>
+                    <p style="text-align: right">
+                        <label>Hi <%=userName %>, Login was successful.</label>
 
-                    <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
-                    <input type="submit" class="btn btn-default" value="Logout">
-                </p>
+                        <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
+                        <input type="submit" class="btn btn-default" value="Logout">
+                    </p>
 
-            </form>
+                </form>
 
         </div>
         <div class="col-md-3 content">
@@ -163,31 +164,15 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
                     <div class="dropdown-menu" style="padding:17px;">
                         <form class="form" id="formEvent" style="margin: 5px">
-                            <input class="form-control" name="eventName" id="username" type="text" placeholder="Event name" style="margin: 5px">
-                            <input class="form-control" name="date" id="password" type="date" placeholder="Date" style="margin: 5px">
+                            <div id="eventlog"></div>
+                            <input class="form-control" name="eventName" id="eventname" type="text" placeholder="Event name" style="margin: 5px">
+                            <input class="form-control" name="date" data-format="dd/MM/yyyy hh:mm" id="date" type="datetime-local" placeholder="Date" style="margin: 5px">
                             <input class="form-control" name="coord" id="coord" type="text" placeholder="Address" style="margin: 5px"><br>
                             <button type="button" id="btnEvent" class="btn btn-default btn-lg btn-block">Add Event!</button>
                         </form>
                     </div>
                 </li>
             </ul>
-
-
-
-            <%--<div class="btn-group">--%>
-            <%--<button type="button" class="btn btn-danger">Action</button>--%>
-            <%--<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">--%>
-            <%--<span class="caret"></span>--%>
-            <%--<span class="sr-only">Toggle Dropdown</span>--%>
-            <%--</button>--%>
-            <%--<ul class="dropdown-menu" role="menu">--%>
-            <%--<li><a href="#">Action</a></li>--%>
-            <%--<li><a href="#">Another action</a></li>--%>
-            <%--<li><a href="#">Something else here</a></li>--%>
-            <%--<li class="divider"></li>--%>
-            <%--<li><a href="#">Separated link</a></li>--%>
-            <%--</ul>--%>
-            <%--</div>--%>
 
         </div>
         <div class="col-md-6">

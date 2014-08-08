@@ -7,8 +7,11 @@ $().ready(function() {
             success: function(res){
                 var lat = res.results[0].geometry.location.lat;
                 var lng = res.results[0].geometry.location.lng;
+                var coord = {"lat": lat, "lng":lng};
                 if(lat != 0 && lng != 0){
-                    var eventform = $('#formEvent').serialize();
+                    var eventform = $('#formEvent').find("#eventname, #date").serialize() + '&' + $.param({"lat": lat, "lng":lng});
+
+                    alert(eventform);
                     $.ajax({
                         url:'add_event',
                         type:'POST',
@@ -16,23 +19,28 @@ $().ready(function() {
                         dataType: 'JSON',
                         success:function(data){
 
-                            var form = $('#');
+                            var form = $('#eventlog');
 
                             switch (data.name) {
-                                case "exist":
+                                case "add_event":
                                     form.empty();
-                                    form.append("exist");
+                                    form.append("event add!");
                                     break;
-                                default :
-                                    form.empty();
-                                    form.append("Server error :(")
-                                    break;
+                            switch (data.name) {
+                                case "add_event":
+                                     form.empty();
+                                     form.append("event add!");
+                                        break;
+                            default :
+                                form.empty();
+                                form.append("Server error :(")
+                                            break;
+                                }
                             }
-
                         }
                     });
                 }else {
-
+                    alert("error");
                 }
             }
         });

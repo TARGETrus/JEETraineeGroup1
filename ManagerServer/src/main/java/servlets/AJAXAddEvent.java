@@ -1,5 +1,9 @@
 package servlets;
 
+import DAOHandler.EventDataManager;
+import model.Event;
+import org.json.simple.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,9 +22,34 @@ public class AJAXAddEvent extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String eventName = req.getParameter("eventName");
+        String date = req.getParameter("date");
+        date = date.replace("T", " ");
+        String lng = req.getParameter("lng");
+        String lat = req.getParameter("lat");
+        String str = null;
+
+        if(!date.equals(null) && !eventName.equals(null) && !lng.equals(null) && lat.equals(null)){
+            JSONObject obj = new JSONObject();
+            obj.put("name", "add_event");
+            str = obj.toJSONString();
+            EventDataManager manager = new EventDataManager();
+            Event event = new Event();
+            event.setLatitude(lat);
+            event.setLongitude(lng);
+            event.setDate(date);
+            event.setEventName(eventName);
+            manager.saveNewEvent(event);//TODO не хоче добавлять эвент без самого адреса потому что это поле уникальное
+        } else {
+            JSONObject obj = new JSONObject();
+            obj.put("name", "error");
+            str = obj.toJSONString();
+        }
 
 
-
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(str);
 
 
     }

@@ -10,7 +10,7 @@
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/regJSON.js"></script>
+    <script type="text/javascript" src="js/regAJAX.js"></script>
     <!--<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>-->
 
 
