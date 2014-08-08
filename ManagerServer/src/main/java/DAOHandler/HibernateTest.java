@@ -7,12 +7,16 @@ import model.Group;
 import model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public class HibernateTest {
 
     public static void main(String[] args) {
 
-        UserDataManager userDataManager       = new UserDataManager();
+        UserDataManager    userDataManager    = new UserDataManager();
+        GroupDataManager   groupDataManager   = new GroupDataManager();
+        EventDataManager   eventDataManager   = new EventDataManager();
+        FilterDataManager  filterDataManager  = new FilterDataManager();
         CommentDataManager commentDataManager = new CommentDataManager();
 
         Group group = new Group();
@@ -40,19 +44,42 @@ public class HibernateTest {
 
         //userDataManager.saveNewUser(testUser);
         //commentDataManager.saveNewComment(comment);
-        User singleUser = userDataManager.findUserById(1);
-        System.out.println(singleUser.toString());
-        //System.out.println(singleUser.getEvents().toString());
 
-        userDataManager.changeUserPassword("name", "pwdsr");
+        //userDataManager.changeUserPassword("name", "password");
 
-        singleUser = userDataManager.getUserData("name");
-        System.out.println(singleUser.toString());
+        User userCompleteData = userDataManager.getUserCompleteData("name");
+        //System.out.println(userCompleteData.toString());
+        Set<Event> events = userCompleteData.getEvents();
 
-        List<User> allUsers = userDataManager.findAllUsers();
+        for (Event eve : events) {
 
-        User userLogin = userDataManager.getUserData("name");
-        //System.out.println(userLogin);
+            //System.out.println(eve.getGroups().toString());
+
+        }
+
+        List<Event> searchEvent = filterDataManager.searchEventData("event");
+
+        if (searchEvent != null) {
+            //System.out.println("event " + searchEvent.toString());
+        } else {
+            System.out.println("Nothing found!!!");
+        }
+
+        List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "group");
+
+        if (collEvent != null) {
+            System.out.println("Collect " + collEvent.toString());
+        } else {
+            System.out.println("Nothing found!!!");
+        }
+
+        List<Event> closeEvent = filterDataManager.getCloseEventData(50, 50);
+
+        if (closeEvent != null) {
+            //System.out.println("close " + closeEvent.toString());
+        } else {
+            System.out.println("Nothing found!!!");
+        }
 
         HibernateUtil.closeFactory();
 

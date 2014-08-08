@@ -74,7 +74,7 @@ public class Group {
 
         }
 
-        groupData += "Group data: \n";
+        groupData += "Event data: \n";
 
         if (Hibernate.isInitialized(users)) {
 
