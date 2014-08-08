@@ -1,6 +1,7 @@
 $().ready(function() {
     $('#btnEvent').click(function(){
         var address = $('#coord').val();
+        var form = $('#eventlog');
         $.ajax({
             url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
             type: "POST",
@@ -9,7 +10,7 @@ $().ready(function() {
                 var lng = res.results[0].geometry.location.lng;
                 var coord = {"lat": lat, "lng":lng};
                 if(lat != 0 && lng != 0){
-                    var eventform = $('#formEvent').find("#eventname, #date").serialize() + '&' + $.param({"lat": lat, "lng":lng});
+                    var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng});
 
                     alert(eventform);
                     $.ajax({
@@ -19,17 +20,17 @@ $().ready(function() {
                         dataType: 'JSON',
                         success:function(data){
 
-                            var form = $('#eventlog');
-
                             switch (data.name) {
                                 case "add_event":
                                     form.empty();
+                                    form.css("color", "green");
                                     form.append("event add!");
                                     break;
                             switch (data.name) {
-                                case "add_event":
+                                case "error":
                                      form.empty();
-                                     form.append("event add!");
+                                    form.css("color", "red");
+                                     form.append("error :(");
                                         break;
                             default :
                                 form.empty();
@@ -40,7 +41,9 @@ $().ready(function() {
                         }
                     });
                 }else {
-                    alert("error");
+                    form.empty();
+                    form.css("color", "red");
+                    form.append("incorrct date :(")
                 }
             }
         });

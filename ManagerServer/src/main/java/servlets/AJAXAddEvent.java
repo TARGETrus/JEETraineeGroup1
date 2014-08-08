@@ -27,9 +27,10 @@ public class AJAXAddEvent extends HttpServlet {
         date = date.replace("T", " ");
         String lng = req.getParameter("lng");
         String lat = req.getParameter("lat");
+        String address = req.getParameter("coord");
         String str = null;
 
-        if(!date.equals(null) && !eventName.equals(null) && !lng.equals(null) && lat.equals(null)){
+        if(!date.equals(null) && !eventName.equals(null) && !lng.equals(null) && !lat.equals(null)){
             JSONObject obj = new JSONObject();
             obj.put("name", "add_event");
             str = obj.toJSONString();
@@ -39,7 +40,8 @@ public class AJAXAddEvent extends HttpServlet {
             event.setLongitude(lng);
             event.setDate(date);
             event.setEventName(eventName);
-            manager.saveNewEvent(event);//TODO не хоче добавлять эвент без самого адреса потому что это поле уникальное
+            event.setCoordinates(address);
+           manager.saveNewEvent(event);//TODO не хоче добавлять эвент без самого адреса потому что это поле уникальное
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");
