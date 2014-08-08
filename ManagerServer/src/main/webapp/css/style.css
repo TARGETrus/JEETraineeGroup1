@@ -134,9 +134,11 @@ body {
     text-align: right;
     float: left;
 }
-
 .img{
-
+    width: 500px;
+    padding-left: 430px;
+    padding-top: 310px;
 }
+
 
 
