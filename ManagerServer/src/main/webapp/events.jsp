@@ -9,8 +9,7 @@
 <%@ page import="servlets.MapServlet" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="util.JsonReader" %>
-<%@ page import="java.util.Map.Entry" %>
-<%@ page import="com.google.common.base.Function" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +21,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
+    <script src="js/userjson.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
 
@@ -103,6 +103,7 @@
                 title:"<%=formattedAddress%>"
             });
 
+
             <%
                 }
             %>
@@ -112,22 +113,6 @@
 
     </script>
 
-    <%--<script>--%>  <%-- return lat lng script--%>
-        <%--$().ready(function() {--%>
-            <%--$('#btnEvent').click(function(){--%>
-                <%--var address = $('#coord').val();--%>
-                <%--$.ajax({--%>
-                    <%--url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",--%>
-                    <%--type: "POST",--%>
-                    <%--success: function(res){--%>
-                        <%--console.log(res.results[0].geometry.location.lat);--%>
-                        <%--console.log(res.results[0].geometry.location.lng);--%>
-                    <%--}--%>
-                <%--});--%>
-            <%--});--%>
-        <%--});--%>
-
-    <%--</script>--%>
 </head>
 <body>
 <%
@@ -224,6 +209,10 @@
                                 nameList = nameList + next.getUserName() + "<br>";
                             }
 
+
+
+
+
                     %>
                     <option value="<%=nameList%>"><%=gname%></option>
                     <%
@@ -232,6 +221,10 @@
                 </select>
             </p>
             <p style="text-align: center;" id="gMembers"></p>
+            <div>
+                <label id="json"></label>
+                <button id="jsonBtn">JSON</button>
+            </div>
         </div>
     </div>
 </div>
