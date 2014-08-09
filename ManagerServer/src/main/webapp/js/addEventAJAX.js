@@ -8,11 +8,13 @@ $().ready(function() {
             success: function(res){
                 var lat = res.results[0].geometry.location.lat;
                 var lng = res.results[0].geometry.location.lng;
+
+                alert(address);
                 var coord = {"lat": lat, "lng":lng};
                 if(lat != 0 && lng != 0){
-                    var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng});
+                    var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng, "address": address});
 
-                    alert(eventform);
+//                    alert(eventform);
                     $.ajax({
                         url:'add_event',
                         type:'POST',
@@ -26,26 +28,25 @@ $().ready(function() {
                                     form.css("color", "green");
                                     form.append("event add!");
                                     break;
-                            switch (data.name) {
                                 case "error":
-                                     form.empty();
+                                    form.empty();
                                     form.css("color", "red");
-                                     form.append("error :(");
-                                        break;
-                            default :
-                                form.empty();
-                                form.append("Server error :(")
-                                            break;
-                                }
+                                    form.append("error :(");
+                                    break;
+                                default :
+                                    form.empty();
+                                    form.append("Server error :(")
+                                    break;
                             }
                         }
-                    });
-                }else {
-                    form.empty();
-                    form.css("color", "red");
-                    form.append("incorrct date :(")
-                }
-            }
-        });
-    });
+
+                });
+            }else {
+                form.empty();
+        form.css("color", "red");
+        form.append("incorrct date :(")
+    }
+}
+});
+});
 });

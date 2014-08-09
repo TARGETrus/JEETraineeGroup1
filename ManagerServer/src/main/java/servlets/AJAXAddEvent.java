@@ -28,6 +28,8 @@ public class AJAXAddEvent extends HttpServlet {
         String lng = req.getParameter("lng");
         String lat = req.getParameter("lat");
         String address = req.getParameter("coord");
+        ;
+
         String str = null;
 
         if(!date.equals(null) && !eventName.equals(null) && !lng.equals(null) && !lat.equals(null)){

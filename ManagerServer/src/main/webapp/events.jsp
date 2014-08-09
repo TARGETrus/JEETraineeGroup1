@@ -21,6 +21,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
+    <script src="js/addGroupAJAX.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
 
@@ -162,7 +163,7 @@
         </div>
         <div class="col-md-3 content">
             <ul class="nav pull-center" role="center">
-                <li class="dropdown" id="menuLogin">
+                <li class="dropdown" id="menuEvet">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
                     <div class="dropdown-menu" style="padding:17px;">
                         <form class="form" id="formEvent" style="margin: 5px">
@@ -191,7 +192,21 @@
             </div>
         </div>
         <div class="col-md-3 content">
-            <h2>Groups</h2>
+            <ul class="nav pull-center" role="center">
+                <li class="dropdown" id="menuGroup">
+                    <a class="dropdown-toggle" data-toggle="dropdown" id="addGroup" style="text-align: center; font-size: 15px">Add Group</a>
+                    <div class="dropdown-menu" style="padding:17px;">
+                        <form class="form" id="formGroup" style="margin: 5px">
+                            <div id="grouplog"></div>
+                            <input class="form-control" name="groupName" id="groupname" type="text" placeholder="Group name" style="margin: 5px">
+                            <input class="form-control" name="usersList" id="userslist" type="text" placeholder="Add users/ notwork" style="margin: 5px">
+                            <input class="form-control" name="eventsList" id="eventslist" type="text" placeholder="Add events/ notwork" style="margin: 5px">
+
+                            <button type="button" id="btnGroup" class="btn btn-default btn-lg btn-block">Add Group!</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
             <p style="text-align: center; ">
                 <select multiple="false" id="groups" onchange="fillMembers();" style="width: 200px;">
                     <%
