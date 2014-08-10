@@ -1,9 +1,11 @@
 package DAO;
 
-import model.Group;
+import model.Groupp;
 
-public interface GroupDAO extends GenericDAO<Group> {
+public interface GroupDAO extends GenericDAO<Groupp> {
 
-    public Group getGroupData(String name);
+    public Groupp getGroupData(String name);
+
+    public Groupp getCompleteGroupData(String name);
 
 }

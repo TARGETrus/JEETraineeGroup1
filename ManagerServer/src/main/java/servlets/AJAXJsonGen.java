@@ -4,7 +4,7 @@ package servlets;
 import DAOHandler.UserDataManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import model.Group;
+import model.Groupp;
 import model.User;
 import org.json.simple.JSONObject;
 
@@ -34,7 +34,7 @@ public class AJAXJsonGen extends HttpServlet{
         String json;
         if(username.length() != 0){
             User user = manager.getUserCompleteData(username);
-            Set<Group> groups = user.getGroups();
+            Set<Groupp> groups = user.getGroups();
             json = gson.toJson(groups);//TODO не хочет отдавать мне группы
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");

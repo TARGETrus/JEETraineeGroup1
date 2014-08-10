@@ -1,5 +1,5 @@
 <%@page import="model.User"%>
-<%@page import="model.Group"%>
+<%@page import="model.Groupp"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
         pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
@@ -196,10 +196,10 @@
                 <select multiple="false" id="groups" onchange="fillMembers();" style="width: 200px;">
                     <%
 
-                        java.util.Iterator<Group> itr = (user!=null) ?
+                        java.util.Iterator<Groupp> itr = (user!=null) ?
                                 user.getGroups().iterator():null;
                         while(itr!=null && itr.hasNext()) {
-                            Group group = itr.next();
+                            Groupp group = itr.next();
                             String gname = group.getGroupName();
 
                             String nameList= "";

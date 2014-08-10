@@ -31,7 +31,7 @@ public interface XMLTagNames {
 	public static String event_group = "group";
 	public static String event_comment = "comment";
 	
-	//for model.Group
+	//for model.Groupp
 	public static String group = "group";
 	public static String group_grouptID = "groupID";
 	public static String group_groupName = "groupName";

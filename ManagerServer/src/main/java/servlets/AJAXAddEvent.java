@@ -25,14 +25,14 @@ public class AJAXAddEvent extends HttpServlet {
         String eventName = req.getParameter("eventName");
         String date = req.getParameter("date");
         date = date.replace("T", " ");
-        String lng = req.getParameter("lng");
-        String lat = req.getParameter("lat");
+        Float lng = 100F; //req.getParameter("lng");
+        Float lat = 100F;//req.getParameter("lat");
         String address = req.getParameter("coord");
         ;
 
         String str = null;
 
-        if(!date.equals(null) && !eventName.equals(null) && !lng.equals(null) && !lat.equals(null)){
+        if(!date.equals(null) && !eventName.equals(null) && lng.equals(null) && lat.equals(null)){
             JSONObject obj = new JSONObject();
             obj.put("name", "add_event");
             str = obj.toJSONString();

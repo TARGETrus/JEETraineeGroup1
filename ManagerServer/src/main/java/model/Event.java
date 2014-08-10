@@ -18,14 +18,14 @@ public class Event {
     @Column(name="event_name", length=255, nullable=false)
     private String eventName;
 
-    @Column(name="coordinates", length=255, nullable=false)
+    @Column(name="coordinates", length=255)
     private String coordinates;//change to address
 
     @Column(name="latitude", length=255, nullable=false)
-    private String latitude;
+    private Float latitude;
 
     @Column(name="longitude", length=255, nullable=false)
-    private String longitude;
+    private Float longitude;
 
     @Column(name="date", length=255, nullable=false)
     private String date;
@@ -37,7 +37,7 @@ public class Event {
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<Group>();
+    private Set<Groupp> groups = new HashSet<Groupp>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
     private Set<Comment> comments = new HashSet<Comment>();
@@ -68,19 +68,19 @@ public class Event {
         this.coordinates = coordinates;
     }
 
-    public String getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
@@ -100,11 +100,11 @@ public class Event {
         this.users = users;
     }
 
-    public Set<Group> getGroups() {
+    public Set<Groupp> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<Groupp> groups) {
         this.groups = groups;
     }
 
@@ -138,7 +138,7 @@ public class Event {
 
         if (Hibernate.isInitialized(groups)) {
 
-            for (Group group : groups) {
+            for (Groupp group : groups) {
                 eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
             }
 

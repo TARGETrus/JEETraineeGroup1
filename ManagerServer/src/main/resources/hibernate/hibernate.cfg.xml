@@ -29,7 +29,7 @@
         <!-- POJOs -->
         <mapping class="model.User"/>
         <mapping class="model.Event"/>
-        <mapping class="model.Group"/>
+        <mapping class="model.Groupp"/>
         <mapping class="model.Comment"/>
 
     </session-factory>

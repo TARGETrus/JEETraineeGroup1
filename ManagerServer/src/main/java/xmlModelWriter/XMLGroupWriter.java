@@ -7,13 +7,13 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 public class XMLGroupWriter{
 	
 	
-	public static void write(XMLStreamWriter out,Group group) throws XMLStreamException{
+	public static void write(XMLStreamWriter out, Groupp group) throws XMLStreamException{
 		if (group == null) throw new XMLStreamException();
 		
 		out.writeStartElement(XMLTagNames.startTag);
@@ -51,7 +51,7 @@ public class XMLGroupWriter{
 		out.writeEndElement();
 	}
 	
-	public static void writeLikeElement(XMLStreamWriter out,Group group) throws XMLStreamException{
+	public static void writeLikeElement(XMLStreamWriter out, Groupp group) throws XMLStreamException{
 		
 		out.writeStartElement(XMLTagNames.group_grouptID);
 		out.writeCharacters(new Integer (group.getGroupID()).toString());

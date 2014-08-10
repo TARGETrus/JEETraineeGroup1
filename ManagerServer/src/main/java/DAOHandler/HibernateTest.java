@@ -3,7 +3,7 @@ package DAOHandler;
 import DAO.HibernateUtil;
 import model.Comment;
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 import java.util.List;
@@ -19,15 +19,15 @@ public class HibernateTest {
         FilterDataManager  filterDataManager  = new FilterDataManager();
         CommentDataManager commentDataManager = new CommentDataManager();
 
-        Group group = new Group();
+        Groupp group = new Groupp();
         group.setGroupName("group");
 
         Event event = new Event();
         event.setEventName("event");
         event.setDate("1.10.2014");
         event.setCoordinates("1444:2111");
-        event.setLatitude("111");
-        event.setLongitude("111");
+        event.setLatitude(100F);
+        event.setLongitude(100F);
         event.getGroups().add(group);
 
         User testUser = new User();
@@ -68,18 +68,21 @@ public class HibernateTest {
         List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "group");
 
         if (collEvent != null) {
-            System.out.println("Collect " + collEvent.toString());
+            //System.out.println("Collect " + collEvent.toString());
         } else {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> closeEvent = filterDataManager.getCloseEventData(50, 50);
+        List<Event> closeEvent = filterDataManager.getCloseEventData(0F, 1000F, 1000F);
 
         if (closeEvent != null) {
-            //System.out.println("close " + closeEvent.toString());
+            System.out.println("close " + closeEvent.toString());
         } else {
             System.out.println("Nothing found!!!");
         }
+
+        //Groupp groups = groupDataManager.getGroupCompleteData("group");
+        //System.out.println(groups);
 
         HibernateUtil.closeFactory();
 

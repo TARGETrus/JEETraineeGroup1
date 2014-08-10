@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="groups", schema="web_app_db")
-public class Group {
+public class Groupp {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Group {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<Event> events = new HashSet<Event>();
 
-    public Group() {}
+    public Groupp() {}
 
     public String getGroupName() {
         return groupName;

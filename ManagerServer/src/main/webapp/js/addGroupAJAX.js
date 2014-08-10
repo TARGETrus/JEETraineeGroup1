@@ -20,7 +20,7 @@ $().ready(function() {
                     case "add_group":
                         form.empty();
                         form.css("color", "green");
-                        form.append("Group add!");
+                        form.append("Groupp add!");
                         break;
                     case "error":
                         form.empty();

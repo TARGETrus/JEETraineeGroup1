@@ -1,8 +1,7 @@
 package DAOHandler;
 
 import DAO.*;
-import model.Group;
-import org.hibernate.Hibernate;
+import model.Groupp;
 import org.hibernate.HibernateException;
 
 public class GroupDataManager {
@@ -10,7 +9,7 @@ public class GroupDataManager {
     private GroupDAO groupDAO = new GroupDAOImpl();
 
     // Create foo
-    public void saveNewGroup(Group group) {
+    public void saveNewGroup(Groupp group) {
 
         try {
 
@@ -28,16 +27,14 @@ public class GroupDataManager {
     }
 
     // Get foo
-    public Group getGroupCompleteData(String name) {
+    public Groupp getGroupCompleteData(String name) {
 
-        Group group = null;
+        Groupp group = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            group = (Group) groupDAO.getGroupData(name);
-            Hibernate.initialize(group.getEvents());
-            Hibernate.initialize(group.getUsers());
+            group = (Groupp) groupDAO.getCompleteGroupData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

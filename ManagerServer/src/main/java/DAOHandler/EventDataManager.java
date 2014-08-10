@@ -35,9 +35,7 @@ public class EventDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            event = (Event) eventDAO.getEventData(name);
-            Hibernate.initialize(event.getUsers());
-            Hibernate.initialize(event.getGroups());
+            event = (Event) eventDAO.getCompleteEventData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
