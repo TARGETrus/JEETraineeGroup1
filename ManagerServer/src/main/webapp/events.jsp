@@ -193,7 +193,7 @@
                 </li>
             </ul>
             <p style="text-align: center; ">
-                <select multiple="false" id="groups" onchange="fillMembers();" style="width: 200px;">
+                <select multiple="false" id="groups" onchange="fillMembers();"`` style="width: 200px;">
                     <%
 
                         java.util.Iterator<Group> itr = (user!=null) ?

@@ -2,10 +2,9 @@ package servlets;
 
 
 import DAOHandler.UserDataManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import model.Group;
 import model.User;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
+import java.util.ArrayList;
 
 @WebServlet("/jsongen")
 public class AJAXJsonGen extends HttpServlet{
@@ -30,15 +29,23 @@ public class AJAXJsonGen extends HttpServlet{
 
         String username = req.getParameter("username");
         UserDataManager manager = new UserDataManager();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json;
+        JSONArray jsonarray = new JSONArray();
         if(username.length() != 0){
-            User user = manager.getUserCompleteData(username);
-            Set<Group> groups = user.getGroups();
-            json = gson.toJson(groups);//TODO не хочет отдавать мне группы
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(json);
+//            User user = manager.getUserCompleteData(username);
+            ArrayList<Group> groups = new ArrayList<>(manager.getUserCompleteData(username).getGroups());
+            for(Group group: groups){
+                ArrayList<String> gusers = new ArrayList<>();
+                JSONObject jsonGroup = new JSONObject();
+                for(User user: group.getUsers()){
+                    gusers.add(user.getUserName());
+                }
+                jsonGroup.put("userlist", gusers);
+                jsonGroup.put("eventname", group.getGroupName());
+                jsonarray.add(jsonGroup);
+
+            }
+            json = jsonarray.toJSONString();
         }else {
             JSONObject obj = new JSONObject();
             obj.put("message", "error");
@@ -46,8 +53,11 @@ public class AJAXJsonGen extends HttpServlet{
         }
 
 
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//        resp.getWriter().write(json);
+        resp.setContentType("text/html;UTF-8");
+//            resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
 
     }
