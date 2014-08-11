@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/jsongen")
-public class AJAXGroupJsonGen extends HttpServlet{
+@WebServlet("/groupjson")
+public class AJAXGroupsJsonGen extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -47,18 +47,18 @@ public class AJAXGroupJsonGen extends HttpServlet{
             }
             json = jsonarray.toJSONString();
 
-        }else {
+        }else{
             JSONObject obj = new JSONObject();
             obj.put("message", "error");
             json = obj.toJSONString();
         }
 
 
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//        resp.getWriter().write(json);
-        resp.setContentType("text/html;UTF-8");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
+//        resp.setContentType("text/html;UTF-8");
+//        resp.getWriter().write(json);
 
     }
 }

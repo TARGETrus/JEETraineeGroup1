@@ -46,7 +46,7 @@
 
 
         <div class="login-help">
-            <a href="events.jsp">Return to main page</a>
+            <a href="main.jsp">Return to main page</a>
         </div>
 
     </div>

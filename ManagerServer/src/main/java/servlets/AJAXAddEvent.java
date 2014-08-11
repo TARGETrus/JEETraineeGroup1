@@ -1,6 +1,7 @@
 package servlets;
 
 import DAOHandler.EventDataManager;
+import DAOHandler.UserDataManager;
 import model.Event;
 import org.json.simple.JSONObject;
 
@@ -28,7 +29,6 @@ public class AJAXAddEvent extends HttpServlet {
         Float lng = 100F; //req.getParameter("lng");
         Float lat = 100F;//req.getParameter("lat");
         String address = req.getParameter("coord");
-        ;
 
         String str = null;
 
@@ -43,7 +43,9 @@ public class AJAXAddEvent extends HttpServlet {
             event.setDate(date);
             event.setEventName(eventName);
             event.setCoordinates(address);
-           manager.saveNewEvent(event);//TODO не хоче добавлять эвент без самого адреса потому что это поле уникальное
+            UserDataManager userDataManager = new UserDataManager();
+            //TODO сделать добавление одного эвента для юзера
+           manager.saveNewEvent(event);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");

@@ -28,6 +28,21 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>main</servlet-name>
+        <jsp-file>/main.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <location>/error.html</location>
+    </error-page>
+
+
+    <servlet>
         <servlet-name>events</servlet-name>
         <jsp-file>/events.jsp</jsp-file>
     </servlet>
@@ -37,9 +52,15 @@
         <url-pattern>/events</url-pattern>
     </servlet-mapping>
 
-    <error-page>
-        <location>/error.html</location>
-    </error-page>
+    <servlet>
+        <servlet-name>groups</servlet-name>
+        <jsp-file>/groups.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>groups</servlet-name>
+        <url-pattern>/groups</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>
