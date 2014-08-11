@@ -81,7 +81,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        //Group groups = groupDataManager.getGroupCompleteData("group");
+        //Groupp groups = groupDataManager.getGroupCompleteData("groupp");
         //System.out.println(groups);
 
         HibernateUtil.closeFactory();

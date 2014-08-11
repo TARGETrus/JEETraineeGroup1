@@ -1,8 +1,21 @@
+
 <%@ page import="DAOHandler.EventDataManager" %>
 <%@ page import="model.Event" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>PartyMap</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="css/dopstyle.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
+
+
     <%
         String eventname = request.getParameter("eventname");
         EventDataManager manager = new EventDataManager();
@@ -38,8 +51,6 @@
         <div class="col-md" style="font-size: 25px">
             <%=eventInfo%>
         </div>
-
-    </div>
 </form>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class AJAXGroupsJsonGen extends HttpServlet{
         if(username.length() != 0){
 
             ArrayList<Group> groups = new ArrayList<>(manager.getUserCompleteData(username).getGroups());
-            for(Group group: groups){
+            for(Group group : groups){
                 ArrayList<String> gusers = new ArrayList<>();
                 JSONObject jsonGroup = new JSONObject();
                 for(User user: group.getUsers()){

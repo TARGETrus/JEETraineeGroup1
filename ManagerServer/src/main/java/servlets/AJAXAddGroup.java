@@ -35,7 +35,7 @@ public class AJAXAddGroup extends HttpServlet {
 //                User user = userDataManager.getUserData(username);
 //                if(user != null) {
 //                    userList.add(user);//TODO вылетает при добавлении юзера в коллекцию
-//                    group.setUsers(userList);
+//                    groupp.setUsers(userList);
 //                }
 //            }
             manager.saveNewGroup(group);
