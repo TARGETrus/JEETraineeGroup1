@@ -30,6 +30,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
                 "left join fetch user.groups as groups " +
                 "left join fetch groups.users " +
                 "left join fetch groups.events " +
+                "left join fetch user.filters as filters " +
                 "where user.userName = :name");
         query.setString("name", name);
 

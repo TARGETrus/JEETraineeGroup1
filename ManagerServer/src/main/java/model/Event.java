@@ -19,7 +19,7 @@ public class Event {
     private String eventName;
 
     @Column(name="coordinates", length=255)
-    private String coordinates;//change to address
+    private String coordinates;
 
     @Column(name="latitude", length=255, nullable=false)
     private Float latitude;
@@ -37,9 +37,9 @@ public class Event {
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<Group>();
+    private Set<Groupp> groups = new HashSet<Groupp>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
     private Set<Comment> comments = new HashSet<Comment>();
 
     public  Event() {}
@@ -100,11 +100,11 @@ public class Event {
         this.users = users;
     }
 
-    public Set<Group> getGroups() {
+    public Set<Groupp> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<Groupp> groups) {
         this.groups = groups;
     }
 
@@ -134,11 +134,11 @@ public class Event {
 
         }
 
-        eventData += "Group data: \n";
+        eventData += "Groupp data: \n";
 
         if (Hibernate.isInitialized(groups)) {
 
-            for (Group group : groups) {
+            for (Groupp group : groups) {
                 eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
             }
 

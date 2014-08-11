@@ -3,7 +3,7 @@ package DAOHandler;
 import DAO.HibernateUtil;
 import model.Comment;
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class HibernateTest {
         FilterDataManager  filterDataManager  = new FilterDataManager();
         CommentDataManager commentDataManager = new CommentDataManager();
 
-        Group group = new Group();
+        Groupp group = new Groupp();
         group.setGroupName("group");
 
         Event event = new Event();
@@ -57,7 +57,7 @@ public class HibernateTest {
 
         }
 
-        List<Event> searchEvent = filterDataManager.searchEventData("event");
+        List<Event> searchEvent = eventDataManager.searchEventData("event");
 
         if (searchEvent != null) {
             //System.out.println("event " + searchEvent.toString());
@@ -65,7 +65,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "group");
+        List<Event> collEvent = eventDataManager.searchByEventCollectionsData("name1", "group");
 
         if (collEvent != null) {
             //System.out.println("Collect " + collEvent.toString());
@@ -73,7 +73,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> closeEvent = filterDataManager.getCloseEventData(0F, 1000F, 1000F);
+        List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 1000F, 1000F);
 
         if (closeEvent != null) {
             System.out.println("close " + closeEvent.toString());

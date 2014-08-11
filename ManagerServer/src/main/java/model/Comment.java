@@ -12,7 +12,7 @@ public class Comment {
     private int    commentID;
 
     @Column(name="comment_name", length=255, nullable=false)
-    private String commentName;//del
+    private String commentName;
 
     @Column(name="comment", length=255, nullable=false)
     private String comment;
@@ -59,7 +59,7 @@ public class Comment {
     public String toString(){
 
         return "\nComment data: \n" + "ID: " + commentID + ", Title: " + commentName +
-                ", Content: " + comment + event.getEventID() + "\n";
+                ", Content: " + comment + ", Event ID: " + event.getEventID() + "\n";
 
     }
 

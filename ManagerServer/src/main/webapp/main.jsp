@@ -1,5 +1,5 @@
 <%@page import="model.User"%>
-<%@page import="model.Group"%>
+<%@page import="model.Groupp"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
         pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>

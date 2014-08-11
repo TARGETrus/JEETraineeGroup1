@@ -2,7 +2,7 @@ package servlets;
 
 
 import DAOHandler.UserDataManager;
-import model.Group;
+import model.Groupp;
 import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,8 +33,8 @@ public class AJAXGroupsJsonGen extends HttpServlet{
         JSONArray jsonarray = new JSONArray();
         if(username.length() != 0){
 
-            ArrayList<Group> groups = new ArrayList<>(manager.getUserCompleteData(username).getGroups());
-            for(Group group : groups){
+            ArrayList<Groupp> groups = new ArrayList<>(manager.getUserCompleteData(username).getGroups());
+            for(Groupp group : groups){
                 ArrayList<String> gusers = new ArrayList<>();
                 JSONObject jsonGroup = new JSONObject();
                 for(User user: group.getUsers()){

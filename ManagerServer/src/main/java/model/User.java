@@ -31,7 +31,10 @@ public class User {
     @JoinTable(name = "users_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<Group>();
+    private Set<Groupp> groups = new HashSet<Groupp>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Filter> filters = new HashSet<Filter>();
 
     public User() {}
 
@@ -67,12 +70,20 @@ public class User {
         this.events = events;
     }
 
-    public Set<Group> getGroups() {
+    public Set<Groupp> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<Groupp> groups) {
         this.groups = groups;
+    }
+
+    public Set<Filter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Set<Filter> filters) {
+        this.filters = filters;
     }
 
     @Override
@@ -93,12 +104,22 @@ public class User {
 
         }
 
-        userData += "Group data: \n";
+        userData += "Groupp data: \n";
 
         if (Hibernate.isInitialized(groups)) {
 
-            for (Group group : groups) {
+            for (Groupp group : groups) {
                 userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+            }
+
+        }
+
+        userData += "Filter data: \n";
+
+        if (Hibernate.isInitialized(filters)) {
+
+            for (Filter filter : filters) {
+                userData += "ID: " + filter.getFilterID() + ", Title: " + filter.getFilterName() + "\n";
             }
 
         }

@@ -1,7 +1,7 @@
 package xmlAPIServlets;
 
 import DAOHandler.GroupDataManager;
-import model.Group;
+import model.Groupp;
 
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class GetGroup extends HttpServlet {
       
 
         try {
-        	 Group group = groupDataManager.getGroupCompleteData(name);
+        	 Groupp group = groupDataManager.getGroupCompleteData(name);
 
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLGroupWriter.write(out, group);

@@ -26,9 +26,9 @@
             <version>4.3.5.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.18.1-GA</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>8.0.9</version>
         </dependency>
         <!-- MySQL database driver -->
         <dependency>

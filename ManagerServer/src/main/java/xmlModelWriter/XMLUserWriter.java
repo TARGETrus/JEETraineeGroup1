@@ -6,7 +6,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 public class XMLUserWriter{
@@ -42,9 +42,9 @@ public class XMLUserWriter{
 				out.writeEndElement();
 			}
 			
-			Iterator<Group> gitr =  (user.getGroups()!=null) ? user.getGroups().iterator() : null;
+			Iterator<Groupp> gitr =  (user.getGroups()!=null) ? user.getGroups().iterator() : null;
 			while(gitr!=null &&  gitr.hasNext()){
-				Group group = gitr.next();
+				Groupp group = gitr.next();
 				out.writeStartElement(XMLTagNames.user_group);
 				XMLGroupWriter.writeLikeElement(out, group);
 				out.writeEndElement();

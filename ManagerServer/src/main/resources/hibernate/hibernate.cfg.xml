@@ -32,7 +32,8 @@
         <!-- POJOs -->
         <mapping class="model.User"/>
         <mapping class="model.Event"/>
-        <mapping class="model.Group"/>
+        <mapping class="model.Groupp"/>
+        <mapping class="model.Filter"/>
         <mapping class="model.Comment"/>
 
     </session-factory>

@@ -1,26 +1,44 @@
 package DAOHandler;
 
-import DAO.EventDAO;
-import DAO.EventDAOImpl;
-import DAO.HibernateUtil;
+import DAO.*;
 import model.Event;
+import model.Filter;
 import org.hibernate.HibernateException;
 
 import java.util.List;
 
 public class FilterDataManager {
 
+    private FilterDAO filterDAO = new FilterDAOImpl();
     private EventDAO eventDAO = new EventDAOImpl();
 
+    // Create foo
+    public void saveNewFilter(Filter filter) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            filterDAO.save(filter);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
     // Get foo
-    public List<Event> searchEventData(String substr) {
+    public Filter getFilterData(String name) {
 
-        List<Event> event = null;
+        Filter filter = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            event = (List<Event>) eventDAO.searchEventData(substr);
+            filter = (Filter) filterDAO.getFilterData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -29,47 +47,7 @@ public class FilterDataManager {
 
         }
 
-        return event;
-
-    }
-
-    public List<Event> searchByEventCollectionsData(String userName, String groupName) {
-
-        List<Event> event = null;
-
-        try {
-
-            HibernateUtil.beginTransaction();
-            event = (List<Event>) eventDAO.searchByEventCollectionsData(userName, groupName);
-            HibernateUtil.commitTransaction();
-
-        } catch (HibernateException e) {
-
-            System.out.println("Hibernate exception: " + e.getMessage());
-
-        }
-
-        return event;
-
-    }
-
-    public List<Event> getCloseEventData(Float latitude, Float longitude, Float radius) {
-
-        List<Event> event = null;
-
-        try {
-
-            HibernateUtil.beginTransaction();
-            event = (List<Event>) eventDAO.getCloseEventData(latitude, longitude, radius);
-            HibernateUtil.commitTransaction();
-
-        } catch (HibernateException e) {
-
-            System.out.println("Hibernate exception: " + e.getMessage());
-
-        }
-
-        return event;
+        return filter;
 
     }
 

@@ -25,8 +25,9 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
         Session hibernateSession = this.getSession();
 
         Query query = hibernateSession.createQuery("from Event as event " +
-                "left join fetch event.users as users " +
                 "left join fetch event.groups as groups " +
+                "left join fetch event.users as users " +
+                "left join fetch event.comments as comments " +
                 "where event.eventName = :name");
         query.setString("name", name);
 
@@ -53,6 +54,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
         Query query = hibernateSession.createQuery("from Event as event " +
                 "left join fetch event.groups as groups " +
                 "left join fetch event.users as users " +
+                "left join fetch event.comments as comments " +
                 "where users.userName = :userName or groups.groupName = :groupName");
         query.setString("userName", userName);
         query.setString("groupName", groupName);

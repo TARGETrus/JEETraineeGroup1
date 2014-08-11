@@ -1,12 +1,12 @@
 <%@ page import="DAOHandler.GroupDataManager" %>
-<%@ page import="model.Group" %>
+<%@ page import="model.Groupp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <%
         String groupname = request.getParameter("groupname");
         GroupDataManager manager = new GroupDataManager();
-        Group group = manager.getGroupCompleteData(groupname);
+        Groupp group = manager.getGroupCompleteData(groupname);
         String userName = null;
         Cookie[] cookies = request.getCookies();
         if(cookies != null){

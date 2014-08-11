@@ -8,7 +8,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import model.Comment;
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 public class XMLEventWriter{
@@ -62,9 +62,9 @@ public class XMLEventWriter{
 				out.writeEndElement();
 			}
 			
-			Iterator<Group> gitr = (event.getGroups()!=null) ? event.getGroups().iterator() : null;
+			Iterator<Groupp> gitr = (event.getGroups()!=null) ? event.getGroups().iterator() : null;
 			while(gitr!=null && gitr.hasNext()){
-				Group group = gitr.next();
+				Groupp group = gitr.next();
 				out.writeStartElement(XMLTagNames.event_group);
 				XMLGroupWriter.writeLikeElement(out, group);
 				out.writeEndElement();
