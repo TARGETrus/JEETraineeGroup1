@@ -77,7 +77,7 @@ public class UserDataManager {
             HibernateUtil.beginTransaction();
             user = (User) userDAO.findByID(User.class, id);
             Hibernate.initialize(user.getEvents());
-            Hibernate.initialize(user.getGroups());
+            Hibernate.initialize(user.getGroupps());
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

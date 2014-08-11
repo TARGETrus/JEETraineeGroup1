@@ -3,7 +3,7 @@ package DAOHandler;
 import DAO.HibernateUtil;
 import model.Comment;
 import model.Event;
-import model.Group;
+import model.Groupp;
 import model.User;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class HibernateTest {
         FilterDataManager  filterDataManager  = new FilterDataManager();
         CommentDataManager commentDataManager = new CommentDataManager();
 
-        Group group = new Group();
-        group.setGroupName("group");
+        Groupp groupp = new Groupp();
+        groupp.setGroupName("groupp");
 
         Event event = new Event();
         event.setEventName("event");
@@ -28,14 +28,14 @@ public class HibernateTest {
         event.setCoordinates("1444:2111");
         event.setLatitude(100F);
         event.setLongitude(100F);
-        event.getGroups().add(group);
+        event.getGroupps().add(groupp);
 
         User testUser = new User();
         //testUser.setUserID(2);
         testUser.setUserName("name");
         testUser.setPassword("password");
         testUser.getEvents().add(event);
-        testUser.getGroups().add(group);
+        testUser.getGroupps().add(groupp);
 
         Comment comment = new Comment();
         comment.setCommentName("comment");
@@ -53,7 +53,7 @@ public class HibernateTest {
 
         for (Event eve : events) {
 
-            //System.out.println(eve.getGroups().toString());
+            //System.out.println(eve.getGroupps().toString());
 
         }
 
@@ -65,7 +65,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "group");
+        List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "groupp");
 
         if (collEvent != null) {
             //System.out.println("Collect " + collEvent.toString());
@@ -81,7 +81,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        //Group groups = groupDataManager.getGroupCompleteData("group");
+        //Groupp groups = groupDataManager.getGroupCompleteData("groupp");
         //System.out.println(groups);
 
         HibernateUtil.closeFactory();

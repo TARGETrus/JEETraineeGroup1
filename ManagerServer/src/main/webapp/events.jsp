@@ -1,5 +1,5 @@
 <%@page import="model.User"%>
-<%@page import="model.Group"%>
+<%@page import="model.Groupp"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
         pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
@@ -28,8 +28,8 @@
     <script language="javascript">
 
         function fillMembers() {
-            var groups = document.getElementById("groups");
-            var selectedValue = groups.options[groups.selectedIndex].value;
+            var groupps = document.getElementById("groupps");
+            var selectedValue = groupps.options[groupps.selectedIndex].value;
             document.getElementById("gMembers").innerHTML = selectedValue;
         }
 
@@ -193,17 +193,17 @@
                 </li>
             </ul>
             <p style="text-align: center; ">
-                <select multiple="false" id="groups" onchange="fillMembers();"`` style="width: 200px;">
+                <select multiple="false" id="groupps" onchange="fillMembers();"`` style="width: 200px;">
                     <%
 
-                        java.util.Iterator<Group> itr = (user!=null) ?
-                                user.getGroups().iterator():null;
+                        java.util.Iterator<Groupp> itr = (user!=null) ?
+                                user.getGroupps().iterator():null;
                         while(itr!=null && itr.hasNext()) {
-                            Group group = itr.next();
-                            String gname = group.getGroupName();
+                            Groupp groupp = itr.next();
+                            String gname = groupp.getGroupName();
 
                             String nameList= "";
-                            java.util.Iterator<User> gitr = group.getUsers().iterator();
+                            java.util.Iterator<User> gitr = groupp.getUsers().iterator();
                             while(gitr.hasNext()) {
                                 User next = gitr.next();
                                 nameList = nameList + next.getUserName() + "<br>";

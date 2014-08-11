@@ -6,7 +6,7 @@
  	<xs:element name="userName" type="xs:string" minOccurs="0"/>
  	<xs:element name="password" type="xs:string" minOccurs="0"/>
  	<xs:element name="event" type="Event" minOccurs="0" maxOccurs="unbounded"/>
- 	<xs:element name="group" type="Group" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="groupp" type="Group" minOccurs="0" maxOccurs="unbounded"/>
  </xs:sequence>
 </xs:complexType>
 
@@ -19,7 +19,7 @@
  	<xs:element name="longitude" type="xs:string" minOccurs="0"/>
  	<xs:element name="date" type="xs:string" minOccurs="0"/>
  	<xs:element name="user" type="User" minOccurs="0" maxOccurs="unbounded"/>
- 	<xs:element name="group" type="Group" minOccurs="0" maxOccurs="unbounded"/>
+ 	<xs:element name="groupp" type="Group" minOccurs="0" maxOccurs="unbounded"/>
  	<xs:element name="comment" type="Comment" minOccurs="0" maxOccurs="unbounded"/>
  </xs:sequence>
 </xs:complexType>
@@ -47,7 +47,7 @@
     <xs:choice>
       <xs:element name="user" type="User"/>
       <xs:element name="event" type="Event"/>
-      <xs:element name="group" type="Group"/>
+      <xs:element name="groupp" type="Group"/>
       <xs:element name="comment" type="Comment"/>
     </xs:choice>
   </xs:complexType>

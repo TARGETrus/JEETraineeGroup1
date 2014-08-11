@@ -37,7 +37,7 @@ public class Event {
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<Group>();
+    private Set<Groupp> groupps = new HashSet<Groupp>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
     private Set<Comment> comments = new HashSet<Comment>();
@@ -100,12 +100,12 @@ public class Event {
         this.users = users;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Groupp> getGroupps() {
+        return groupps;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setGroupps(Set<Groupp> groupps) {
+        this.groupps = groupps;
     }
 
     public Set<Comment> getComments() {
@@ -134,12 +134,12 @@ public class Event {
 
         }
 
-        eventData += "Group data: \n";
+        eventData += "Groupp data: \n";
 
-        if (Hibernate.isInitialized(groups)) {
+        if (Hibernate.isInitialized(groupps)) {
 
-            for (Group group : groups) {
-                eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+            for (Groupp groupp : groupps) {
+                eventData += "ID: " + groupp.getGroupID() + ", Title: " + groupp.getGroupName() + "\n";
             }
 
         }

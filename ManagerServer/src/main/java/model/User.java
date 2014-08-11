@@ -31,7 +31,7 @@ public class User {
     @JoinTable(name = "users_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<Group>();
+    private Set<Groupp> groupps = new HashSet<Groupp>();
 
     public User() {}
 
@@ -67,12 +67,12 @@ public class User {
         this.events = events;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Groupp> getGroupps() {
+        return groupps;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setGroupps(Set<Groupp> groupps) {
+        this.groupps = groupps;
     }
 
     @Override
@@ -93,12 +93,12 @@ public class User {
 
         }
 
-        userData += "Group data: \n";
+        userData += "Groupp data: \n";
 
-        if (Hibernate.isInitialized(groups)) {
+        if (Hibernate.isInitialized(groupps)) {
 
-            for (Group group : groups) {
-                userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+            for (Groupp groupp : groupps) {
+                userData += "ID: " + groupp.getGroupID() + ", Title: " + groupp.getGroupName() + "\n";
             }
 
         }

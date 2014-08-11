@@ -1,7 +1,7 @@
 package xmlAPIServlets;
 
 import DAOHandler.GroupDataManager;
-import model.Group;
+import model.Groupp;
 
 import java.io.IOException;
 
@@ -34,10 +34,10 @@ public class GetGroup extends HttpServlet {
       
 
         try {
-        	 Group group = groupDataManager.getGroupCompleteData(name);
+        	 Groupp groupp = groupDataManager.getGroupCompleteData(name);
 
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
-			XMLGroupWriter.write(out, group);
+			XMLGroupWriter.write(out, groupp);
 		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
 		}

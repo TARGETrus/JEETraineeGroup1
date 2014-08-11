@@ -2,7 +2,7 @@ package servlets;
 
 
 import DAOHandler.GroupDataManager;
-import model.Group;
+import model.Groupp;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -27,18 +27,18 @@ public class AJAXAddGroup extends HttpServlet {
             JSONObject obj = new JSONObject();
             obj.put("name", "add_group");
             str = obj.toJSONString();
-            Group group = new Group();
-            group.setGroupName(groupName);
+            Groupp groupp = new Groupp();
+            groupp.setGroupName(groupName);
 //            TreeSet<User> userList = new TreeSet<>();
 //            if(username.length() != 0){
 //                UserDataManager userDataManager = new UserDataManager();
 //                User user = userDataManager.getUserData(username);
 //                if(user != null) {
 //                    userList.add(user);//TODO вылетает при добавлении юзера в коллекцию
-//                    group.setUsers(userList);
+//                    groupp.setUsers(userList);
 //                }
 //            }
-            manager.saveNewGroup(group);
+            manager.saveNewGroup(groupp);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");

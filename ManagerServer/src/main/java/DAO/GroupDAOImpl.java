@@ -1,12 +1,12 @@
 package DAO;
 
-import model.Group;
+import model.Groupp;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class GroupDAOImpl extends GenericDAOImpl<Group> implements GroupDAO {
+public class GroupDAOImpl extends GenericDAOImpl<Groupp> implements GroupDAO {
 
-    public Group getGroupData(String name) {
+    public Groupp getGroupData(String name) {
 
         Session hibernateSession = this.getSession();
         Query query = hibernateSession.createQuery("from Groupp where group_name= :name");
@@ -15,7 +15,7 @@ public class GroupDAOImpl extends GenericDAOImpl<Group> implements GroupDAO {
 
     }
 
-    public Group getCompleteGroupData(String name) {
+    public Groupp getCompleteGroupData(String name) {
 
         Session hibernateSession = this.getSession();
 
