@@ -38,13 +38,13 @@ public class XMLEventWriter{
 			
 			if (event.getEventName() != null){
 				out.writeStartElement(XMLTagNames.event_latitude);
-				out.writeCharacters(event.getLatitude());
+				out.writeCharacters(event.getLatitude().toString());
 				out.writeEndElement();
 			}
 			
 			if (event.getEventName() != null){
 				out.writeStartElement(XMLTagNames.event_longitude);
-				out.writeCharacters(event.getLongitude());
+				out.writeCharacters(event.getLongitude().toString());
 				out.writeEndElement();
 			}
 			

@@ -1,8 +1,9 @@
 package DAOHandler;
 
-import DAO.*;
+import DAO.EventDAO;
+import DAO.EventDAOImpl;
+import DAO.HibernateUtil;
 import model.Event;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 
 public class EventDataManager {
@@ -35,9 +36,7 @@ public class EventDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            event = (Event) eventDAO.getEventData(name);
-            Hibernate.initialize(event.getUsers());
-            Hibernate.initialize(event.getGroups());
+            event = (Event) eventDAO.getCompleteEventData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

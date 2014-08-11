@@ -18,14 +18,14 @@ public class Event {
     @Column(name="event_name", length=255, nullable=false)
     private String eventName;
 
-    @Column(name="coordinates", length=255, nullable=false)
+    @Column(name="coordinates", length=255)
     private String coordinates;//change to address
 
     @Column(name="latitude", length=255, nullable=false)
-    private String latitude;
+    private Float latitude;
 
     @Column(name="longitude", length=255, nullable=false)
-    private String longitude;
+    private Float longitude;
 
     @Column(name="date", length=255, nullable=false)
     private String date;
@@ -68,19 +68,19 @@ public class Event {
         this.coordinates = coordinates;
     }
 
-    public String getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 

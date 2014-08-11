@@ -2,7 +2,6 @@ package DAOHandler;
 
 import DAO.*;
 import model.Group;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 
 public class GroupDataManager {
@@ -35,9 +34,7 @@ public class GroupDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            group = (Group) groupDAO.getGroupData(name);
-            Hibernate.initialize(group.getEvents());
-            Hibernate.initialize(group.getUsers());
+            group = (Group) groupDAO.getCompleteGroupData(name);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

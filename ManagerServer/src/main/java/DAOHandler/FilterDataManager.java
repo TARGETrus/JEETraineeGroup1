@@ -53,14 +53,14 @@ public class FilterDataManager {
 
     }
 
-    public List<Event> getCloseEventData(int latitude, int longitude) {
+    public List<Event> getCloseEventData(Float latitude, Float longitude, Float radius) {
 
         List<Event> event = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            event = (List<Event>) eventDAO.getCloseEventData(latitude, longitude);
+            event = (List<Event>) eventDAO.getCloseEventData(latitude, longitude, radius);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

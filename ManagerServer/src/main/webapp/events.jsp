@@ -27,7 +27,7 @@
 
     <script language="javascript">
 
-        function fillMembers(){
+        function fillMembers() {
             var groups = document.getElementById("groups");
             var selectedValue = groups.options[groups.selectedIndex].value;
             document.getElementById("gMembers").innerHTML = selectedValue;

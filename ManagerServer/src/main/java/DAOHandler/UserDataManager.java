@@ -1,14 +1,9 @@
 package DAOHandler;
 
 import DAO.*;
-import model.Event;
-import model.Group;
 import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDataManager {
 
@@ -104,11 +99,9 @@ public class UserDataManager {
 
             HibernateUtil.beginTransaction();
             user = userDAO.getUserData(userName);
-            HibernateUtil.commitTransaction();
 
             user.setPassword(password);
 
-            HibernateUtil.beginTransaction();
             userDAO.merge(user);
             HibernateUtil.commitTransaction();
 
@@ -129,11 +122,9 @@ public class UserDataManager {
 
             HibernateUtil.beginTransaction();
             user = userDAO.getUserData(userName);
-            HibernateUtil.commitTransaction();
 
             user.setUserName(name);
 
-            HibernateUtil.beginTransaction();
             userDAO.merge(user);
             HibernateUtil.commitTransaction();
 

@@ -32,7 +32,7 @@ public class AJAXJsonGen extends HttpServlet{
         String json;
         JSONArray jsonarray = new JSONArray();
         if(username.length() != 0){
-//            User user = manager.getUserCompleteData(username);
+
             ArrayList<Group> groups = new ArrayList<>(manager.getUserCompleteData(username).getGroups());
             for(Group group: groups){
                 ArrayList<String> gusers = new ArrayList<>();
@@ -46,6 +46,7 @@ public class AJAXJsonGen extends HttpServlet{
 
             }
             json = jsonarray.toJSONString();
+
         }else {
             JSONObject obj = new JSONObject();
             obj.put("message", "error");

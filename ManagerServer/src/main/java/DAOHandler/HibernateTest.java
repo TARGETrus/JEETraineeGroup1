@@ -26,8 +26,8 @@ public class HibernateTest {
         event.setEventName("event");
         event.setDate("1.10.2014");
         event.setCoordinates("1444:2111");
-        event.setLatitude("111");
-        event.setLongitude("111");
+        event.setLatitude(100F);
+        event.setLongitude(100F);
         event.getGroups().add(group);
 
         User testUser = new User();
@@ -68,18 +68,21 @@ public class HibernateTest {
         List<Event> collEvent = filterDataManager.searchByEventCollectionsData("name1", "group");
 
         if (collEvent != null) {
-            System.out.println("Collect " + collEvent.toString());
+            //System.out.println("Collect " + collEvent.toString());
         } else {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> closeEvent = filterDataManager.getCloseEventData(50, 50);
+        List<Event> closeEvent = filterDataManager.getCloseEventData(0F, 1000F, 1000F);
 
         if (closeEvent != null) {
-            //System.out.println("close " + closeEvent.toString());
+            System.out.println("close " + closeEvent.toString());
         } else {
             System.out.println("Nothing found!!!");
         }
+
+        //Group groups = groupDataManager.getGroupCompleteData("group");
+        //System.out.println(groups);
 
         HibernateUtil.closeFactory();
 
