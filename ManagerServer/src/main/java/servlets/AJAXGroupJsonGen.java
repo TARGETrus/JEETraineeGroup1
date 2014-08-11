@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/jsongen")
-public class AJAXJsonGen extends HttpServlet{
+public class AJAXGroupJsonGen extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -41,7 +41,7 @@ public class AJAXJsonGen extends HttpServlet{
                     gusers.add(user.getUserName());
                 }
                 jsonGroup.put("userlist", gusers);
-                jsonGroup.put("eventname", group.getGroupName());
+                jsonGroup.put("groupname", group.getGroupName());
                 jsonarray.add(jsonGroup);
 
             }
@@ -58,7 +58,6 @@ public class AJAXJsonGen extends HttpServlet{
 //        resp.setCharacterEncoding("UTF-8");
 //        resp.getWriter().write(json);
         resp.setContentType("text/html;UTF-8");
-//            resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
 
     }
