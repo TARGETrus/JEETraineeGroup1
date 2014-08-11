@@ -80,14 +80,12 @@
             google.maps.event.addListener(map, "click", function (event) {
                 latitude = event.latLng.lat();
                 longitude = event.latLng.lng();
-                alert("I've got: Lat = " + latitude + "; Lng = " + longitude);
                 $.ajax({
                     url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false",
                     type: "POST",
                     success: function (res) {
-                        alert("res!!! = " + res);
-                        var address = res.results[0].types[0].formatted_address;
-                        alert("address!!! = " + address);
+                        var address = res.results[1].formatted_address;
+                        alert("I've got address: " + address);
 
 
                         /*var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": latitude, "lng": longitude, "address": address});
