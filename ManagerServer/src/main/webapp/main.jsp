@@ -21,6 +21,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
+   <!-- <script src="js/mapClickAJAX.js"></script>-->
     <script src="js/groupjson.js"></script>
     <script src="js/eventgson.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
@@ -71,6 +72,55 @@
 
             var map = new google.maps.Map(document.getElementById('map-canvas'),
                     mapOptions);
+
+            <!--for map click ajax-->
+
+            var latitude
+            var longitude
+            google.maps.event.addListener(map, "click", function (event) {
+                latitude = event.latLng.lat();
+                longitude = event.latLng.lng();
+                alert("I've got: Lat = " + latitude + "; Lng = " + longitude);
+                $.ajax({
+                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false",
+                    type: "POST",
+                    success: function (res) {
+                        alert("res!!! = " + res);
+                        var address = res.results[0].types[0].formatted_address;
+                        alert("address!!! = " + address);
+
+
+                        /*var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": latitude, "lng": longitude, "address": address});
+
+                        $.ajax({
+                            url: 'add_event',
+                            type: 'POST',
+                            data: eventform,
+                            dataType: 'JSON',
+                            success: function (data) {
+                                $("#coord").text(address);
+
+                                switch (data.name) {
+                                    case "add_event":
+                                        form.empty();
+                                        form.css("color", "green");
+                                        form.append("event add!");
+                                        break;
+                                    case "error":
+                                        form.empty();
+                                        form.css("color", "red");
+                                        form.append("error :(");
+                                        break;
+                                    default :
+                                        form.empty();
+                                        form.append("Server error :(")
+                                        break;
+                                }
+                            }
+                        });*/
+                    }
+                });
+            });
 
             <%
                 final String baseUrl = "http://maps.googleapis.com/maps/api/geocode/json";// путь к Geocoding API по HTTP
