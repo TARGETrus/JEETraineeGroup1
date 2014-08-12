@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 public class MapServlet extends HttpServlet {
     static final long serialVersionUID = 1L;
 
-    UserDataManager dataManager = new UserDataManager();
+    UserDataManager userDataManager = new UserDataManager();
     User user;
     List<Event> events;
     String lat = "";
@@ -55,8 +55,11 @@ public class MapServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
 
-        user = dataManager.findUserById(Integer.parseInt(req.getParameter("user_id")));
+        String userName = userDataManager.findUserById(Integer.parseInt(req.getParameter("user_id"))).getUserName();
+        user = userDataManager.getUserCompleteData(userName);
+        System.out.println("USER!!!  " + user);
         events = new ArrayList<>(user.getEvents());
+        System.out.println("EVENTS!!!  " + events);
         for(int i = 0; i < events.size(); i++) {
             lat += events.get(i).getLatitude() + " ";
             lon += events.get(i).getLongitude() + " ";
