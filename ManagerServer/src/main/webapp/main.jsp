@@ -1,5 +1,4 @@
 <%@page import="model.User"%>
-<%@page import="model.Groupp"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
         pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
@@ -13,12 +12,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>PartyMap</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <%
+        String userName = null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("username")) userName = cookie.getValue();
+            }
+        }
+        if(userName == null)
+            response.sendRedirect("login.html");
+    %>
+    <%
+        User user = (User) session.getAttribute("user");
+        String visible;
+        if(user.getRole().equals("admin")){
+            visible = "block";
+
+        }else {
+            visible = "none";
+        }
+
+    %>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
     <!-- <script src="js/mapClickAJAX.js"></script>-->
@@ -64,6 +86,8 @@
     %>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=FALSE"></script>
     <script>
+        var latitude;
+        var longitude;
         function initialize() {
             var mapOptions = {
                 zoom: 2,
@@ -75,8 +99,7 @@
 
             <!--for map click ajax-->
 
-            var latitude
-            var longitude
+
             google.maps.event.addListener(map, "click", function (event) {
                 latitude = event.latLng.lat();
                 longitude = event.latLng.lng();
@@ -84,38 +107,12 @@
                     url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false",
                     type: "POST",
                     success: function (res) {
-                        var address = res.results[1].formatted_address;
-                        alert("I've got address: " + address);
+                        var address = res.results[0].formatted_address;
+
+                        $("#addEvent").click();
+                        $("#coord").val(address);
 
 
-                        /*var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": latitude, "lng": longitude, "address": address});
-
-                         $.ajax({
-                         url: 'add_event',
-                         type: 'POST',
-                         data: eventform,
-                         dataType: 'JSON',
-                         success: function (data) {
-                         $("#coord").text(address);
-
-                         switch (data.name) {
-                         case "add_event":
-                         form.empty();
-                         form.css("color", "green");
-                         form.append("event add!");
-                         break;
-                         case "error":
-                         form.empty();
-                         form.css("color", "red");
-                         form.append("error :(");
-                         break;
-                         default :
-                         form.empty();
-                         form.append("Server error :(")
-                         break;
-                         }
-                         }
-                         });*/
                     }
                 });
             });
@@ -146,35 +143,10 @@
                 }
             %>
         }
-
         google.maps.event.addDomListener(window, 'load', initialize);
-
     </script>
-
 </head>
 <body>
-<%
-    String userName = null;
-    Cookie[] cookies = request.getCookies();
-    if(cookies != null){
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("username")) userName = cookie.getValue();
-        }
-    }
-    if(userName == null)
-        response.sendRedirect("login.html");
-%>
-
-<%
-    User user = (User) session.getAttribute("user");
-    String visible;
-    if(user.getRole().equals("admin")){
-        visible = "block";
-    }else {
-        visible = "none";
-    }
-
-%>
 <script>
     $().ready(function(){document.getElementsById("adminBtn").style.display="<%=visible%>";});
 </script>

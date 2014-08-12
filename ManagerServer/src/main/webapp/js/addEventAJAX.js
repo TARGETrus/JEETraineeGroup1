@@ -1,13 +1,14 @@
 $().ready(function() {
     $('#btnEvent').click(function(){
-        var address = $('#coord').val();
+        var address = $('#coord').val().toString();
+//        address = address.replace(" ","+");
         var form = $('#eventlog');
         $.ajax({
             url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
             type: "POST",
             success: function(res){
-                var lat = res.results[0].geometry.location.lat;
-                var lng = res.results[0].geometry.location.lng;
+                var lat = latitude;//res.results[0].geometry.location.lat;
+                var lng = longitude;//res.results[0].geometry.location.lng;
 
                 alert(address);
                 var coord = {"lat": lat, "lng":lng};
