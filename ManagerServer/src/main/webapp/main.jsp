@@ -110,6 +110,7 @@
                         var address = res.results[0].formatted_address;
 
                         $("#addEvent").click();
+                        $(".form-control").val("")
                         $("#coord").val(address);
 
 
