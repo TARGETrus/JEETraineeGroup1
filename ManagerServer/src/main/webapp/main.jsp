@@ -86,6 +86,7 @@
                     success: function (res) {
                         var address = res.results[1].formatted_address;
                         $("#addEvent").click();
+                        $(".form-control").val("")
                         $("#coord").val(address);
 
                     }
