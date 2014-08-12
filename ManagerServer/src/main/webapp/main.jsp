@@ -129,8 +129,10 @@
                     <p style="text-align: right">
                         <label>Hi <%=userName %>, Login was successful.</label>
 
+                    <div class="btn-group" style="float: right">
                         <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
                         <input type="submit" class="btn btn-default" value="Logout">
+                        </div>
                     </p>
 
                 </form>
@@ -141,7 +143,7 @@
                 <li class="dropdown" id="menuEvet">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
                     <div class="dropdown-menu" style="padding:17px;">
-                        <form class="form" id="formEvent" style="margin: 5px">
+                        <form class="form pull-left" id="formEvent" style="margin: 5px">
                             <div id="eventlog"></div>
                             <input class="form-control" name="eventName" id="eventname" type="text" placeholder="Event name" style="margin: 5px">
                             <input class="form-control" name="date" data-format="dd/MM/yyyy hh:mm" id="date" type="datetime-local" placeholder="Date" style="margin: 5px">
@@ -151,9 +153,8 @@
                     </div>
                 </li>
             </ul>
-            <div>
-                <label id="eventInfo"></label>
-                <button id="jsonEventBtn">JSON</button>
+            <div id="eventInfo">
+                <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
             </div>
 
         </div>
@@ -189,7 +190,7 @@
 
             <div>
                 <label id="groupInfo"></label>
-                <button id="jsonGroupBtn">JSON</button>
+                <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>
         </div>
     </div>

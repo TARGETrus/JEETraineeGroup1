@@ -62,5 +62,15 @@
         <url-pattern>/groups</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>users</servlet-name>
+        <jsp-file>/users.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>users</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -43,6 +43,7 @@ public class AJAXAddEvent extends HttpServlet {
             event.setDate(date);
             event.setEventName(eventName);
             event.setCoordinates(address);
+            //event.getUsers().add()
             UserDataManager userDataManager = new UserDataManager();
             //TODO сделать добавление одного эвента для юзера
            manager.saveNewEvent(event);
