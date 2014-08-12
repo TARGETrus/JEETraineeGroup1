@@ -12,10 +12,10 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="event_id", nullable=false, unique=true, length=12)
+    @Column(name="event_id", length=12, nullable=false, unique=true)
     private int    eventID;
 
-    @Column(name="event_name", length=255, nullable=false)
+    @Column(name="event_name", length=255, nullable=false, unique=true)
     private String eventName;
 
     @Column(name="coordinates", length=255)
@@ -29,6 +29,9 @@ public class Event {
 
     @Column(name="date", length=255, nullable=false)
     private String date;
+
+    @Column(name="event_admin", length=255, nullable=false)
+    private String eventAdmin;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "events")
     private Set<User> users = new HashSet<User>();
@@ -92,6 +95,14 @@ public class Event {
         this.date = date;
     }
 
+    public String getEventAdmin() {
+        return eventAdmin;
+    }
+
+    public void setEventAdmin(String eventAdmin) {
+        this.eventAdmin = eventAdmin;
+    }
+
     public Set<User> getUsers() {
         return users;
     }
@@ -121,7 +132,7 @@ public class Event {
 
         String eventData =  "\nEvent data: \n" + "ID: " + eventID + ", Title: " + eventName +
                 ", Coord.: " + coordinates + ", Long.: " + longitude +
-                ", Lat.: " + latitude + ", Date.: " + date + "\n";
+                ", Lat.: " + latitude + ", Date.: " + date + ", Admin.: " + eventAdmin + "\n";
 
         eventData += "User data: \n";
 

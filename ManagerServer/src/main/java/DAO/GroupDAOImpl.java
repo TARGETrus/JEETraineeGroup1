@@ -9,8 +9,11 @@ public class GroupDAOImpl extends GenericDAOImpl<Groupp> implements GroupDAO {
     public Groupp getGroupData(String name) {
 
         Session hibernateSession = this.getSession();
-        Query query = hibernateSession.createQuery("from Groupp where group_name= :name");
+
+        Query query = hibernateSession.createQuery("from Groupp as groupp " +
+                "where groupp.groupName = :name");
         query.setString("name", name);
+
         return findOne(query);
 
     }

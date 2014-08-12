@@ -8,11 +8,14 @@ public class Filter {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="filter_id", nullable=false, unique=true, length=12)
+    @Column(name="filter_id", length=12, nullable=false, unique=true)
     private int    filterID;
 
     @Column(name="filter_name", length=255, nullable=false)
     private String filterName;
+
+    @Column(name="filter_data", length=255, nullable=false)
+    private String filterData;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,6 +39,14 @@ public class Filter {
         this.filterName = filterName;
     }
 
+    public String getFilterData() {
+        return filterData;
+    }
+
+    public void setFilterData(String filterData) {
+        this.filterData = filterData;
+    }
+
     public User getUser() {
         return user;
     }
@@ -48,7 +59,7 @@ public class Filter {
     public String toString(){
 
         return "\nFilter data: \n" + "ID: " + filterID + ", Title: " + filterName +
-                ", Event ID: " + user.getUserID() + "\n";
+                ", User ID: " + user.getUserID() + ", Filter data: " + filterData + "\n";
 
     }
 

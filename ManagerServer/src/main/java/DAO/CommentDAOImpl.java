@@ -9,8 +9,11 @@ public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDA
     public Comment getCommentData(String name) {
 
         Session hibernateSession = this.getSession();
-        Query query = hibernateSession.createQuery("from Comment where comment_name= :name");
+
+        Query query = hibernateSession.createQuery("from Comment as comment " +
+                "where comment.commentName = :name");
         query.setString("name", name);
+
         return findOne(query);
 
     }

@@ -25,11 +25,6 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>4.3.5.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>8.0.9</version>
-        </dependency>
         <!-- MySQL database driver -->
         <dependency>
             <groupId>mysql</groupId>

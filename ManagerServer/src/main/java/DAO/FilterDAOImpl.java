@@ -9,8 +9,11 @@ public class FilterDAOImpl extends GenericDAOImpl<Filter> implements FilterDAO {
     public Filter getFilterData(String name) {
 
         Session hibernateSession = this.getSession();
-        Query query = hibernateSession.createQuery("from Filter where filter_name= :name");
+
+        Query query = hibernateSession.createQuery("from Filter as filter " +
+                "where filter.filterName = :name");
         query.setString("name", name);
+
         return findOne(query);
 
     }

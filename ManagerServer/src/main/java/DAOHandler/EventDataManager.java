@@ -132,4 +132,24 @@ public class EventDataManager {
 
     }
 
+    public List<Event> getFilteredEventData(Float latitude, Float longitude, Float radius, String userName, String eventName, String groupName) {
+
+        List<Event> event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = (List<Event>) eventDAO.getFilteredEventData(latitude, longitude, radius, userName, eventName, groupName);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return event;
+
+    }
+
 }
