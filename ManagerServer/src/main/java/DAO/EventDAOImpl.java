@@ -13,7 +13,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
         Session hibernateSession = this.getSession();
 
         Query query = hibernateSession.createQuery("from Event as event " +
-                "where event_name = :name");
+                "where event.eventName = :name");
         query.setString("name", name);
 
         return findOne(query);
@@ -35,13 +35,13 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     }
 
-    public List<Event> searchEventData(String substr) {
+    public List<Event> searchEventData(String eventName) {
 
         Session hibernateSession = this.getSession();
 
         Query query = hibernateSession.createQuery("from Event as event " +
-                "where event_name like :substr");
-        query.setString("substr", '%' + substr + '%');
+                "where event.eventName like :eventName");
+        query.setString("eventName", '%' + eventName + '%');
 
         return findMany(query);
 
@@ -69,6 +69,28 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
         Query query = hibernateSession.createQuery("from Event as event " +
                 "where (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
+        query.setFloat("latitude", Math.abs(latitude));
+        query.setFloat("longitude", Math.abs(longitude));
+        query.setFloat("radius", Math.abs(radius));
+
+        return findMany(query);
+
+    }
+
+    public List<Event> getFilteredEventData(Float latitude, Float longitude, Float radius, String userName, String eventName, String groupName) {
+
+        Session hibernateSession = this.getSession();
+
+        Query query = hibernateSession.createQuery("from Event as event " +
+                "left join fetch event.groups as groups " +
+                "left join fetch event.users as users " +
+                "left join fetch event.comments as comments " +
+                "where (event.eventName like :eventName) " +
+                "and (users.userName = :userName or groups.groupName = :groupName) " +
+                "and (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
+        query.setString("eventName", '%' + eventName + '%');
+        query.setString("userName", userName);
+        query.setString("groupName", groupName);
         query.setFloat("latitude", Math.abs(latitude));
         query.setFloat("longitude", Math.abs(longitude));
         query.setFloat("radius", Math.abs(radius));

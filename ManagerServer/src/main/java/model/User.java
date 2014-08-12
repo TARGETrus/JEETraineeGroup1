@@ -12,7 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="user_id", nullable=false, unique=true, length=12)
+    @Column(name="user_id", length=12, nullable=false, unique=true)
     private int    userID;
 
     @Column(name="user_name", length=255, nullable=false, unique=true)
@@ -20,6 +20,9 @@ public class User {
 
     @Column(name="password", length=255, nullable=false)
     private String password;
+
+    @Column(name="role", length=255, nullable=false)
+    private String role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_events", schema="web_app_db",
@@ -62,6 +65,14 @@ public class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Set<Event> getEvents() {
         return events;
     }
@@ -90,7 +101,7 @@ public class User {
     public String toString(){
 
         String userData =  "\nUser data: \n" + "ID: " + userID + ", Name: " + userName +
-                ", Password: " + password + "\n";
+                ", Password: " + password + ", Role: " + role + "\n";
 
         userData += "Event data: \n";
 

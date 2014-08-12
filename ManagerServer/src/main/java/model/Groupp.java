@@ -12,11 +12,14 @@ public class Groupp {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="group_id", nullable=false, unique=true, length=12)
+    @Column(name="group_id", length=12, nullable=false, unique=true)
     private int    groupID;
 
-    @Column(name="group_name", length=255, nullable=false)
+    @Column(name="group_name", length=255, nullable=false, unique=true)
     private String groupName;
+
+    @Column(name="group_admin", length=255, nullable=false)
+    private String groupAdmin;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users = new HashSet<User>();
@@ -26,6 +29,14 @@ public class Groupp {
 
     public Groupp() {}
 
+    public int getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
+
     public String getGroupName() {
         return groupName;
     }
@@ -34,12 +45,12 @@ public class Groupp {
         this.groupName = groupName;
     }
 
-    public int getGroupID() {
-        return groupID;
+    public String getGroupAdmin() {
+        return groupAdmin;
     }
 
-    public void setGroupID(int groupID) {
-        this.groupID = groupID;
+    public void setGroupAdmin(String groupAdmin) {
+        this.groupAdmin = groupAdmin;
     }
 
     public Set<User> getUsers() {
@@ -61,7 +72,7 @@ public class Groupp {
     @Override
     public String toString(){
 
-        String groupData =  "\nGroupp data: \n" + "ID: " + groupID + ", Title: " + groupName + "\n";
+        String groupData =  "\nGroupp data: \n" + "ID: " + groupID + ", Title: " + groupName + ", Admin.: " + groupAdmin + "\n";
 
         groupData += "User data: \n";
 
