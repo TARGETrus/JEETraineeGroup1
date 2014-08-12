@@ -85,37 +85,9 @@
                     type: "POST",
                     success: function (res) {
                         var address = res.results[1].formatted_address;
-                        alert("I've got address: " + address);
+                        $("#addEvent").click();
+                        $("#coord").val(address);
 
-
-                        /*var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": latitude, "lng": longitude, "address": address});
-
-                        $.ajax({
-                            url: 'add_event',
-                            type: 'POST',
-                            data: eventform,
-                            dataType: 'JSON',
-                            success: function (data) {
-                                $("#coord").text(address);
-
-                                switch (data.name) {
-                                    case "add_event":
-                                        form.empty();
-                                        form.css("color", "green");
-                                        form.append("event add!");
-                                        break;
-                                    case "error":
-                                        form.empty();
-                                        form.css("color", "red");
-                                        form.append("error :(");
-                                        break;
-                                    default :
-                                        form.empty();
-                                        form.append("Server error :(")
-                                        break;
-                                }
-                            }
-                        });*/
                     }
                 });
             });
