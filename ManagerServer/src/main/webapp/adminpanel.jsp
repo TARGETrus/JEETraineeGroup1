@@ -21,6 +21,10 @@
     %>
     <meta charset="UTF-8">
     <title id="title">Admin panel</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -30,40 +34,28 @@
 <body>
 
 
-<form class="login">
+<form class="login col-md-12">
 
     <div class="login-card">
+
+
         <h1>Admin Panel</h1>
 
+        <label class="label-text">Users</label>
+        <input type="text" name="user" id="users"/>
+        <button type="button" class="btn btn-default">Edit Profile</button>
 
-            <%--<div id="userInfo">--%>
-                <%--<div style="color: red" id="editResponse"></div>--%>
-            <%--</div>--%>
-            <%--<label class="label-text">Edit your name</label>--%>
-            <%--<input type="text" id="user" name="user" placeholder="New name">--%>
+        <label class="label-text">Events</label>
+        <input type="text" name="search" id="events"/>
+        <button type="button" class="btn btn-default">Edit</button>
 
-            <%--<label class="label-text">Edit your password</label>--%>
-            <%--<input type="password" id="old_pwd" name="old_pwd" placeholder="Old password">--%>
-            <%--<input type="password" id="new_pwd" name="new_pwd" placeholder="New password">--%>
-            <%--<input type="submit" id="submit_edit" name="login" class="login login-submit" value="submit">--%>
+        <label class="label-text">Groups</label>
+        <input type="text" name="search" id="groups"/>
+        <button type="button" class="btn btn-default">Edit</button>
 
-
-            <%----%>
-            <label class="label-text">Users</label>
-            <input name="user" id="users"/>
-            <button class="btn">button</button>
-
-                <label class="label-text">Events</label>
-                <input name="search" id="events"/>
-                <button class="btn">button</button>
-
-                <label class="label-text">Groups</label>
-                <input name="search" id="groups"/>
-                <button class="btn">button</button>
-
-            <div class="login-help">
-                <a href="/main">Return to main page</a>
-            </div>
+        <div class="login-help">
+            <a href="/main">Return to main page</a>
+        </div>
 
 
     </div>

@@ -13,12 +13,6 @@
 <html>
 <head>
 
-    <meta charset="UTF-8">
-    <title>PartyMap</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <%
         String userName = null;
         Cookie[] cookies = request.getCookies();
@@ -32,15 +26,15 @@
     %>
     <%
         User user = (User) session.getAttribute("user");
-        String visible;
-        if(user.getRole().equals("admin")){
-            visible = "block";
 
-        }else {
-            visible = "none";
-        }
 
     %>
+    <meta charset="UTF-8">
+    <title>PartyMap</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
     <!-- <script src="js/mapClickAJAX.js"></script>-->
@@ -52,9 +46,8 @@
 
     <style>
         html, body, #map-canvas {
-            height: 100%;
-            margin: 0px;
-            padding: 0px
+            height: 470px;
+            padding: 5px;
         }
     </style>
     <%
@@ -90,8 +83,8 @@
         var longitude;
         function initialize() {
             var mapOptions = {
-                zoom: 2,
-                center: new google.maps.LatLng(40, 20)
+                zoom: 10,
+                center: new google.maps.LatLng(59.944126, 30.246234)
             };
 
             var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -148,9 +141,7 @@
     </script>
 </head>
 <body>
-<script>
-    $().ready(function(){document.getElementsById("adminBtn").style.display="<%=visible%>";});
-</script>
+
 
 <div class="container">
     <div class="row">
@@ -162,7 +153,11 @@
 
                 <div class="btn-group" style="float: right">
                     <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
-                    <button type="button" class="btn btn-default"  id="adminBtn" onclick="window.location.href='/adminpanel'">Admin panel</button>
+                    <%
+                        if(user.getRole().equals("admin")){
+                    %><button type="button" class="btn btn-default"  id="adminBtn" onclick="window.location.href='/adminpanel'">Admin panel</button><%
+                    }
+                %>
                     <input type="submit" class="btn btn-default" value="Logout">
                 </div>
                 </p>
@@ -190,13 +185,46 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class=".col-sm-12 top-menu">
-                Filters
+            <%--<div class=".col-sm-12 top-menu">--%>
+                <%--<ul class="nav pull-center" role="center">--%>
+                <%--<li class="dropdown" id="filterMenu">--%>
+                <%--<a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>--%>
+                <%--<div class="dropdown-menu" style="padding:17px;">--%>
+                <%--<form class="form pull-left" id="formFilter" style="margin: 5px">--%>
+                <%--<div id="filterlog"></div>--%>
+                <%--<input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">--%>
+                <%--<div class="input-group">--%>
+                <%--<input type="text" id="radius" name="radius" class="form-control" placeholder="В радиосе">--%>
+                <%--<span class="input-group-addon"> км</span>--%>
+                <%--</div>--%>
+                <%--<input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>--%>
+                <%--<button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>--%>
+                <%--</form>--%>
+                <%--</div>--%>
+                <%--</li>--%>
+                <%--</ul>--%>
 
-            </div>
+            <%--</div>--%>
+
             <div class="col-md-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
-
+                    <ul class="nav pull-center" role="center">
+                        <li class="dropdown" id="filterMenu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>
+                            <div class="dropdown-menu" style="padding:17px;">
+                                <form class="form pull-left" id="formFilter" style="margin: 5px">
+                                    <div id="filterlog"></div>
+                                    <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
+                                    <div class="input-group">
+                                        <input type="text" id="radius" name="radius" class="form-control" placeholder="In radius">
+                                        <span class="input-group-addon"> km</span>
+                                    </div>
+                                    <input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>
+                                    <button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
                 <div id="map-canvas"></div>
             </div>
         </div>
