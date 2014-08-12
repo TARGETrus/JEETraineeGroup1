@@ -12,7 +12,7 @@ $().ready(function() {
                 alert(address);
                 var coord = {"lat": lat, "lng":lng};
                 if(lat != 0 && lng != 0){
-                    var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng, "address": address});
+                    var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng, "address": address}) + '&' + document.cookie;
 
 //                    alert(eventform);
                     $.ajax({

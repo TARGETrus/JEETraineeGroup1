@@ -1,7 +1,7 @@
 $().ready(function() {
     $('#btnGroup').click(function(){
 
-        var groupform = $('#formGroup').serialize();
+        var groupform = $('#formGroup').serialize() + '&' + document.cookie;
         $.ajax({
             url:'add_group',
             type:'POST',

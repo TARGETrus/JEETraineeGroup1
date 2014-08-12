@@ -21,7 +21,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
-   <!-- <script src="js/mapClickAJAX.js"></script>-->
+    <!-- <script src="js/mapClickAJAX.js"></script>-->
     <script src="js/groupjson.js"></script>
     <script src="js/eventgson.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
@@ -90,32 +90,32 @@
 
                         /*var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": latitude, "lng": longitude, "address": address});
 
-                        $.ajax({
-                            url: 'add_event',
-                            type: 'POST',
-                            data: eventform,
-                            dataType: 'JSON',
-                            success: function (data) {
-                                $("#coord").text(address);
+                         $.ajax({
+                         url: 'add_event',
+                         type: 'POST',
+                         data: eventform,
+                         dataType: 'JSON',
+                         success: function (data) {
+                         $("#coord").text(address);
 
-                                switch (data.name) {
-                                    case "add_event":
-                                        form.empty();
-                                        form.css("color", "green");
-                                        form.append("event add!");
-                                        break;
-                                    case "error":
-                                        form.empty();
-                                        form.css("color", "red");
-                                        form.append("error :(");
-                                        break;
-                                    default :
-                                        form.empty();
-                                        form.append("Server error :(")
-                                        break;
-                                }
-                            }
-                        });*/
+                         switch (data.name) {
+                         case "add_event":
+                         form.empty();
+                         form.css("color", "green");
+                         form.append("event add!");
+                         break;
+                         case "error":
+                         form.empty();
+                         form.css("color", "red");
+                         form.append("error :(");
+                         break;
+                         default :
+                         form.empty();
+                         form.append("Server error :(")
+                         break;
+                         }
+                         }
+                         });*/
                     }
                 });
             });
@@ -167,23 +167,34 @@
 
 <%
     User user = (User) session.getAttribute("user");
+    String visible;
+    if(user.getRole().equals("admin")){
+        visible = "block";
+    }else {
+        visible = "none";
+    }
+
 %>
+<script>
+    $().ready(function(){document.getElementsById("adminBtn").style.display="<%=visible%>";});
+</script>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12 head-block" style="background: url('img/logo_head.png') no-repeat; background-color: #F7F7F7;">
-                <form action="LogoutServlet"  method="post">
+            <form action="LogoutServlet"  method="post">
 
-                    <p style="text-align: right">
-                        <label>Hi <%=userName %>, Login was successful.</label>
+                <p style="text-align: right">
+                    <label>Hi <%=userName %>, Login was successful.</label>
 
-                    <div class="btn-group" style="float: right">
-                        <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
-                        <input type="submit" class="btn btn-default" value="Logout">
-                        </div>
-                    </p>
+                <div class="btn-group" style="float: right">
+                    <button type="button" class="btn btn-default" onclick="window.location.href='/edit.jsp'">Edit Profile</button>
+                    <button type="button" class="btn btn-default"  id="adminBtn" onclick="window.location.href='/adminpanel'">Admin panel</button>
+                    <input type="submit" class="btn btn-default" value="Logout">
+                </div>
+                </p>
 
-                </form>
+            </form>
 
         </div>
         <div class="col-md-3 content">
@@ -204,7 +215,6 @@
             <div id="eventInfo">
                 <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
             </div>
-
         </div>
         <div class="col-md-6">
             <div class=".col-sm-12 top-menu">
@@ -213,8 +223,6 @@
             </div>
             <div class="col-md-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
-
-
 
                 <div id="map-canvas"></div>
             </div>
@@ -236,8 +244,7 @@
                 </li>
             </ul>
 
-            <div>
-                <label id="groupInfo"></label>
+            <div id="groupInfo">
                 <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>
         </div>

@@ -72,5 +72,14 @@
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>adminpanel</servlet-name>
+        <jsp-file>/adminpanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminpanel</servlet-name>
+        <url-pattern>/adminpanel</url-pattern>
+    </servlet-mapping>
 
 </web-app>

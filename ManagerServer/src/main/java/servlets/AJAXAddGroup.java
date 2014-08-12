@@ -1,7 +1,9 @@
 package servlets;
 
 
+import DAOHandler.EventDataManager;
 import DAOHandler.GroupDataManager;
+import DAOHandler.UserDataManager;
 import model.Groupp;
 import org.json.simple.JSONObject;
 
@@ -19,25 +21,24 @@ public class AJAXAddGroup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String groupName = req.getParameter("groupName");
-        String username = req.getParameter("usersList");
+        String username = req.getParameter("username");
+        String addUser = req.getParameter("usersList");
+        String addEvent = req.getParameter("eventsList");
         String str = null;
 
-        if(groupName.length() != 0){//TODO надо сделать уникальные имена,а если не надо тогда тут все готово
+        if(groupName.length() != 0){
             GroupDataManager manager = new GroupDataManager();
+            UserDataManager userDataManager = new UserDataManager();
+            EventDataManager eventDataManager = new EventDataManager();
             JSONObject obj = new JSONObject();
             obj.put("name", "add_group");
             str = obj.toJSONString();
             Groupp group = new Groupp();
             group.setGroupName(groupName);
-//            TreeSet<User> userList = new TreeSet<>();
-//            if(username.length() != 0){
-//                UserDataManager userDataManager = new UserDataManager();
-//                User user = userDataManager.getUserData(username);
-//                if(user != null) {
-//                    userList.add(user);//TODO вылетает при добавлении юзера в коллекцию
-//                    groupp.setUsers(userList);
-//                }
-//            }
+            group.setGroupAdmin(username);
+            group.getEvents().add(eventDataManager.getEventData(addEvent));//TODO не заносит в базу
+            group.getUsers().add(userDataManager.getUserData(username));
+            group.getUsers().add(userDataManager.getUserData(addUser));
             manager.saveNewGroup(group);
         } else {
             JSONObject obj = new JSONObject();

@@ -24,6 +24,7 @@ public class AJAXAddEvent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String eventName = req.getParameter("eventName");
+        String username = req.getParameter("username");
         String date = req.getParameter("date");
         date = date.replace("T", " ");
         Float lng = Float.parseFloat(req.getParameter("lng"));
@@ -37,16 +38,16 @@ public class AJAXAddEvent extends HttpServlet {
             obj.put("name", "add_event");
             str = obj.toJSONString();
             EventDataManager manager = new EventDataManager();
+            UserDataManager userDataManager = new UserDataManager();
             Event event = new Event();
             event.setLatitude(lat);
             event.setLongitude(lng);
             event.setDate(date);
             event.setEventName(eventName);
             event.setCoordinates(address);
-            //event.getUsers().add()
-            UserDataManager userDataManager = new UserDataManager();
-            //TODO сделать добавление одного эвента для юзера
-           manager.saveNewEvent(event);
+            event.setEventAdmin(username);
+            event.getUsers().add(userDataManager.getUserData(username));//TODO не работает почемуто, добавь что бы закидывало одного юзера плиз
+            manager.saveNewEvent(event);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");
