@@ -15,7 +15,7 @@ $().ready(function() {
                     "<span class=\"caret\"></span>" +
                     "<span class=\"sr-only\">Toggle Dropdown</span>" +
                     "</button>" +
-                    "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" + "<li><a href=\"#\">" + "lat: " + responseText[i].lat + "<br />" + "lng: " + responseText[i].lng +"</a></li>" + list + "</ul>" + "</div><br />");
+                    "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" + "<li><a href=\"#\">" + "lat: " + responseText[i].lat + "<br />" + "lng: " + responseText[i].lng + "<br />" + "address: " + responseText[i].address + "</a></li>" + list + "</ul>" + "</div><br />");
             }
         });
 //    });

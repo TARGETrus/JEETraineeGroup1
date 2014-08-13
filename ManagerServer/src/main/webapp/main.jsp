@@ -35,13 +35,12 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
-    <!-- <script src="js/mapClickAJAX.js"></script>-->
     <script src="js/groupjson.js"></script>
     <script src="js/eventgson.js"></script>
+    <script src="js/AJAXEventsFilter.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-
     <style>
         html, body, #map-canvas {
             height: 470px;
@@ -52,17 +51,17 @@
     <script>
         var latitude;
         var longitude;
+        var map;
         function initialize() {
             var mapOptions = {
                 zoom: 10,
                 center: new google.maps.LatLng(59.944126, 30.246234)
             };
 
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
+            map = new google.maps.Map(document.getElementById('map-canvas'),
                     mapOptions);
 
             <!--for map click ajax-->
-
 
             google.maps.event.addListener(map, "click", function (event) {
                 latitude = event.latLng.lat();
@@ -82,17 +81,16 @@
                 });
             });
 
-            
+            <!-- add markers-->
             $.post('eventjson',document.cookie,function(responseText) {
                 for(i in responseText){
                     var marker =+ new google.maps.Marker({
-                    position: new google.maps.LatLng(responseText[i].lat,responseText[i].lng),
-                    map: map,
-                    title:responseText[i].address
+                        position: new google.maps.LatLng(responseText[i].lat,responseText[i].lng),
+                        map: map,
+                        title:responseText[i].address
                     });
                 }
             });
-
 
         }
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -123,7 +121,7 @@
             </form>
 
         </div>
-        <div class="col-md-3 content">
+        <div class="col-md-3 content" style="overflow:scroll">
             <ul class="nav pull-center" role="center">
                 <li class="dropdown" id="menuEvet">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
@@ -138,30 +136,37 @@
                     </div>
                 </li>
             </ul>
+
             <div id="eventInfo">
+                <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
+            </div>
+            <hr>
+            <label>Filtered events:</label>
+            <div id="eventFilterInfo">
+
                 <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
             </div>
         </div>
         <div class="col-md-6">
             <div class="col-md-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
-                    <ul class="nav pull-center" role="center">
-                        <li class="dropdown" id="filterMenu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>
-                            <div class="dropdown-menu" style="padding:17px;">
-                                <form class="form pull-left" id="formFilter" style="margin: 5px">
-                                    <div id="filterlog"></div>
-                                    <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
-                                    <div class="input-group">
-                                        <input type="text" id="radius" name="radius" class="form-control" placeholder="In radius">
-                                        <span class="input-group-addon"> km</span>
-                                    </div>
-                                    <input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>
-                                    <button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
+                <ul class="nav pull-center" role="center">
+                    <li class="dropdown" id="filterMenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>
+                        <div class="dropdown-menu" style="padding:17px;">
+                            <form class="form pull-left" id="formFilter" style="margin: 5px">
+                                <div id="filterlog"></div>
+                                <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
+                                <div class="input-group">
+                                    <input type="text" id="radius" name="radius" class="form-control" placeholder="In radius">
+                                    <span class="input-group-addon"> km</span>
+                                </div>
+                                <input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>
+                                <button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
                 <div id="map-canvas"></div>
             </div>
         </div>
@@ -183,6 +188,10 @@
             </ul>
 
             <div id="groupInfo">
+                <%--<button id="jsonGroupBtn">JSON</button>--%>
+            </div>
+            <hr>
+            <div id="groupFilterInfo">
                 <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>
         </div>

@@ -48,6 +48,8 @@ public class AJAXAddEvent extends HttpServlet {
             event.setEventAdmin(username);
             event.getUsers().add(userDataManager.getUserData(username));//TODO не работает почемуто, добавь что бы закидывало одного юзера плиз
             manager.saveNewEvent(event);
+//            userDataManager.getUserData(username).getEvents().add(manager.getEventData(eventName));
+//            userDataManager.modifyUser(user);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");
