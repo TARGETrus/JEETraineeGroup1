@@ -34,17 +34,26 @@ $().ready(function() {
                                 case "add_event":
                                     form.empty();
                                     form.css("color", "green");
-                                    form.append("event add!");
+                                    <!--form.append("event add!");-->
+                                    $("#messageEventAdded").animate({opacity: "1"}, "slow")
+                                        .delay(3000)
+                                        .animate({opacity: "0"}, "slow")
                                     addEventOnPage();
                                     break;
                                 case "error":
                                     form.empty();
                                     form.css("color", "red");
-                                    form.append("error :(");
+                                    <!--form.append("error :(");-->
+                                    $("#messageError").animate({opacity: "1"}, "slow")
+                                        .delay(3000)
+                                        .animate({opacity: "0"}, "slow")
                                     break;
                                 default :
                                     form.empty();
-                                    form.append("Server error :(")
+                                    <!--form.append("Server error :(")-->
+                                    $("#messageServerError").animate({opacity: "1"}, "slow")
+                                        .delay(3000)
+                                        .animate({opacity: "0"}, "slow")
                                     break;
                             }
                         }
