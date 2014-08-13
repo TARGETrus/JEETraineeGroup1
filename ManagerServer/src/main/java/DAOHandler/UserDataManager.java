@@ -113,6 +113,23 @@ public class UserDataManager {
     }
 
     // Modify foo
+    public void modifyUser(User user) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            userDAO.merge(user);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
     public void changeUserPassword(String userName, String password) {
 
         User user = null;
