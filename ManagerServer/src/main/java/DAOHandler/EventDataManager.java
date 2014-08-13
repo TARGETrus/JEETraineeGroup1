@@ -71,6 +71,26 @@ public class EventDataManager {
 
     }
 
+    public List<Event> getAllEvents() {
+
+        List<Event> event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = (List<Event>) eventDAO.findAll(Event.class);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return event;
+
+    }
+
     //Filter foo
     public List<Event> searchEventData(String substr) {
 

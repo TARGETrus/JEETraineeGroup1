@@ -51,4 +51,24 @@ public class FilterDataManager {
 
     }
 
+    public List<Filter> getAllFilters() {
+
+        List<Filter> filter = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            filter = (List<Filter>) filterDAO.findAll(Filter.class);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return filter;
+
+    }
+
 }

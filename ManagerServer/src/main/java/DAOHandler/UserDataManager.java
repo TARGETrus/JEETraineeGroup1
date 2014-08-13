@@ -5,6 +5,8 @@ import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 
+import java.util.List;
+
 public class UserDataManager {
 
     private UserDAO userDAO = new UserDAOImpl();
@@ -56,6 +58,26 @@ public class UserDataManager {
 
             HibernateUtil.beginTransaction();
             user = (User) userDAO.getCompleteUserData(name);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return user;
+
+    }
+
+    public List<User> getAllUsers() {
+
+        List<User> user = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            user = (List<User>) userDAO.findAll(User.class);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
