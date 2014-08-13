@@ -41,6 +41,7 @@ public class AJAXEventsJsonGen extends HttpServlet{
                 jsonEvent.put("lat", event.getLatitude());
                 jsonEvent.put("lng", event.getLongitude());
                 jsonEvent.put("eventname", event.getEventName());
+                jsonEvent.put("address", event.getCoordinates());
                 jsonarray.add(jsonEvent);
             }
             json = jsonarray.toJSONString();
