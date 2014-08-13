@@ -48,33 +48,6 @@
             padding: 5px;
         }
     </style>
-    <%
-        String[] lat;
-        String[] lon;
-        List<String> latitude = new ArrayList<>();
-        List<String> longitude = new ArrayList<>();
-
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("latitude")) {
-                lat = cookie.getValue().split(" ");
-                for(int i = 0; i < lat.length; i++) {
-                    latitude.add(lat[i]);
-                }
-            }
-            if (cookie.getName().equals("longitude")) {
-                lon = cookie.getValue().split(" ");
-                for(int i = 0; i < lon.length; i++) {
-                    longitude.add(lon[i]);
-                }
-            }
-        }
-
-        latitude.add("55");
-        longitude.add("33");
-        latitude.add("0");
-        longitude.add("33");
-
-    %>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAZR0VB_Fk4ZOdDmAwhda8RZsvkwCDFcps&sensor=FALSE"></script>
     <script>
         var latitude;
@@ -109,28 +82,18 @@
                 });
             });
 
-            <%
-                final String baseUrl = "http://maps.googleapis.com/maps/api/geocode/json";// путь к Geocoding API по HTTP
-                final Map<String, String> params = Maps.newHashMap();
-                params.put("language", "engl");// язык данных, на котором мы хотим получить
-                params.put("sensor", "false");// исходит ли запрос на геокодирование от устройства с датчиком местоположения
-
-                for(int i = 0; i < latitude.size(); i++) {
-                    String latlng = latitude.get(i) + "," + longitude.get(i);
-                    params.put("latlng", latlng);
-                    final String url = baseUrl + '?' + MapServlet.encodeParams(params);// генерируем путь с параметрами
-                    final JSONObject resp = JsonReader.read(url);// делаем запрос к вебсервису и получаем от него ответ
-                    final JSONObject location = resp.getJSONArray("results").getJSONObject(0);
-                    String formattedAddress = location.getString("formatted_address");
-            %>
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(<%= latitude.get(i)%>,<%= longitude.get(i)%>),
-                map: map,
-                title:"<%=formattedAddress%>"
-            });
-            <%
+            
+            $.post('eventjson',document.cookie,function(responseText) {
+                for(i in responseText){
+                    var marker =+ new google.maps.Marker({
+                    position: new google.maps.LatLng(responseText[i].lat,responseText[i].lng),
+                    map: map,
+                    title:responseText[i].address
+                    });
                 }
-            %>
+            });
+
+
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
