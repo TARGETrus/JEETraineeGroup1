@@ -26,8 +26,6 @@
     %>
     <%
         User user = (User) session.getAttribute("user");
-
-
     %>
     <meta charset="UTF-8">
     <title>PartyMap</title>
@@ -125,14 +123,11 @@
                     final JSONObject location = resp.getJSONArray("results").getJSONObject(0);
                     String formattedAddress = location.getString("formatted_address");
             %>
-
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(<%= latitude.get(i)%>,<%= longitude.get(i)%>),
                 map: map,
                 title:"<%=formattedAddress%>"
             });
-
-
             <%
                 }
             %>
@@ -185,27 +180,6 @@
             </div>
         </div>
         <div class="col-md-6">
-            <%--<div class=".col-sm-12 top-menu">--%>
-                <%--<ul class="nav pull-center" role="center">--%>
-                <%--<li class="dropdown" id="filterMenu">--%>
-                <%--<a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>--%>
-                <%--<div class="dropdown-menu" style="padding:17px;">--%>
-                <%--<form class="form pull-left" id="formFilter" style="margin: 5px">--%>
-                <%--<div id="filterlog"></div>--%>
-                <%--<input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">--%>
-                <%--<div class="input-group">--%>
-                <%--<input type="text" id="radius" name="radius" class="form-control" placeholder="В радиосе">--%>
-                <%--<span class="input-group-addon"> км</span>--%>
-                <%--</div>--%>
-                <%--<input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>--%>
-                <%--<button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>--%>
-                <%--</form>--%>
-                <%--</div>--%>
-                <%--</li>--%>
-                <%--</ul>--%>
-
-            <%--</div>--%>
-
             <div class="col-md-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
                     <ul class="nav pull-center" role="center">

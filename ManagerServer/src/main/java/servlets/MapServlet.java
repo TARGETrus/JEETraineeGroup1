@@ -55,10 +55,10 @@ public class MapServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
 
-        String userName = userDataManager.findUserById(Integer.parseInt(req.getParameter("user_id"))).getUserName();
+        String userName = req.getParameter("username");
         user = userDataManager.getUserCompleteData(userName);
         System.out.println("USER!!!  " + user);
-        events = new ArrayList<>(user.getEvents());
+        events = new ArrayList<>(userDataManager.getUserCompleteData(userName).getEvents());
         System.out.println("EVENTS!!!  " + events);
         for(int i = 0; i < events.size(); i++) {
             lat += events.get(i).getLatitude() + " ";
