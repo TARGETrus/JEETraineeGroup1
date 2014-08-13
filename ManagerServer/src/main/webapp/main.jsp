@@ -136,7 +136,7 @@
                     </div>
                 </li>
             </ul>
-
+            <label>My events:</label>
             <div id="eventInfo">
                 <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
             </div>
