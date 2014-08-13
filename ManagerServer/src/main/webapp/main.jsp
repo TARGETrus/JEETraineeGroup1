@@ -33,9 +33,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="js/groupjson.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
-    <script src="js/groupjson.js"></script>
     <script src="js/eventgson.js"></script>
     <script src="js/AJAXEventsFilter.js"></script>
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
@@ -81,12 +81,24 @@
                 });
             });
 
+
             <!-- add markers-->
             $.post('eventjson',document.cookie,function(responseText) {
+                var pinColor = "69fe75";
+                var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+                        new google.maps.Size(40, 37),
+                        new google.maps.Point(0, 0),
+                        new google.maps.Point(12, 35));
                 for(i in responseText){
                     var marker =+ new google.maps.Marker({
                         position: new google.maps.LatLng(responseText[i].lat,responseText[i].lng),
                         map: map,
+                        icon: pinImage,
+                        shadow: pinShadow,
                         title:responseText[i].address
                     });
                 }
@@ -170,7 +182,7 @@
                 <div id="map-canvas"></div>
             </div>
         </div>
-        <div class="col-md-3 content">
+        <div class="col-md-3 content" style="overflow:scroll">
             <ul class="nav pull-center" role="center">
                 <li class="dropdown" id="menuGroup">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addGroup" style="text-align: center; font-size: 15px">Add Group</a>
@@ -187,10 +199,12 @@
                 </li>
             </ul>
 
+            <label>My groups:</label>
             <div id="groupInfo">
                 <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>
             <hr>
+            <label>Find groups:</label>
             <div id="groupFilterInfo">
                 <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>

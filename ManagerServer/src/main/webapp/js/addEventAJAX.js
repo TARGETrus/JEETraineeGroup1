@@ -7,8 +7,15 @@ $().ready(function() {
             url: "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
             type: "POST",
             success: function(res){
-                var lat = latitude;//res.results[0].geometry.location.lat;
-                var lng = longitude;//res.results[0].geometry.location.lng;
+                if(res.status == "OK")
+                {
+                    var lat = res.results[0].geometry.location.lat;
+                    var lng = res.results[0].geometry.location.lng;
+                }else{
+                    var lat = latitude;
+                    var lng = longitude;
+                }
+
 
                 alert(address);
                 var coord = {"lat": lat, "lng":lng};
@@ -28,6 +35,7 @@ $().ready(function() {
                                     form.empty();
                                     form.css("color", "green");
                                     form.append("event add!");
+                                    addEventOnPage();
                                     break;
                                 case "error":
                                     form.empty();

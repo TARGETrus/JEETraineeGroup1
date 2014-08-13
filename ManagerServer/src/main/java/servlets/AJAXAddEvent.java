@@ -47,9 +47,10 @@ public class AJAXAddEvent extends HttpServlet {
             event.setCoordinates(address);
             event.setEventAdmin(username);
             event.getUsers().add(userDataManager.getUserData(username));//TODO не работает почемуто, добавь что бы закидывало одного юзера плиз
+            userDataManager.getUserCompleteData(username).getEvents().add(manager.getEventData(eventName));
             manager.saveNewEvent(event);
-//            userDataManager.getUserData(username).getEvents().add(manager.getEventData(eventName));
-//            userDataManager.modifyUser(user);
+
+//            userDataManager.modifyUser(user);//TODO не работает такая штука
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/eventfilterjson")
@@ -36,16 +37,16 @@ public class AJAXFilterEvent extends HttpServlet{
             Filter filter = new Filter();
             EventDataManager eventDataManager = new EventDataManager();
             FilterDataManager filterDataManager = new FilterDataManager();
-            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());
+            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
             filter.setFilterName(eventFilter);
 //            filter.set
             JSONArray jsonarray = new JSONArray();
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
                 JSONObject jsonEvent = new JSONObject();
-//                for(User user: event.getUsers()){
+//               for(String user: event.getUsers()){
 //                    eusers.add(user.getUserName());
-//                }
+//               }
                 jsonEvent.put("userlist", eusers);
                 jsonEvent.put("lat", event.getLatitude());
                 jsonEvent.put("lng", event.getLongitude());
@@ -54,6 +55,47 @@ public class AJAXFilterEvent extends HttpServlet{
                 jsonarray.add(jsonEvent);
             }
             json = jsonarray.toJSONString();
+
+
+
+
+            //search form
+            List<Event> searchEvent = eventDataManager.searchEventData("event");
+
+            if (searchEvent != null) {
+                System.out.println("event " + searchEvent.toString());
+            } else {
+                System.out.println("Nothing found!!!");
+            }
+
+            List<Event> collEvent = eventDataManager.searchByEventCollectionsData("name", "group");
+
+            if (collEvent != null) {
+                System.out.println("Collect " + collEvent.toString());
+            } else {
+                System.out.println("Nothing found!!!");
+            }
+
+            List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 0F, 1500F);
+
+            if (closeEvent != null) {
+                System.out.println("close " + closeEvent.toString());
+            } else {
+                System.out.println("Nothing found!!!");
+            }
+
+            List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
+
+            if (filtEvent != null) {
+                System.out.println("filter " + filtEvent.toString());
+            } else {
+                System.out.println("Nothing found!!!");
+            }
+
+
+
+
+
         }else {
             JSONObject obj = new JSONObject();
             obj.put("message", "error");
