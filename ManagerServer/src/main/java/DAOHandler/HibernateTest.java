@@ -104,7 +104,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 0F, 1000F);
+        List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 0F, 1500F);
 
         if (closeEvent != null) {
             System.out.println("close " + closeEvent.toString());
@@ -112,7 +112,7 @@ public class HibernateTest {
             System.out.println("Nothing found!!!");
         }
 
-        List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, 1200F, "name", "event", "group");
+        List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
 
         if (filtEvent != null) {
             System.out.println("filter " + filtEvent.toString());

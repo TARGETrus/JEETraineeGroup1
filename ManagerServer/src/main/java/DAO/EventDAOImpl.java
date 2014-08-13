@@ -4,7 +4,9 @@ import model.Event;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
@@ -81,19 +83,44 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
         Session hibernateSession = this.getSession();
 
-        Query query = hibernateSession.createQuery("from Event as event " +
+        if (latitude != null)  latitude  = Math.abs(latitude);
+        if (longitude != null) longitude = Math.abs(longitude);
+        if (radius != null)    radius    = Math.abs(radius);
+
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        params.put("eventName", '%' + eventName + '%');
+        params.put("userName", userName);
+        params.put("groupName", groupName);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+        params.put("radius", radius);
+
+        StringBuilder queryString = new StringBuilder();
+
+        queryString.append("from Event as event " +
                 "left join fetch event.groups as groups " +
                 "left join fetch event.users as users " +
                 "left join fetch event.comments as comments " +
-                "where (event.eventName like :eventName) " +
-                "and (users.userName = :userName or groups.groupName = :groupName) " +
-                "and (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
-        query.setString("eventName", '%' + eventName + '%');
-        query.setString("userName", userName);
-        query.setString("groupName", groupName);
-        query.setFloat("latitude", Math.abs(latitude));
-        query.setFloat("longitude", Math.abs(longitude));
-        query.setFloat("radius", Math.abs(radius));
+                "where 1 = 1 ");
+
+        if (eventName != null) {
+            queryString.append("and (event.eventName like :eventName) ");
+        }
+
+        if (userName != null || groupName != null) {
+            queryString.append("and (users.userName = :userName or groups.groupName = :groupName) ");
+        }
+
+        if (latitude != null && longitude != null && radius != null) {
+            queryString.append("and (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
+        }
+
+        Query query = hibernateSession.createQuery(queryString.toString());
+
+        for (String statement : query.getNamedParameters()) {
+            query.setParameter(statement, params.get(statement));
+        }
 
         return findMany(query);
 
