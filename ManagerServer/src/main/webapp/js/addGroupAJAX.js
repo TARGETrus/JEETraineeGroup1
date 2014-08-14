@@ -15,6 +15,7 @@ $().ready(function() {
                         form.empty();
                         form.css("color", "green");
                         form.append("group add!");
+                        addGroupOnPage();
                         break;
 
                     case "add_group":

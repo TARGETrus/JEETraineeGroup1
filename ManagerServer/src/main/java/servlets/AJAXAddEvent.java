@@ -3,6 +3,7 @@ package servlets;
 import DAOHandler.EventDataManager;
 import DAOHandler.UserDataManager;
 import model.Event;
+import model.User;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -46,11 +47,10 @@ public class AJAXAddEvent extends HttpServlet {
             event.setEventName(eventName);
             event.setCoordinates(address);
             event.setEventAdmin(username);
-            event.getUsers().add(userDataManager.getUserData(username));//TODO не работает почемуто, добавь что бы закидывало одного юзера плиз
-            userDataManager.getUserCompleteData(username).getEvents().add(manager.getEventData(eventName));
             manager.saveNewEvent(event);
-
-//            userDataManager.modifyUser(user);//TODO не работает такая штука
+            User gotUser = userDataManager.getUserCompleteData(username);
+            gotUser.getEvents().add(event);
+            userDataManager.modifyUser(gotUser);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");

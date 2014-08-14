@@ -38,6 +38,8 @@
     <script src="js/addGroupAJAX.js"></script>
     <script src="js/eventgson.js"></script>
     <script src="js/AJAXEventsFilter.js"></script>
+    <script src="js/AJAXGroupFilter.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css" />
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -168,8 +170,15 @@
                         <div class="dropdown-menu" style="padding:17px;">
                             <form class="form pull-left" id="formFilter" style="margin: 5px">
                                 <div id="filterlog"></div>
+
+                                <select class="form-control" style="margin: 5px">
+                                    <option  value="" disabled="disabled" selected="selected">Please select your filter</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                </select>
                                 <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
-                                <div class="input-group">
+                                <input class="form-control" name="point" id="point" type="text" placeholder="Starting point" style="margin: 5px">
+                                <div class="input-group" style="margin: 5px">
                                     <input type="text" id="radius" name="radius" class="form-control" placeholder="In radius">
                                     <span class="input-group-addon"> km</span>
                                 </div>
@@ -205,6 +214,17 @@
             </div>
             <hr>
             <label>Find groups:</label>
+            <ul class="nav pull-center" role="center">
+                <li class="dropdown" id="filterGroup">
+                    <a class="dropdown-toggle" data-toggle="dropdown" id="addFilterGroup" style="text-align: center; font-size: 15px">Find Group</a>
+                    <div class="dropdown-menu" style="padding:17px;">
+                        <form class="form" id="formFilterGroup" style="margin: 5px">
+                            <input class="form-control" name="groupName" id="filtergroupname" type="text" placeholder="Group name" style="margin: 5px">
+                            <button type="button" id="btnFilterGroup" class="btn btn-default btn-lg btn-block">Find Group!</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
             <div id="groupFilterInfo">
                 <%--<button id="jsonGroupBtn">JSON</button>--%>
             </div>

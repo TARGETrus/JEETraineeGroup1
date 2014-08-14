@@ -5,6 +5,7 @@ import DAOHandler.EventDataManager;
 import DAOHandler.FilterDataManager;
 import model.Event;
 import model.Filter;
+import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -44,9 +45,9 @@ public class AJAXFilterEvent extends HttpServlet{
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
                 JSONObject jsonEvent = new JSONObject();
-//               for(String user: event.getUsers()){
-//                    eusers.add(user.getUserName());
-//               }
+               for(User user: event.getUsers()){
+                    eusers.add(user.getUserName());
+                }
                 jsonEvent.put("userlist", eusers);
                 jsonEvent.put("lat", event.getLatitude());
                 jsonEvent.put("lng", event.getLongitude());
@@ -57,33 +58,6 @@ public class AJAXFilterEvent extends HttpServlet{
             json = jsonarray.toJSONString();
 
 
-
-
-            //search form
-            List<Event> searchEvent = eventDataManager.searchEventData("event");
-
-            if (searchEvent != null) {
-                System.out.println("event " + searchEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
-            List<Event> collEvent = eventDataManager.searchByEventCollectionsData("name", "group");
-
-            if (collEvent != null) {
-                System.out.println("Collect " + collEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
-            List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 0F, 1500F);
-
-            if (closeEvent != null) {
-                System.out.println("close " + closeEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
             List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
 
             if (filtEvent != null) {
@@ -91,9 +65,6 @@ public class AJAXFilterEvent extends HttpServlet{
             } else {
                 System.out.println("Nothing found!!!");
             }
-
-
-
 
 
         }else {
