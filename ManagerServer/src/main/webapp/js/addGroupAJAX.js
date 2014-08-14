@@ -8,6 +8,7 @@ $().ready(function() {
             data: groupform,
             dataType: 'JSON',
             success:function(data){
+
                 var form = $('#grouplog');
 
                 switch (data.name) {
@@ -18,16 +19,12 @@ $().ready(function() {
                         addGroupOnPage();
                         break;
 
-                    case "add_group":
-                        form.empty();
-                        form.css("color", "green");
-                        form.append("Groupp add!");
-                        break;
                     case "error":
                         form.empty();
                         form.css("color", "red");
                         form.append("error :(");
                         break;
+
                     default :
                         form.empty();
                         form.append("Server error :(")
