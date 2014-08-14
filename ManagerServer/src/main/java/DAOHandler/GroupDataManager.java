@@ -77,7 +77,7 @@ public class GroupDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            group = (List<Groupp>) groupDAO.findAll(Groupp.class);
+            group = (List<Groupp>) groupDAO.findAll();
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
