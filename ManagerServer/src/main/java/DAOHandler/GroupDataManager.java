@@ -4,6 +4,7 @@ import DAO.*;
 import model.Groupp;
 import org.hibernate.HibernateException;
 
+import java.security.acl.Group;
 import java.util.List;
 
 public class GroupDataManager {
@@ -86,6 +87,42 @@ public class GroupDataManager {
         }
 
         return group;
+
+    }
+
+    // Modify foo
+    public void modifyGroup(Groupp group) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            groupDAO.merge(group);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public void deleteGroup(Groupp group) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            groupDAO.delete(group);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
 
     }
 

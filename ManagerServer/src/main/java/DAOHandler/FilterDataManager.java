@@ -71,4 +71,40 @@ public class FilterDataManager {
 
     }
 
+    // Modify foo
+    public void modifyFilter(Filter filter) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            filterDAO.merge(filter);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public void deleteFilter(Filter filter) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            filterDAO.delete(filter);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
 }

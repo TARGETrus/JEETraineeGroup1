@@ -69,4 +69,40 @@ public class CommentDataManager {
 
     }
 
+    // Modify foo
+    public void modifyComment(Comment comment) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            commentDAO.merge(comment);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public void deleteComment(Comment comment) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            commentDAO.delete(comment);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
 }

@@ -78,7 +78,7 @@ public class EventDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            event = (List<Event>) eventDAO.findAll(Event.class);
+            event = (List<Event>) eventDAO.findAll();
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -91,7 +91,43 @@ public class EventDataManager {
 
     }
 
-    //Filter foo
+    // Modify foo
+    public void modifyEvent(Event event) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public void deleteEvent(Event event) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            eventDAO.delete(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Filter foo
     public List<Event> searchEventData(String substr) {
 
         List<Event> event = null;

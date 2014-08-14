@@ -232,6 +232,9 @@
     </div>
 </div>
 
+<div id="messageEventAdded">Event added</div>
+<div id="messageError">Error</div>
+<div id="messageServerError">Server error</div>
 
 </body>
 </html>
