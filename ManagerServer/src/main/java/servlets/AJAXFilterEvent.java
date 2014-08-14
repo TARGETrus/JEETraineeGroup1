@@ -57,33 +57,6 @@ public class AJAXFilterEvent extends HttpServlet{
             json = jsonarray.toJSONString();
 
 
-
-
-            //search form
-            List<Event> searchEvent = eventDataManager.searchEventData("event");
-
-            if (searchEvent != null) {
-                System.out.println("event " + searchEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
-            List<Event> collEvent = eventDataManager.searchByEventCollectionsData("name", "group");
-
-            if (collEvent != null) {
-                System.out.println("Collect " + collEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
-            List<Event> closeEvent = eventDataManager.getCloseEventData(0F, 0F, 1500F);
-
-            if (closeEvent != null) {
-                System.out.println("close " + closeEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
             List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
 
             if (filtEvent != null) {
@@ -91,9 +64,6 @@ public class AJAXFilterEvent extends HttpServlet{
             } else {
                 System.out.println("Nothing found!!!");
             }
-
-
-
 
 
         }else {

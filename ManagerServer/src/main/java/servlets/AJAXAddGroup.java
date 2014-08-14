@@ -5,6 +5,7 @@ import DAOHandler.EventDataManager;
 import DAOHandler.GroupDataManager;
 import DAOHandler.UserDataManager;
 import model.Groupp;
+import model.User;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,9 @@ public class AJAXAddGroup extends HttpServlet {
             group.getUsers().add(userDataManager.getUserData(username));
             group.getUsers().add(userDataManager.getUserData(addUser));
             manager.saveNewGroup(group);
+            User gotUser = userDataManager.getUserCompleteData(username);
+            gotUser.getGroups().add(group);
+//            userDataManager.modifyUser(gotUser);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");
