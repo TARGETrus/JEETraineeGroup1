@@ -20,11 +20,11 @@ public class HibernateTest {
         CommentDataManager commentDataManager = new CommentDataManager();
 
         Groupp group = new Groupp();
-        group.setGroupName("group");
+        group.setGroupName("group2");
         group.setGroupAdmin("name");
 
         Event event = new Event();
-        event.setEventName("event");
+        event.setEventName("event2");
         event.setDate("1.10.2014");
         event.setCoordinates("1444:2111");
         event.setLatitude(100F);
@@ -76,8 +76,13 @@ public class HibernateTest {
         //userDataManager.saveNewUser(testUser1);
         //commentDataManager.saveNewComment(comment1);
 
+        User gotUser = userDataManager.getUserCompleteData("name");
+        gotUser.getEvents().add(event);
+        userDataManager.modifyUser(gotUser);
+
         //userDataManager.changeUserPassword("name", "password");
 
+        /*
         User userCompleteData = userDataManager.getUserCompleteData("name");
         System.out.println(userCompleteData.toString());
         Set<Event> events = userCompleteData.getEvents();
@@ -119,6 +124,7 @@ public class HibernateTest {
         } else {
             System.out.println("Nothing found!!!");
         }
+        */
 
         //Groupp groups = groupDataManager.getGroupCompleteData("group");
         //System.out.println(groups);

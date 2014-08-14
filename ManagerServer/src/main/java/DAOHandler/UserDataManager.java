@@ -176,4 +176,22 @@ public class UserDataManager {
 
     }
 
+    // Delete foo
+    public void deleteUser(User user) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            userDAO.delete(user);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
 }

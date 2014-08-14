@@ -37,6 +37,19 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     }
 
+    public List<Event> findAll() {
+
+        Session hibernateSession = this.getSession();
+
+        List<Event> all = null;
+        Query query = hibernateSession.createQuery("from Event as event " +
+                "left join fetch event.users as users");
+        all = (List<Event>) query.list();
+
+        return all;
+
+    }
+
     public List<Event> searchEventData(String eventName) {
 
         Session hibernateSession = this.getSession();

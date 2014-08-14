@@ -10,6 +10,8 @@ public interface EventDAO extends GenericDAO<Event> {
 
     public Event getCompleteEventData(String name);
 
+    public List<Event> findAll();
+
     public List<Event> searchEventData(String eventName);
 
     public List<Event> searchByEventCollectionsData(String userName, String groupName);
