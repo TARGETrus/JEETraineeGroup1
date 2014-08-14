@@ -83,6 +83,23 @@
                 });
             });
 
+            google.maps.event.addListener(map, "rightclick", function (event) {
+                latitude = event.latLng.lat();
+                longitude = event.latLng.lng();
+                $.ajax({
+                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false",
+                    type: "POST",
+                    success: function (res) {
+                        var address = res.results[0].formatted_address;
+
+                        $("#addFilter").click();
+                        $(".form-control").val("")
+                        $("#point").val(address);
+
+
+                    }
+                });
+            });
 
             <!-- add markers-->
             $.post('eventjson',document.cookie,function(responseText) {
