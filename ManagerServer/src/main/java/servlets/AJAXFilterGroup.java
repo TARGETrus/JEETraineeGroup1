@@ -3,6 +3,7 @@ package servlets;
 
 import DAOHandler.GroupDataManager;
 import model.Groupp;
+import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -37,9 +38,9 @@ public class AJAXFilterGroup extends HttpServlet{
                 if(group.getGroupName().startsWith(groupName)){
                     ArrayList<String> gusers = new ArrayList<>();
                     JSONObject jsonGroup = new JSONObject();
-//                    for(User user: group.getUsers()){
-//                        gusers.add(user.getUserName());
-//                    }
+                    for(User user: group.getUsers()){
+                        gusers.add(user.getUserName());
+                    }
                     jsonGroup.put("userlist", gusers);
                     jsonGroup.put("groupname", group.getGroupName());
                     jsonarray.add(jsonGroup);
@@ -52,9 +53,9 @@ public class AJAXFilterGroup extends HttpServlet{
             for(Groupp group: groups){
                 ArrayList<String> gusers = new ArrayList<>();
                 JSONObject jsonGroup = new JSONObject();
-//                for(User user: group.getUsers()){
-//                    gusers.add(user.getUserName());
-//                }
+                for(User user: group.getUsers()){
+                    gusers.add(user.getUserName());
+                }
                 jsonGroup.put("userlist", gusers);
                 jsonGroup.put("groupname", group.getGroupName());
                 jsonarray.add(jsonGroup);

@@ -5,6 +5,7 @@ import DAOHandler.EventDataManager;
 import DAOHandler.FilterDataManager;
 import model.Event;
 import model.Filter;
+import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -44,9 +45,9 @@ public class AJAXFilterEvent extends HttpServlet{
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
                 JSONObject jsonEvent = new JSONObject();
-//               for(String user: event.getUsers()){
-//                    eusers.add(user.getUserName());
-//               }
+               for(User user: event.getUsers()){
+                    eusers.add(user.getUserName());
+                }
                 jsonEvent.put("userlist", eusers);
                 jsonEvent.put("lat", event.getLatitude());
                 jsonEvent.put("lng", event.getLongitude());

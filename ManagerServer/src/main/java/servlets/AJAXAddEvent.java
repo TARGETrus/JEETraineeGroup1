@@ -50,7 +50,7 @@ public class AJAXAddEvent extends HttpServlet {
             manager.saveNewEvent(event);
             User gotUser = userDataManager.getUserCompleteData(username);
             gotUser.getEvents().add(event);
-//            userDataManager.modifyUser(gotUser);
+            userDataManager.modifyUser(gotUser);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");

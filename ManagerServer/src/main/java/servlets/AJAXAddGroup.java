@@ -43,7 +43,7 @@ public class AJAXAddGroup extends HttpServlet {
             manager.saveNewGroup(group);
             User gotUser = userDataManager.getUserCompleteData(username);
             gotUser.getGroups().add(group);
-//            userDataManager.modifyUser(gotUser);
+            userDataManager.modifyUser(gotUser);
         } else {
             JSONObject obj = new JSONObject();
             obj.put("name", "error");
