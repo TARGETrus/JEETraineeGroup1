@@ -2,9 +2,7 @@ package servlets;
 
 
 import DAOHandler.EventDataManager;
-import DAOHandler.FilterDataManager;
 import model.Event;
-import model.Filter;
 import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,46 +29,60 @@ public class AJAXFilterEvent extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String eventFilter = req.getParameter("eventFilter");
-        String radius = req.getParameter("radius");
+        String rad = req.getParameter("radius");
         String userFilter = req.getParameter("userFilter");
+        String point = req.getParameter("point");
+        String lat = req.getParameter("lat");//Float.parseFloat(req.getParameter("lat"));
+        String lng = req.getParameter("lng");//Float.parseFloat(req.getParameter("lng"));
         String json;
-        if(eventFilter.length() != 0 || radius.length()!= 0 || userFilter.length() != 0){
-            Filter filter = new Filter();
+        float latitude = 0;
+        float longitude = 0;
+        float radius = 0;
+        if(rad.length() != 0 || lat.length() != 0 || lng.length() != 0)
+        {
+           latitude = Float.parseFloat(lat);
+            longitude = Float.parseFloat(lng);
+            radius = Float.parseFloat(rad);
+        }
+        if(radius != 0 || userFilter.length() != 0 || point.length() != 0 || latitude != 0 || longitude != 0){
+
             EventDataManager eventDataManager = new EventDataManager();
-            FilterDataManager filterDataManager = new FilterDataManager();
-            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
-            filter.setFilterName(eventFilter);
-//            filter.set
+//            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
+            List<Event> events = eventDataManager.getFilteredEventData(latitude, longitude, radius, userFilter, eventFilter, null);
             JSONArray jsonarray = new JSONArray();
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
                 JSONObject jsonEvent = new JSONObject();
-               for(User user: event.getUsers()){
+                for(User user: event.getUsers()){
                     eusers.add(user.getUserName());
                 }
                 jsonEvent.put("userlist", eusers);
-                jsonEvent.put("lat", event.getLatitude());
-                jsonEvent.put("lng", event.getLongitude());
+//                jsonEvent.put("lat", event.getLatitude());
+//                jsonEvent.put("lng", event.getLongitude());
                 jsonEvent.put("eventname", event.getEventName());
                 jsonEvent.put("address", event.getCoordinates());
                 jsonarray.add(jsonEvent);
             }
             json = jsonarray.toJSONString();
 
-
-            List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
-
-            if (filtEvent != null) {
-                System.out.println("filter " + filtEvent.toString());
-            } else {
-                System.out.println("Nothing found!!!");
-            }
-
-
         }else {
-            JSONObject obj = new JSONObject();
-            obj.put("message", "error");
-            json = obj.toJSONString();
+            EventDataManager eventDataManager = new EventDataManager();
+            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
+            JSONArray jsonarray = new JSONArray();
+            for(Event event: events){
+                ArrayList<String> eusers = new ArrayList<>();
+                JSONObject jsonEvent = new JSONObject();
+                for(User user: event.getUsers()){
+                    eusers.add(user.getUserName());
+                }
+                jsonEvent.put("userlist", eusers);
+//                jsonEvent.put("lat", event.getLatitude());
+//                jsonEvent.put("lng", event.getLongitude());
+                jsonEvent.put("eventname", event.getEventName());
+                jsonEvent.put("address", event.getCoordinates());
+                jsonarray.add(jsonEvent);
+            }
+            json = jsonarray.toJSONString();;
         }
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

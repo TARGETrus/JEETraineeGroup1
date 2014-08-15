@@ -1,13 +1,7 @@
 <%@page import="model.User"%>
 <%@page language="java" contentType="text/html; charset=US-ASCII"
         pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="com.google.common.collect.Maps" %>
-<%@ page import="servlets.MapServlet" %>
-<%@ page import="org.json.JSONObject" %>
-<%@ page import="util.JsonReader" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -39,6 +33,7 @@
     <script src="js/eventgson.js"></script>
     <script src="js/AJAXEventsFilter.js"></script>
     <script src="js/AJAXGroupFilter.js"></script>
+    <script src="js/AJAXFilterList.js"></script>
     <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css" />
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
@@ -77,6 +72,24 @@
                         $("#addEvent").click();
                         $(".form-control").val("")
                         $("#coord").val(address);
+
+
+                    }
+                });
+            });
+
+            google.maps.event.addListener(map, "rightclick", function (event) {
+                latitude = event.latLng.lat();
+                longitude = event.latLng.lng();
+                $.ajax({
+                    url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false",
+                    type: "POST",
+                    success: function (res) {
+                        var address = res.results[0].formatted_address;
+
+                        $("#addFilter").click();
+                        $(".form-control").val("")
+                        $("#point").val(address);
 
 
                     }
@@ -183,7 +196,11 @@
                                     <span class="input-group-addon"> km</span>
                                 </div>
                                 <input class="form-control" name="userFilter" id="userFilter" type="text" placeholder="User name" style="margin: 5px"><br>
-                                <button type="button" id="btnFilter" class="btn btn-default btn-lg btn-block">Add Filter!</button>
+                                <div class="btn-group" style="float: right;">
+                                    <button type="button" id="btnFilterApply" class="btn btn-default">Apply</button>
+                                    <button type="button" id="btnFilterSave" onclick="saveFilterFromPage()" class="btn btn-default">Save</button>
+                                    <button type="button" id="btnFilterDel" class="btn btn-default">Del</button>
+                                </div>
                             </form>
                         </div>
                     </li>
@@ -199,8 +216,8 @@
                         <form class="form" id="formGroup" style="margin: 5px">
                             <div id="grouplog"></div>
                             <input class="form-control" name="groupName" id="groupname" type="text" placeholder="Group name" style="margin: 5px">
-                            <input class="form-control" name="usersList" id="userslist" type="text" placeholder="Add users/ notwork" style="margin: 5px">
-                            <input class="form-control" name="eventsList" id="eventslist" type="text" placeholder="Add events/ notwork" style="margin: 5px">
+                            <%--<input class="form-control" name="usersList" id="userslist" type="text" placeholder="Add users/ notwork" style="margin: 5px">--%>
+                            <%--<input class="form-control" name="eventsList" id="eventslist" type="text" placeholder="Add events/ notwork" style="margin: 5px">--%>
 
                             <button type="button" id="btnGroup" class="btn btn-default btn-lg btn-block">Add Group!</button>
                         </form>

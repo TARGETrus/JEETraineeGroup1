@@ -16,8 +16,6 @@ $().ready(function() {
                     var lng = longitude;
                 }
 
-
-                alert(address);
                 var coord = {"lat": lat, "lng":lng};
                 if(lat != 0 && lng != 0){
                     var eventform = $('#formEvent').find("#eventname, #date, #coord").serialize() + '&' + $.param({"lat": lat, "lng":lng, "address": address}) + '&' + document.cookie;
@@ -58,13 +56,13 @@ $().ready(function() {
                             }
                         }
 
-                });
-            }else {
-                form.empty();
-        form.css("color", "red");
-        form.append("incorrct date :(")
-    }
-}
-});
-});
+                    });
+                }else {
+                    form.empty();
+                    form.css("color", "red");
+                    form.append("incorrct date :(")
+                }
+            }
+        });
+    });
 });

@@ -6,15 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>PartyMap</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <link href="css/dopstyle.css" rel="stylesheet" media="screen">
-    <link href="css/style.css" rel="stylesheet" media="screen">
-
 
     <%
         String eventname = request.getParameter("eventname");
@@ -33,24 +24,35 @@
             }
             response.sendRedirect("main.jsp");
         }
-
     %>
     <meta charset="UTF-8">
     <title id="title">Event <%=eventname%></title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="js/AJAXAddUserToGroupEvent.js"></script>
+    <link href="css/dopstyle.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
     <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
 
-<form class="login">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
 
-    <div class="login-card">
-        <h1>Event <%=eventname%></h1>
-        <%String eventInfo = event.toString();%>
-        <div class="col-md" style="font-size: 25px">
-            <%=eventInfo%>
+
+            <h1>Event <div id="event"><%=eventname%></div></h1>
+            <%String eventInfo = event.toString();%>
+            <div class="col-md" style="font-size: 25px">
+                <%=eventInfo%>
+            </div>
+            <button type="button" class="btn btn-default" id="eventAdd">Add me!</button>
         </div>
-</form>
+    </div>
+</div>
 </body>
 </html>
