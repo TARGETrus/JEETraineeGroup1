@@ -33,16 +33,16 @@ public class Event {
     @Column(name="event_admin", length=255, nullable=false)
     private String eventAdmin;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "events")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "events")
     private Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
     private Set<Groupp> groups = new HashSet<Groupp>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Comment> comments = new HashSet<Comment>();
 
     public  Event() {}

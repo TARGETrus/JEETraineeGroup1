@@ -21,10 +21,10 @@ public class Groupp {
     @Column(name="group_admin", length=255, nullable=false)
     private String groupAdmin;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "groups")
     private Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "groups")
     private Set<Event> events = new HashSet<Event>();
 
     public Groupp() {}

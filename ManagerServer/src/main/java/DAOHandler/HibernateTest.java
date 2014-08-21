@@ -71,14 +71,14 @@ public class HibernateTest {
         comment1.setComment("comment description");
         comment1.setEvent(event1);
 
-        //userDataManager.saveNewUser(testUser);
-        //commentDataManager.saveNewComment(comment);
-        //userDataManager.saveNewUser(testUser1);
-        //commentDataManager.saveNewComment(comment1);
+        userDataManager.saveNewUser(testUser);
+        commentDataManager.saveNewComment(comment);
+        userDataManager.saveNewUser(testUser1);
+        commentDataManager.saveNewComment(comment1);
 
-        User gotUser = userDataManager.getUserCompleteData("name");
-        gotUser.getEvents().add(event);
-        userDataManager.modifyUser(gotUser);
+        //User gotUser = userDataManager.getUserCompleteData("name");
+        //gotUser.getEvents().add(event);
+        //userDataManager.modifyUser(gotUser);
 
         //userDataManager.changeUserPassword("name", "password");
 
@@ -116,15 +116,15 @@ public class HibernateTest {
         } else {
             System.out.println("Nothing found!!!");
         }
+        */
 
-        List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
+        List<Event> filtEvent = eventDataManager.getFilteredEventData(100.12F, 100.12F, 5.24F, null, null, null);
 
         if (filtEvent != null) {
             System.out.println("filter " + filtEvent.toString());
         } else {
             System.out.println("Nothing found!!!");
         }
-        */
 
         //Groupp groups = groupDataManager.getGroupCompleteData("group");
         //System.out.println(groups);

@@ -20,7 +20,8 @@ public class LoginServlet extends HttpServlet {
 
     private final String userID = "leo";
     private final String password = "pass";
-
+    int z = 0X1C;
+    int x = z  = 0;
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
         // get request parameters for userID and password

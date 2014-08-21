@@ -1,4 +1,4 @@
-package xmlAPIServlets;
+package webAppAPI.get;
 
 import DAOHandler.EventDataManager;
 import model.Event;
@@ -29,17 +29,20 @@ public class GetEvent extends HttpServlet {
     private static final String errormsg = "Internal Error occupied, while recieving an event";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
 
+    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
        
         try {
+
         	Event event = eventDataManager.getEventCompleteData(name);
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
 			XMLEventWriter.write(out, event);
-		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
-		}
 
+		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
+
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
+
+		}
 
     }
 
