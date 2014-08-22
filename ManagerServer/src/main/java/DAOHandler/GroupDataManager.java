@@ -3,42 +3,44 @@ package DAOHandler;
 import DAO.*;
 import model.Groupp;
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.acl.Group;
 import java.util.List;
 
+@Service
 public class GroupDataManager {
 
-    private GroupDAO groupDAO = new GroupDAOImpl();
+    @Autowired
+    private GroupDAO groupDAO;
 
     // Create foo
+    @Transactional
     public void saveNewGroup(Groupp group) {
 
         try {
 
-            HibernateUtil.beginTransaction();
             groupDAO.save(group);
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
 
         }
 
     }
 
     // Get foo
+    @Transactional
     public Groupp getGroupData(String name) {
 
         Groupp group = null;
 
         try {
 
-            HibernateUtil.beginTransaction();
             group = (Groupp) groupDAO.getGroupData(name);
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
@@ -50,15 +52,14 @@ public class GroupDataManager {
 
     }
 
+    @Transactional
     public Groupp getGroupCompleteData(String name) {
 
         Groupp group = null;
 
         try {
 
-            HibernateUtil.beginTransaction();
             group = (Groupp) groupDAO.getCompleteGroupData(name);
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
@@ -70,15 +71,14 @@ public class GroupDataManager {
 
     }
 
+    @Transactional
     public List<Groupp> getAllGroups() {
 
         List<Groupp> group = null;
 
         try {
 
-            HibernateUtil.beginTransaction();
             group = (List<Groupp>) groupDAO.findAll();
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
@@ -91,36 +91,32 @@ public class GroupDataManager {
     }
 
     // Modify foo
+    @Transactional
     public void modifyGroup(Groupp group) {
 
         try {
 
-            HibernateUtil.beginTransaction();
             groupDAO.merge(group);
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
 
         }
 
     }
 
     // Delete foo
+    @Transactional
     public void deleteGroup(Groupp group) {
 
         try {
 
-            HibernateUtil.beginTransaction();
             groupDAO.delete(group);
-            HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
-            HibernateUtil.rollbackTransaction();
 
         }
 

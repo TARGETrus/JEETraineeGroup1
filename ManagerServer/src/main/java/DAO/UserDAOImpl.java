@@ -3,14 +3,14 @@ package DAO;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
     public User getUserData(String name) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from User as user " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from User as user " +
                 "where user.userName = :name");
         query.setString("name", name);
 
@@ -20,9 +20,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
     public User getCompleteUserData(String name) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from User as user " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from User as user " +
                 "left join fetch user.events as events " +
                 "left join fetch events.users " +
                 "left join fetch events.groups " +

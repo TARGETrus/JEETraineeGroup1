@@ -3,18 +3,18 @@ package DAO;
 import model.Event;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public Event getEventData(String name) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "where event.eventName = :name");
         query.setString("name", name);
 
@@ -24,9 +24,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public Event getCompleteEventData(String name) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "left join fetch event.groups as groups " +
                 "left join fetch event.users as users " +
                 "left join fetch event.comments as comments " +
@@ -39,10 +37,8 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public List<Event> findAll() {
 
-        Session hibernateSession = this.getSession();
-
         List<Event> all = null;
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "left join fetch event.users as users");
         all = (List<Event>) query.list();
 
@@ -52,9 +48,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public List<Event> searchEventData(String eventName) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "where event.eventName like :eventName");
         query.setString("eventName", '%' + eventName + '%');
 
@@ -64,9 +58,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public List<Event> searchByEventCollectionsData(String userName, String groupName) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "left join fetch event.groups as groups " +
                 "left join fetch event.users as users " +
                 "left join fetch event.comments as comments " +
@@ -80,9 +72,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
     public List<Event> getCloseEventData(Float latitude, Float longitude, Float radius) {
 
-        Session hibernateSession = this.getSession();
-
-        Query query = hibernateSession.createQuery("from Event as event " +
+        Query query = sessionFactory.getCurrentSession().createQuery("from Event as event " +
                 "where (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
         query.setFloat("latitude", Math.abs(latitude));
         query.setFloat("longitude", Math.abs(longitude));
@@ -93,8 +83,6 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
     }
 
     public List<Event> getFilteredEventData(Float latitude, Float longitude, Float radius, String userName, String eventName, String groupName) {
-
-        Session hibernateSession = this.getSession();
 
         if (latitude != null)  latitude  = Math.abs(latitude);
         if (longitude != null) longitude = Math.abs(longitude);
@@ -129,7 +117,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
             queryString.append("and (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
         }
 
-        Query query = hibernateSession.createQuery(queryString.toString());
+        Query query = sessionFactory.getCurrentSession().createQuery(queryString.toString());
 
         for (String statement : query.getNamedParameters()) {
             query.setParameter(statement, params.get(statement));

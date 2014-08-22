@@ -1,15 +1,16 @@
 package DAOHandler;
 
-import DAO.HibernateUtil;
 import model.Comment;
 import model.Event;
 import model.Groupp;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 public class HibernateTest {
+
 
     public static void main(String[] args) {
 
@@ -128,8 +129,6 @@ public class HibernateTest {
 
         //Groupp groups = groupDataManager.getGroupCompleteData("group");
         //System.out.println(groups);
-
-        HibernateUtil.closeFactory();
 
     }
 

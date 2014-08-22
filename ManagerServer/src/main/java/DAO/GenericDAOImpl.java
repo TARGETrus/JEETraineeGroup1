@@ -1,54 +1,63 @@
 package DAO;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
-    protected Session getSession() {
-        return HibernateUtil.getSession();
+    @Autowired
+    protected SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public void save(T entity) {
-        Session hibernateSession = this.getSession();
-        hibernateSession.saveOrUpdate(entity);
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
     public void merge(T entity) {
-        Session hibernateSession = this.getSession();
-        hibernateSession.merge(entity);
+        sessionFactory.getCurrentSession().merge(entity);
     }
 
     public void delete(T entity) {
-        Session hibernateSession = this.getSession();
-        hibernateSession.delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
+    @SuppressWarnings("unchecked")
     public T findOne(Query query) {
         T one;
         one = (T) query.uniqueResult();
         return one;
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> findMany(Query query) {
         List<T> many;
         many = (List<T>) query.list();
         return many;
     }
 
+    @SuppressWarnings("unchecked")
     public T findByID(Class clazz, int id) {
-        Session hibernateSession = this.getSession();
         T one = null;
-        one = (T) hibernateSession.get(clazz, id);
+        one = (T) sessionFactory.getCurrentSession().get(clazz, id);
         return one;
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> findAll(Class clazz) {
-        Session hibernateSession = this.getSession();
         List<T> all = null;
-        Query query = hibernateSession.createQuery("from " + clazz.getName());
+        Query query = sessionFactory.getCurrentSession().createQuery("from " + clazz.getName());
         all = (List<T>) query.list();
         return all;
     }
