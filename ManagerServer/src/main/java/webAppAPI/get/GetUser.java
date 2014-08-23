@@ -30,7 +30,7 @@ public class GetUser extends HttpServlet {
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
-    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
+    	String name = (String) request.getParameter(XMLTagNames.user_userName);
         
         try {
 

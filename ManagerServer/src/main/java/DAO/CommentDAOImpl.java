@@ -11,6 +11,7 @@ public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDA
         Session hibernateSession = this.getSession();
 
         Query query = hibernateSession.createQuery("from Comment as comment " +
+                "left join fetch comment.event " +
                 "where comment.commentName = :name");
         query.setString("name", name);
 

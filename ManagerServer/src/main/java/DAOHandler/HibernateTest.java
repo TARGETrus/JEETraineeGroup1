@@ -1,10 +1,7 @@
 package DAOHandler;
 
 import DAO.HibernateUtil;
-import model.Comment;
-import model.Event;
-import model.Groupp;
-import model.User;
+import model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -61,6 +58,16 @@ public class HibernateTest {
         testUser1.getEvents().add(event1);
         testUser1.getGroups().add(group1);
 
+        Filter filter = new Filter();
+        filter.setFilterName("filter");
+        filter.setFilterData("asd:asd dsa:dsa");
+        filter.setUser(testUser);
+
+        Filter filter1 = new Filter();
+        filter1.setFilterName("filter1");
+        filter1.setFilterData("asd:asd dsa:dsa");
+        filter1.setUser(testUser1);
+
         Comment comment = new Comment();
         comment.setCommentName("comment");
         comment.setComment("comment description");
@@ -74,10 +81,13 @@ public class HibernateTest {
         groupDataManager.saveNewGroup(group);
         eventDataManager.saveNewEvent(event);
         userDataManager.saveNewUser(testUser);
+        filterDataManager.saveNewFilter(filter);
         commentDataManager.saveNewComment(comment);
+
         groupDataManager.saveNewGroup(group1);
         eventDataManager.saveNewEvent(event1);
         userDataManager.saveNewUser(testUser1);
+        filterDataManager.saveNewFilter(filter1);
         commentDataManager.saveNewComment(comment1);
 
         //User gotUser = userDataManager.getUserCompleteData("name");

@@ -11,6 +11,7 @@ public class FilterDAOImpl extends GenericDAOImpl<Filter> implements FilterDAO {
         Session hibernateSession = this.getSession();
 
         Query query = hibernateSession.createQuery("from Filter as filter " +
+                "left join fetch filter.user " +
                 "where filter.filterName = :name");
         query.setString("name", name);
 
