@@ -1,7 +1,7 @@
-package xmlAPIServlets;
+package webAppAPI.get;
 
-import DAOHandler.GroupDataManager;
-import model.Groupp;
+import DAOHandler.UserDataManager;
+import model.User;
 
 import java.io.IOException;
 
@@ -15,33 +15,34 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import xmlModelWriter.XMLGroupWriter;
 import xmlModelWriter.XMLTagNames;
+import xmlModelWriter.XMLUserWriter;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/GetGroup")
-public class GetGroup extends HttpServlet {
+@WebServlet("/GetUser")
+public class GetUser extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private GroupDataManager groupDataManager = new GroupDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving a group";
+    private UserDataManager userDataManager = new UserDataManager();
+    private static final String errormsg = "Internal Error occupied, while recieving a user";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-    	String name = (String) request.getParameter(XMLTagNames.comment_commentName);
 
-      
-
+    	String name = (String) request.getParameter(XMLTagNames.user_userName);
+        
         try {
-        	 Groupp group = groupDataManager.getGroupCompleteData(name);
 
+        	User user = userDataManager.getUserCompleteData(name);
 			XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(response.getWriter());
-			XMLGroupWriter.write(out, group);
-		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
-		}
+			XMLUserWriter.write(out, user);
 
+		} catch (XMLStreamException | FactoryConfigurationError | NullPointerException e) {
+
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, errormsg);
+
+		}
 
     }
 

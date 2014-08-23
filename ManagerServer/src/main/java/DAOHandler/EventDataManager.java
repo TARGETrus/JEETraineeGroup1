@@ -1,16 +1,17 @@
 package DAOHandler;
 
-import DAO.EventDAO;
-import DAO.EventDAOImpl;
-import DAO.HibernateUtil;
+import DAO.*;
+import model.Comment;
 import model.Event;
+import model.User;
 import org.hibernate.HibernateException;
 
 import java.util.List;
 
 public class EventDataManager {
 
-    private EventDAO eventDAO = new EventDAOImpl();
+    private EventDAO   eventDAO   = new EventDAOImpl();
+    private CommentDAO commentDAO = new CommentDAOImpl();
 
     // Create foo
     public void saveNewEvent(Event event) {
@@ -109,19 +110,179 @@ public class EventDataManager {
 
     }
 
-    // Delete foo
-    public void deleteEvent(Event event) {
+    public void changeEventName(String eventName, String name) {
+
+        Event event = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            eventDAO.delete(event);
+            event = eventDAO.getEventData(eventName);
+
+            event.setEventName(name);
+
+            eventDAO.merge(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
             HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeEventCoordinates(String eventName, String coordinates) {
+
+        Event event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = eventDAO.getEventData(eventName);
+
+            event.setCoordinates(coordinates);
+
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeEventLatitude(String eventName, Float latitude) {
+
+        Event event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = eventDAO.getEventData(eventName);
+
+            event.setLatitude(latitude);
+
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeEventLongitude(String eventName, Float longitude) {
+
+        Event event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = eventDAO.getEventData(eventName);
+
+            event.setLongitude(longitude);
+
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeEventDate(String eventName, String date) {
+
+        Event event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = eventDAO.getEventData(eventName);
+
+            event.setDate(date);
+
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeEventAdmin(String eventName, String admin) {
+
+        Event event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = eventDAO.getEventData(eventName);
+
+            event.setEventAdmin(admin);
+
+            eventDAO.merge(event);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public boolean deleteEvent(Event event) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+
+            event = (Event) eventDAO.getCompleteEventData(event.getEventName());
+
+            for (User user : event.getUsers()) {
+
+                user.getEvents().remove(event);
+
+            }
+
+            for (Comment comment : event.getComments()) {
+
+                commentDAO.delete(comment);
+
+            }
+
+            event.getComments().remove(event);
+
+            eventDAO.delete(event);
+
+            HibernateUtil.commitTransaction();
+
+            return true;
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+            return false;
 
         }
 

@@ -1,6 +1,7 @@
 package DAOHandler;
 
 import DAO.*;
+import model.Filter;
 import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -9,7 +10,8 @@ import java.util.List;
 
 public class UserDataManager {
 
-    private UserDAO userDAO = new UserDAOImpl();
+    private UserDAO   userDAO   = new UserDAOImpl();
+    private FilterDAO filterDAO = new FilterDAOImpl();
 
     // Create foo
     public void saveNewUser(User user) {
@@ -176,19 +178,56 @@ public class UserDataManager {
 
     }
 
-    // Delete foo
-    public void deleteUser(User user) {
+    public void changeUserRole(String userName, String role) {
+
+        User user = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            userDAO.delete(user);
+            user = userDAO.getUserData(userName);
+
+            user.setRole(role);
+
+            userDAO.merge(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
             HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public boolean deleteUser(User user) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+
+            user = (User) userDAO.getCompleteUserData(user.getUserName());
+
+            for (Filter filter : user.getFilters()) {
+
+                filterDAO.delete(filter);
+
+            }
+
+            userDAO.delete(user);
+
+            HibernateUtil.commitTransaction();
+
+            return true;
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+            return false;
 
         }
 

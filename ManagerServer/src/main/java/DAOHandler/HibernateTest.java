@@ -1,10 +1,7 @@
 package DAOHandler;
 
 import DAO.HibernateUtil;
-import model.Comment;
-import model.Event;
-import model.Groupp;
-import model.User;
+import model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -61,6 +58,16 @@ public class HibernateTest {
         testUser1.getEvents().add(event1);
         testUser1.getGroups().add(group1);
 
+        Filter filter = new Filter();
+        filter.setFilterName("filter");
+        filter.setFilterData("asd:asd dsa:dsa");
+        filter.setUser(testUser);
+
+        Filter filter1 = new Filter();
+        filter1.setFilterName("filter1");
+        filter1.setFilterData("asd:asd dsa:dsa");
+        filter1.setUser(testUser1);
+
         Comment comment = new Comment();
         comment.setCommentName("comment");
         comment.setComment("comment description");
@@ -71,14 +78,21 @@ public class HibernateTest {
         comment1.setComment("comment description");
         comment1.setEvent(event1);
 
-        //userDataManager.saveNewUser(testUser);
-        //commentDataManager.saveNewComment(comment);
-        //userDataManager.saveNewUser(testUser1);
-        //commentDataManager.saveNewComment(comment1);
+        groupDataManager.saveNewGroup(group);
+        eventDataManager.saveNewEvent(event);
+        userDataManager.saveNewUser(testUser);
+        filterDataManager.saveNewFilter(filter);
+        commentDataManager.saveNewComment(comment);
 
-        User gotUser = userDataManager.getUserCompleteData("name");
-        gotUser.getEvents().add(event);
-        userDataManager.modifyUser(gotUser);
+        groupDataManager.saveNewGroup(group1);
+        eventDataManager.saveNewEvent(event1);
+        userDataManager.saveNewUser(testUser1);
+        filterDataManager.saveNewFilter(filter1);
+        commentDataManager.saveNewComment(comment1);
+
+        //User gotUser = userDataManager.getUserCompleteData("name");
+        //gotUser.getEvents().add(event);
+        //userDataManager.modifyUser(gotUser);
 
         //userDataManager.changeUserPassword("name", "password");
 
@@ -116,15 +130,15 @@ public class HibernateTest {
         } else {
             System.out.println("Nothing found!!!");
         }
-
-        List<Event> filtEvent = eventDataManager.getFilteredEventData(0F, 0F, null, null, "event", null);
-
-        if (filtEvent != null) {
-            System.out.println("filter " + filtEvent.toString());
-        } else {
-            System.out.println("Nothing found!!!");
-        }
         */
+
+        //List<Event> filtEvent = eventDataManager.getFilteredEventData(100.12F, 100.12F, 5.24F, null, null, null);
+
+        //if (filtEvent != null) {
+        //    System.out.println("filter " + filtEvent.toString());
+        //} else {
+        //    System.out.println("Nothing found!!!");
+        //}
 
         //Groupp groups = groupDataManager.getGroupCompleteData("group");
         //System.out.println(groups);

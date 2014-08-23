@@ -19,8 +19,8 @@ function addGroupOnPage() {
                     "<span class=\"sr-only\">Toggle Dropdown</span>" +
                     "</button>" +
                     "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" +
-                    "<li><a href=\"#\">Modify group</a></li>" +
-                    "<li><a href=\"#\">Delete group</a></li>" +
+                    "<li><a href=\"editGroup.jsp?entityName=" + responseText[i].groupname + "\">Modify group</a></li>" +
+                    "<li><a href=\"delete_entity?entityType=group&entityName=" + responseText[i].groupname + "\">Delete group</a></li>" +
                     "</ul></div></p>");
 
             }

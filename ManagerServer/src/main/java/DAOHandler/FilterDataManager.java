@@ -90,7 +90,7 @@ public class FilterDataManager {
     }
 
     // Delete foo
-    public void deleteFilter(Filter filter) {
+    public boolean deleteFilter(Filter filter) {
 
         try {
 
@@ -98,10 +98,14 @@ public class FilterDataManager {
             filterDAO.delete(filter);
             HibernateUtil.commitTransaction();
 
+            return true;
+
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
             HibernateUtil.rollbackTransaction();
+
+            return false;
 
         }
 

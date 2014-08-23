@@ -1,6 +1,5 @@
 package xmlModelWriter;
 
-
 import java.util.Iterator;
 
 import javax.xml.stream.XMLStreamException;
@@ -12,7 +11,6 @@ import model.Groupp;
 import model.User;
 
 public class XMLEventWriter{
-	
 	
 	public static void write(XMLStreamWriter out,Event event) throws XMLStreamException{
 		if (event == null) throw new XMLStreamException();
@@ -30,29 +28,35 @@ public class XMLEventWriter{
 				out.writeEndElement();
 			}
 			
-			if (event.getEventName() != null){
+			if (event.getCoordinates() != null){
 				out.writeStartElement(XMLTagNames.event_coordinates);
 				out.writeCharacters(event.getCoordinates());
 				out.writeEndElement();
 			}
 			
-			if (event.getEventName() != null){
+			if (event.getLatitude() != null){
 				out.writeStartElement(XMLTagNames.event_latitude);
 				out.writeCharacters(event.getLatitude().toString());
 				out.writeEndElement();
 			}
 			
-			if (event.getEventName() != null){
+			if (event.getLongitude() != null){
 				out.writeStartElement(XMLTagNames.event_longitude);
 				out.writeCharacters(event.getLongitude().toString());
 				out.writeEndElement();
 			}
 			
-			if (event.getEventName() != null){
+			if (event.getDate() != null){
 				out.writeStartElement(XMLTagNames.event_date);
 				out.writeCharacters(event.getDate());
 				out.writeEndElement();
 			}
+
+            if (event.getEventAdmin() != null){
+                out.writeStartElement(XMLTagNames.event_admin);
+                out.writeCharacters(event.getEventAdmin());
+                out.writeEndElement();
+            }
 			
 			Iterator<User> uitr = (event.getUsers()!=null) ? event.getUsers().iterator(): null;
 			while(uitr!=null && uitr.hasNext()){
@@ -73,14 +77,13 @@ public class XMLEventWriter{
 			Iterator<Comment> citr = (event.getComments()!=null) ? event.getComments().iterator(): null;
 			while(citr!=null &&  citr.hasNext()){
 				Comment comment = citr.next();
-				out.writeStartElement(XMLTagNames.comment);
+				out.writeStartElement(XMLTagNames.event_comment);
 				XMLCommentWriter.writeLikeElement(out, comment);
 				out.writeEndElement();
 			}
 			
 		out.writeEndElement();
 		out.writeEndElement();
-		
 
 	}
 	
@@ -95,6 +98,7 @@ public class XMLEventWriter{
 			out.writeCharacters(event.getEventName());
 			out.writeEndElement();
 		}
+
 	}
 	
 }

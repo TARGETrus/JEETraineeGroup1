@@ -37,9 +37,9 @@
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
-    <error-page>
+    <!--<error-page>
         <location>/error.html</location>
-    </error-page>
+    </error-page>-->
 
 
     <servlet>

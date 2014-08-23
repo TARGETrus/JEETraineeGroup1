@@ -88,7 +88,7 @@ public class CommentDataManager {
     }
 
     // Delete foo
-    public void deleteComment(Comment comment) {
+    public boolean deleteComment(Comment comment) {
 
         try {
 
@@ -96,10 +96,14 @@ public class CommentDataManager {
             commentDAO.delete(comment);
             HibernateUtil.commitTransaction();
 
+            return true;
+
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
             HibernateUtil.rollbackTransaction();
+
+            return false;
 
         }
 

@@ -19,8 +19,8 @@ function addEventOnPage() {
                     "<span class=\"sr-only\">Toggle Dropdown</span>" +
                     "</button>" +
                     "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" +
-                    "<li><a href=\"#\">Modify event</a></li>" +
-                    "<li><a href=\"#\">Delete event</a></li>" +
+                    "<li><a href=\"editEvent.jsp?entityName=" + responseText[i].eventname + "\">Modify event</a></li>" +
+                    "<li><a href=\"delete_entity?entityType=event&entityName=" + responseText[i].eventname + "\">Delete event</a></li>" +
                     "</ul></div></p>");
 
             }

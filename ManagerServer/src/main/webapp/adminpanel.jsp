@@ -20,6 +20,7 @@
             if(!manager.getUserData(userName).getRole().equals("admin")){
                 response.sendRedirect("/main");
             }
+
         %>
 
         <meta charset="UTF-8">
@@ -139,8 +140,8 @@
                                     <div id="grouplog"></div>
 
                                     <input class="form-control" name="groupName" id="groupname" type="text" placeholder="Group name" style="margin: 5px">
-                                    <input class="form-control" name="usersList" id="userslist" type="text" placeholder="Add users/ notwork" style="margin: 5px">
-                                    <input class="form-control" name="eventsList" id="eventslist" type="text" placeholder="Add events/ notwork" style="margin: 5px">
+                                    <%--<input class="form-control" name="usersList" id="userslist" type="text" placeholder="Add users/ notwork" style="margin: 5px">--%>
+                                    <%--<input class="form-control" name="eventsList" id="eventslist" type="text" placeholder="Add events/ notwork" style="margin: 5px">--%>
 
                                     <button type="button" id="btnGroup" class="btn btn-default btn-lg btn-block">Add Group!</button>
 

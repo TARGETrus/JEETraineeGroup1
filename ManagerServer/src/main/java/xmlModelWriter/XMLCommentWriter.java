@@ -1,12 +1,12 @@
 package xmlModelWriter;
 
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import model.Comment;
 
 public class XMLCommentWriter{
+
 	public static void write(XMLStreamWriter out,Comment comment) throws XMLStreamException{
 		if (comment == null) throw new XMLStreamException();
 		
@@ -34,14 +34,12 @@ public class XMLCommentWriter{
 				XMLEventWriter.writeLikeElement(out, comment.getEvent());
 				out.writeEndElement();
 			}
-			
 		
 		out.writeEndElement();
 		out.writeEndElement();
 	
 	}
-	
-	
+
 	public static void writeLikeElement(XMLStreamWriter out,Comment comment) throws XMLStreamException{
 				
 		out.writeStartElement(XMLTagNames.comment_commentID);
@@ -53,8 +51,7 @@ public class XMLCommentWriter{
 			out.writeCharacters(comment.getCommentName());
 			out.writeEndElement();
 		}
-	
-		
+
 	}
 	
-	}
+}

@@ -1,10 +1,11 @@
 package DAOHandler;
 
 import DAO.*;
+import model.Event;
 import model.Groupp;
+import model.User;
 import org.hibernate.HibernateException;
 
-import java.security.acl.Group;
 import java.util.List;
 
 public class GroupDataManager {
@@ -108,19 +109,85 @@ public class GroupDataManager {
 
     }
 
-    // Delete foo
-    public void deleteGroup(Groupp group) {
+    public void changeGroupName(String groupName, String name) {
+
+        Groupp group = null;
 
         try {
 
             HibernateUtil.beginTransaction();
-            groupDAO.delete(group);
+            group = groupDAO.getGroupData(groupName);
+
+            group.setGroupName(name);
+
+            groupDAO.merge(group);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
 
             System.out.println("Hibernate exception: " + e.getMessage());
             HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    public void changeGroupAdmin(String groupName, String admin) {
+
+        Groupp group = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            group = groupDAO.getGroupData(groupName);
+
+            group.setGroupAdmin(admin);
+
+            groupDAO.merge(group);
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+        }
+
+    }
+
+    // Delete foo
+    public boolean deleteGroup(Groupp group) {
+
+        try {
+
+            HibernateUtil.beginTransaction();
+
+            group = (Groupp) groupDAO.getCompleteGroupData(group.getGroupName());
+
+            for (User user : group.getUsers()) {
+
+                user.getGroups().remove(group);
+
+            }
+
+            for (Event event : group.getEvents()) {
+
+                event.getGroups().remove(group);
+
+            }
+
+            groupDAO.delete(group);
+
+            HibernateUtil.commitTransaction();
+
+            return true;
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+
+            return false;
 
         }
 

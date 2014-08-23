@@ -30,16 +30,16 @@ public class AJAXAddGroup extends HttpServlet {
         if(groupName.length() != 0){
             GroupDataManager manager = new GroupDataManager();
             UserDataManager userDataManager = new UserDataManager();
-            EventDataManager eventDataManager = new EventDataManager();
+            //EventDataManager eventDataManager = new EventDataManager();
             JSONObject obj = new JSONObject();
             obj.put("name", "add_group");
             str = obj.toJSONString();
             Groupp group = new Groupp();
             group.setGroupName(groupName);
             group.setGroupAdmin(username);
-            group.getEvents().add(eventDataManager.getEventData(addEvent));//TODO не заносит в базу
-            group.getUsers().add(userDataManager.getUserData(username));
-            group.getUsers().add(userDataManager.getUserData(addUser));
+            //group.getEvents().add(eventDataManager.getEventData(addEvent));//TODO не заносит в базу
+            //group.getUsers().add(userDataManager.getUserData(username));
+            //group.getUsers().add(userDataManager.getUserData(addUser));
             manager.saveNewGroup(group);
             User gotUser = userDataManager.getUserCompleteData(username);
             gotUser.getGroups().add(group);

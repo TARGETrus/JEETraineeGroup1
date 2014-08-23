@@ -17,8 +17,8 @@ function addUserOnPage() {
                 "<span class=\"sr-only\">Toggle Dropdown</span>" +
                 "</button>" +
                 "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" +
-                "<li><a href=\"#\">Modify user</a></li>" +
-                "<li><a href=\"#\">Delete user</a></li>" +
+                "<li><a href=\"editUser.jsp?entityName=" + responseText[i].username + "\">Modify user</a></li>" +
+                "<li><a href=\"delete_entity?entityType=user&entityName=" + responseText[i].username + "\">Delete user</a></li>" +
                 "</ul></div></p>");
 
         }

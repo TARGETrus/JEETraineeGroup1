@@ -87,7 +87,7 @@ public class AJAXFilterEvent extends HttpServlet{
                 jsonEvent.put("address", event.getCoordinates());
                 jsonarray.add(jsonEvent);
             }
-            json = jsonarray.toJSONString();;
+            json = jsonarray.toJSONString();
         }
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

@@ -17,7 +17,7 @@ public class Comment {
     @Column(name="comment", length=255, nullable=false)
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 

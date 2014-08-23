@@ -1,6 +1,5 @@
 <%@page import="model.User"%>
-<%@page language="java" contentType="text/html; charset=US-ASCII"
-        pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
