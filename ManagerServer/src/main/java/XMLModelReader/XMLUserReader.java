@@ -8,7 +8,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.Stack;
 
 public class XMLUserReader extends DefaultHandler {
-
+    /*
     // Parsed data contains here:
     private User user = new User();
 
@@ -146,5 +146,5 @@ public class XMLUserReader extends DefaultHandler {
         return this.elementStack.get(this.elementStack.size()-2);
 
     }
-
+    */
 }
