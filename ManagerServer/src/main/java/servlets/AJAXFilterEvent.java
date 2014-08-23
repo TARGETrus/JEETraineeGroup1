@@ -38,8 +38,8 @@ public class AJAXFilterEvent extends HttpServlet{
         String point = req.getParameter("point");
         if(point.length() == 0)
             point = null;
-        String lat = req.getParameter("lat");//Float.parseFloat(req.getParameter("lat"));
-        String lng = req.getParameter("lng");//Float.parseFloat(req.getParameter("lng"));
+        String lat = req.getParameter("lat");
+        String lng = req.getParameter("lng");
         String json;
         float latitude = 0;
         float longitude = 0;
@@ -53,7 +53,6 @@ public class AJAXFilterEvent extends HttpServlet{
         if(userFilter != null || eventFilter != null || point != null){
 
             EventDataManager eventDataManager = new EventDataManager();
-//            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
             List<Event> events = eventDataManager.getFilteredEventData(latitude, longitude, radius, userFilter, eventFilter, null);
             JSONArray jsonarray = new JSONArray();
             for(Event event: events){
@@ -73,7 +72,7 @@ public class AJAXFilterEvent extends HttpServlet{
 
         }else {
             EventDataManager eventDataManager = new EventDataManager();
-            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
+            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());
             JSONArray jsonarray = new JSONArray();
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
