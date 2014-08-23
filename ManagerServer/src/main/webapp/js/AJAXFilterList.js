@@ -7,14 +7,34 @@ function addFiltersOnPage() {
     $('#radius').empty();
     $('#userFilter').empty();
 //    $('#jsonEventBtn').click(function(){
-    $.post('addfilter',"flag=apply&" + document.cookie,function(responseText) {
-        for(i in responseText){
+    $.post('addfilter',"flag=add&" + document.cookie,function(resp) {
+        for(i in resp){
+            $("#filterselector").append(
+                "<option onclick='fillFilterForm("+resp[i].filtername+")'>" + resp[i].filtername + "</option>"
+            )
 
 
         }
     });
 }
 
+
+function fillFilterForm(name) {
+    $('#eventFilter').empty();
+    $('#point').empty();
+    $('#radius').empty();
+    $('#userFilter').empty();
+//    $('#jsonEventBtn').click(function(){
+    $.post('findfilter',"filtername=" + name + "&" + document.cookie,function(resp) {
+
+            $('#eventFilter').val(resp[0].eventname);
+            $('#point').val(resp[0].point);
+            $('#radius').val(resp[0].radius);
+            $('#userFilter').val(resp[0].username);
+
+
+    });
+}
 
 function saveFilterFromPage(){
     var address = $("#point").val();
@@ -30,7 +50,7 @@ function saveFilterFromPage(){
                 var lat = latitude;
                 var lng = longitude;
             }
-            var coord = {"lat": lat, "lng":lng};
+
             $.post('addfilter',"flag=save&" + document.cookie + "&" + $("#formFilter").serialize() + "&" + $.param({"lat": lat, "lng":lng}),function(responseText) {
                 var status = responseText.status;
                 if(status == "OK"){

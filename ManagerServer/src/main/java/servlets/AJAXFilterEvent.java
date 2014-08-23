@@ -29,22 +29,28 @@ public class AJAXFilterEvent extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String eventFilter = req.getParameter("eventFilter");
+        if(eventFilter.length() == 0)
+            eventFilter = null;
         String rad = req.getParameter("radius");
         String userFilter = req.getParameter("userFilter");
+        if(userFilter.length() == 0)
+            userFilter = null;
         String point = req.getParameter("point");
+        if(point.length() == 0)
+            point = null;
         String lat = req.getParameter("lat");//Float.parseFloat(req.getParameter("lat"));
         String lng = req.getParameter("lng");//Float.parseFloat(req.getParameter("lng"));
         String json;
         float latitude = 0;
         float longitude = 0;
         float radius = 0;
-        if(rad.length() != 0 || lat.length() != 0 || lng.length() != 0)
+        if(rad.length() != 0)
         {
            latitude = Float.parseFloat(lat);
             longitude = Float.parseFloat(lng);
             radius = Float.parseFloat(rad);
         }
-        if(radius != 0 || userFilter.length() != 0 || point.length() != 0 || latitude != 0 || longitude != 0){
+        if(userFilter != null || eventFilter != null || point != null){
 
             EventDataManager eventDataManager = new EventDataManager();
 //            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());//TODO инициализация юзеров
@@ -57,8 +63,8 @@ public class AJAXFilterEvent extends HttpServlet{
                     eusers.add(user.getUserName());
                 }
                 jsonEvent.put("userlist", eusers);
-//                jsonEvent.put("lat", event.getLatitude());
-//                jsonEvent.put("lng", event.getLongitude());
+                jsonEvent.put("lat", event.getLatitude());
+                jsonEvent.put("lng", event.getLongitude());
                 jsonEvent.put("eventname", event.getEventName());
                 jsonEvent.put("address", event.getCoordinates());
                 jsonarray.add(jsonEvent);
@@ -76,8 +82,8 @@ public class AJAXFilterEvent extends HttpServlet{
                     eusers.add(user.getUserName());
                 }
                 jsonEvent.put("userlist", eusers);
-//                jsonEvent.put("lat", event.getLatitude());
-//                jsonEvent.put("lng", event.getLongitude());
+                jsonEvent.put("lat", event.getLatitude());
+                jsonEvent.put("lng", event.getLongitude());
                 jsonEvent.put("eventname", event.getEventName());
                 jsonEvent.put("address", event.getCoordinates());
                 jsonarray.add(jsonEvent);

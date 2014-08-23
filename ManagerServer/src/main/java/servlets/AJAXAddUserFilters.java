@@ -6,6 +6,7 @@ import DAOHandler.UserDataManager;
 import model.Filter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,13 +34,20 @@ public class AJAXAddUserFilters extends HttpServlet{
         String flag = req.getParameter("flag");
 
         switch (flag){
-            case "apply":{
+            case "add":{
                 String json;
                 JSONArray jsonarray = new JSONArray();
                 if(username.length() != 0){
                     ArrayList<Filter> filters = new ArrayList<>(userDataManager.getUserCompleteData(username).getFilters());
                     for(Filter filter: filters){
-                        jsonarray.add(filter.getFilterData());
+                        JSONObject ob = new JSONObject();
+                        ob.put("filtername", filter.getFilterName());
+                        JSONObject filterdata = new JSONObject();
+                        JSONParser parser = new JSONParser();
+
+                        jsonarray.add(ob);
+                        //jsonarray.add(filter.getFilterData());
+
                     }
                     json = jsonarray.toJSONString();
 
@@ -73,7 +81,7 @@ public class AJAXAddUserFilters extends HttpServlet{
                 object.put("lng", lng);
 
                 Filter filter = new Filter();
-                filter.setFilterData(object.toJSONString());
+                filter.setFilterData(object.toString());
                 filter.setFilterName("point:" + point + ", user:" + userFilter + ", event: " +
                 eventFilter + ", radius: " + radius);
                 filter.setUser(userDataManager.getUserCompleteData(username));//TODO типо добавление юзера
