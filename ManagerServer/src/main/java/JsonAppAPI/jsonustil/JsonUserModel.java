@@ -15,30 +15,39 @@ public class JsonUserModel {
     JSONArray array = new JSONArray();
     JSONObject object = new JSONObject();
 
-    public String getJsonUser(String username){
+    public String getJsonUser(String username, String pass){
 
         if(username.length() != 0){
 
             UserDataManager userDataManager = new UserDataManager();
             User user = userDataManager.getUserCompleteData(username);
+
             if(user != null){
 
+                String userpass = user.getPassword();
+                if(userpass.equals(pass)){
+                    object.put("id", user.getUserID());
+                    object.put("name", user.getUserName());
+                    object.put("role",user.getRole());
+                    object.put("password",user.getPassword());
+                    ArrayList<String> eventsname = new ArrayList<>();
+                    for(Event event: userDataManager.getUserCompleteData(username).getEvents()){
+                        eventsname.add(event.getEventName());
+                    }
+                    object.put("eventlist", eventsname);
+                    ArrayList<String> groupsname = new ArrayList<>();
+                    for(Groupp group: userDataManager.getUserCompleteData(username).getGroups()){
+                        groupsname.add(group.getGroupName());
+                    }
+                    object.put("grouplist", groupsname);
+                    object.put("status", "OK");
+                    array.put(object);
+                }else{
+                    object.put("error", "incorrect password");
+                    object.put("status", "error");
+                    array.put(object);
+                }
 
-                object.put("id", user.getUserID());
-                object.put("name", user.getUserName());
-                object.put("role",user.getRole());
-                ArrayList<String> eventsname = new ArrayList<>();
-                for(Event event: userDataManager.getUserCompleteData(username).getEvents()){
-                    eventsname.add(event.getEventName());
-                }
-                object.put("eventlist", eventsname);
-                ArrayList<String> groupsname = new ArrayList<>();
-                for(Groupp group: userDataManager.getUserCompleteData(username).getGroups()){
-                    groupsname.add(group.getGroupName());
-                }
-                object.put("grouplist", groupsname);
-                object.put("status", "OK");
-                array.put(object);
 
             }else {
                 object.put("error", "user not found");

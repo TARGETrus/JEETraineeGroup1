@@ -1,5 +1,6 @@
 package JsonAppAPI.get;
 
+import DAOHandler.UserDataManager;
 import JsonAppAPI.jsonustil.JsonEventModel;
 import JsonAppAPI.jsonustil.JsonGroupModel;
 import JsonAppAPI.jsonustil.JsonUserModel;
@@ -50,9 +51,10 @@ public class GetDate extends HttpServlet{
             }
             case "user_date":{
                 String username = req.getParameter("username");
+                String pass = req.getParameter("password");
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");
-                resp.getWriter().write(new JsonUserModel().getJsonUser(username));
+                resp.getWriter().write(new JsonUserModel().getJsonUser(username, pass));
                 break;
             }
             case "event_date":{

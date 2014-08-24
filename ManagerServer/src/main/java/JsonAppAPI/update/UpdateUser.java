@@ -18,7 +18,24 @@ public class UpdateUser extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String action = req.getParameter("action");
+        switch (action){
+            case "update_user":{
+                break;
+            }
+            case "update_event":{
+                break;
+            }
+            case "update_group":{
+                break;
+            }
+            case "update_comment":{//для эвента
+                break;
+            }
+            default:{
+                break;
+            }
+        }
     }
 
 }

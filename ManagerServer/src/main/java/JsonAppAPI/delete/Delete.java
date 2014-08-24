@@ -23,6 +23,29 @@ public class Delete extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String action = req.getParameter("action");
+
+        switch (action){
+            case "delet_user_from_group":{
+                break;
+            }
+            case "delet_user_from_event":{
+                break;
+            }
+            case "delet_user":{
+                break;
+            }
+            case "delet_event":{
+                break;
+            }
+            case "delet_group":{
+                break;
+            }
+            default:{
+                break;
+            }
+        }
+
     }
 
 

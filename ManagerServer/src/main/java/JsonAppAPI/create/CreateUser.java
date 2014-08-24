@@ -19,7 +19,25 @@ public class CreateUser extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
 
+        switch (action){
+            case "create_user":{
+                break;
+            }
+            case "create_event":{
+                break;
+            }
+            case "create_group":{
+                break;
+            }
+            case "create_comment":{//для эвента
+                break;
+            }
+            default:{
+                break;
+            }
+        }
     }
 
 }
