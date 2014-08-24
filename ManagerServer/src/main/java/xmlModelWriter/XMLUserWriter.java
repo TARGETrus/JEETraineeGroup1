@@ -13,6 +13,7 @@ import model.User;
 public class XMLUserWriter {
 
 	public static void write(XMLStreamWriter out, User user) throws XMLStreamException {
+
 		if (user == null) throw new XMLStreamException();
 
         out.writeStartDocument();
