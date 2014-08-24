@@ -17,14 +17,14 @@ import javax.xml.stream.XMLStreamWriter;
 import java.io.IOException;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class
  */
 @WebServlet("/GetFilter")
 public class GetFilter extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private FilterDataManager filterDataManager = new FilterDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving a filter";
+    private static final long   serialVersionUID  = 1L;
+    private FilterDataManager   filterDataManager = new FilterDataManager();
+    private static final String errormsg          = "Internal Error occupied, while receiving a filter";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 

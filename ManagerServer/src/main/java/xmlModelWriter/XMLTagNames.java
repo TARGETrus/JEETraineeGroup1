@@ -1,7 +1,5 @@
 package xmlModelWriter;
 
-
-
 public interface XMLTagNames {
 
 	public static String startTag = "Entity";
@@ -36,8 +34,8 @@ public interface XMLTagNames {
 	public static String event_comment = "comment";
 	
 	//for model.Groupp
-	public static String group = "groupp";
-	public static String group_grouptID = "groupID";
+	public static String group = "group";
+	public static String group_groupID = "groupID";
 	public static String group_groupName = "groupName";
     public static String group_groupAdmin = "groupAdmin";
 	//List reduced to name of an element
@@ -55,7 +53,7 @@ public interface XMLTagNames {
 	public static String comment = "comment";
 	public static String comment_commentID = "commentID";
 	public static String comment_commentName = "commentName";
-	public static String comment_comment = "comment";
+	public static String comment_comment = "commentDescription";
 	public static String comment_event = "event";
 		
 }

@@ -72,7 +72,8 @@ public class Groupp {
     @Override
     public String toString(){
 
-        String groupData =  "\nGroupp data: \n" + "ID: " + groupID + ", Title: " + groupName + ", Admin.: " + groupAdmin + "\n";
+        String groupData =  "\nGroup data: \n" + "ID: " + groupID + ", Title: " + groupName +
+                ", Admin.: " + groupAdmin + "\n";
 
         groupData += "User data: \n";
 
@@ -80,7 +81,7 @@ public class Groupp {
 
             for (User user : users) {
                 groupData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
-                        ", Password: " + user.getPassword() + "\n";
+                        ", Password: " + user.getPassword() + ", Role: " + user.getRole() + "\n";
             }
 
         }
@@ -92,7 +93,8 @@ public class Groupp {
             for (Event event : events) {
                 groupData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
                         ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
-                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() +
+                        ", Event Admin.: " + event.getEventAdmin() + "\n";
             }
 
         }

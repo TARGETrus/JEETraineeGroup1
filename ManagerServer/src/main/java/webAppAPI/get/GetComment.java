@@ -19,14 +19,14 @@ import xmlModelWriter.XMLCommentWriter;
 import xmlModelWriter.XMLTagNames;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class
  */
 @WebServlet("/GetComment")
 public class GetComment extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private CommentDataManager commentDataManager = new CommentDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving a comment";
+    private static final long   serialVersionUID   = 1L;
+    private CommentDataManager  commentDataManager = new CommentDataManager();
+    private static final String errormsg           = "Internal Error occupied, while receiving a comment";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 

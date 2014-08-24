@@ -61,7 +61,7 @@ public class Filter {
     public String toString(){
 
         return "\nFilter data: \n" + "ID: " + filterID + ", Title: " + filterName +
-                ", User ID: " + user.getUserID() + ", Filter data: " + filterData + "\n";
+                ", Filter data: " + filterData + ", User ID: " + user.getUserID() + "\n";
 
     }
 

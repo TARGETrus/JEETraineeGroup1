@@ -7,9 +7,11 @@ import model.Filter;
 
 public class XMLFilterWriter{
 
-    public static void write(XMLStreamWriter out, Filter filter) throws XMLStreamException{
+    public static void write(XMLStreamWriter out, Filter filter) throws XMLStreamException {
+
         if (filter == null) throw new XMLStreamException();
 
+        out.writeStartDocument();
         out.writeStartElement(XMLTagNames.startTag);
         out.writeStartElement(XMLTagNames.filter);
 
@@ -17,22 +19,28 @@ public class XMLFilterWriter{
         out.writeCharacters(new Integer(filter.getFilterID()).toString());
         out.writeEndElement();
 
-        if (filter.getFilterName() != null){
+        if (filter.getFilterName() != null) {
+
             out.writeStartElement(XMLTagNames.filter_filterName);
             out.writeCharacters(filter.getFilterName());
             out.writeEndElement();
+
         }
 
-        if (filter.getFilterData() != null){
+        if (filter.getFilterData() != null) {
+
             out.writeStartElement(XMLTagNames.filter_filterData);
             out.writeCharacters(filter.getFilterData());
             out.writeEndElement();
+
         }
 
-        if (filter.getUser() != null){
+        if (filter.getUser() != null) {
+
             out.writeStartElement(XMLTagNames.filter_user);
             XMLUserWriter.writeLikeElement(out, filter.getUser());
             out.writeEndElement();
+
         }
 
         out.writeEndElement();
@@ -46,10 +54,28 @@ public class XMLFilterWriter{
         out.writeCharacters(new Integer(filter.getFilterID()).toString());
         out.writeEndElement();
 
-        if (filter.getFilterName() != null){
-            out.writeStartElement(XMLTagNames.comment_commentName);
+        if (filter.getFilterName() != null) {
+
+            out.writeStartElement(XMLTagNames.filter_filterName);
             out.writeCharacters(filter.getFilterName());
             out.writeEndElement();
+
+        }
+
+        if (filter.getFilterData() != null) {
+
+            out.writeStartElement(XMLTagNames.filter_filterData);
+            out.writeCharacters(filter.getFilterData());
+            out.writeEndElement();
+
+        }
+
+        if (filter.getUser() != null) {
+
+            out.writeStartElement(XMLTagNames.filter_user);
+            XMLUserWriter.writeLikeElement(out, filter.getUser());
+            out.writeEndElement();
+
         }
 
     }

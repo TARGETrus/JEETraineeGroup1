@@ -114,17 +114,19 @@ public class User {
             for (Event event : events) {
                 userData += "ID: " + event.getEventID() + ", Title: " + event.getEventName() +
                         ", Coord.: " + event.getCoordinates() + ", Long.: " + event.getLongitude() +
-                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() + "\n";
+                        ", Lat.: " + event.getLatitude() + ", Date.: " + event.getDate() +
+                        ", Event Admin.: " + event.getEventAdmin() + "\n";
             }
 
         }
 
-        userData += "Groupp data: \n";
+        userData += "Group data: \n";
 
         if (Hibernate.isInitialized(groups)) {
 
             for (Groupp group : groups) {
-                userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+                userData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() +
+                        ", Group Admin: " + group.getGroupAdmin() + "\n";
             }
 
         }
@@ -134,7 +136,8 @@ public class User {
         if (Hibernate.isInitialized(filters)) {
 
             for (Filter filter : filters) {
-                userData += "ID: " + filter.getFilterID() + ", Title: " + filter.getFilterName() + "\n";
+                userData += "ID: " + filter.getFilterID() + ", Title: " + filter.getFilterName() +
+                        ", Filter Data: " + filter.getFilterData() + "\n";
             }
 
         }

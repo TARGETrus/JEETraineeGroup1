@@ -19,14 +19,14 @@ import xmlModelWriter.XMLGroupWriter;
 import xmlModelWriter.XMLTagNames;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class
  */
 @WebServlet("/GetGroup")
 public class GetGroup extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private GroupDataManager groupDataManager = new GroupDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving a group";
+    private static final long   serialVersionUID = 1L;
+    private GroupDataManager    groupDataManager = new GroupDataManager();
+    private static final String errormsg         = "Internal Error occupied, while receiving a group";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 

@@ -19,14 +19,14 @@ import xmlModelWriter.XMLTagNames;
 import xmlModelWriter.XMLUserWriter;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class
  */
 @WebServlet("/GetUser")
 public class GetUser extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private UserDataManager userDataManager = new UserDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving a user";
+    private static final long   serialVersionUID = 1L;
+    private UserDataManager     userDataManager  = new UserDataManager();
+    private static final String errormsg         = "Internal Error occupied, while receiving a user";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
