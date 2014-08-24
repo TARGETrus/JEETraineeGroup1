@@ -183,10 +183,8 @@
                             <form class="form pull-left" id="formFilter" style="margin: 5px">
                                 <div id="filterlog"></div>
 
-                                <select class="form-control" style="margin: 5px">
+                                <select class="form-control" id="filterselector" style="margin: 5px">
                                     <option  value="" disabled="disabled" selected="selected">Please select your filter</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
                                 </select>
                                 <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
                                 <input class="form-control" name="point" id="point" type="text" placeholder="Starting point" style="margin: 5px">
@@ -198,7 +196,7 @@
                                 <div class="btn-group" style="float: right;">
                                     <button type="button" id="btnFilterApply" class="btn btn-default">Apply</button>
                                     <button type="button" id="btnFilterSave" onclick="saveFilterFromPage()" class="btn btn-default">Save</button>
-                                    <button type="button" id="btnFilterDel" class="btn btn-default">Del</button>
+                                    <%--<button type="button" id="btnFilterDel" class="btn btn-default">Del</button>--%>
                                 </div>
                             </form>
                         </div>

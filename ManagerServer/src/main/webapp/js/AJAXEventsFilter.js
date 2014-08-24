@@ -11,8 +11,10 @@ $().ready(function() {
             new google.maps.Point(0, 0),
             new google.maps.Point(12, 35));
 
-        var lat = latitude;
-        var lng = longitude;
+
+            var lat = latitude;
+            var lng = longitude;
+
 
         $.ajax({
             url:'eventfilterjson',

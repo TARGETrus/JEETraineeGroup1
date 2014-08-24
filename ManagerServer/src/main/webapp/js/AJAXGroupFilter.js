@@ -5,6 +5,7 @@ $().ready(function() {
         var data = $('#formFilterGroup').serialize() + '&' + document.cookie;
 
         $.post('filtergroup',data,function(responseText) {
+            $('#groupFilterInfo').empty();
             for(i in responseText){
                 var list = "<li><a href=\"#\">Userlist:</a></li>";
 //                $('#groupInfo').append("groupname: "+responseText[i].groupname + "<br />" + "user list: " + responseText[i].userlist + "<br />");//.insertAdjacentHTML(responseText[i].groupname + "<br />" + responseText[i].userlist);
