@@ -13,7 +13,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     public void save(T entity) {
         Session hibernateSession = this.getSession();
-        hibernateSession.saveOrUpdate(entity);
+        hibernateSession.save(entity);
     }
 
     public void merge(T entity) {

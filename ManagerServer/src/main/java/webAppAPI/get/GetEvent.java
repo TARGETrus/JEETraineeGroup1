@@ -19,14 +19,14 @@ import xmlModelWriter.XMLEventWriter;
 import xmlModelWriter.XMLTagNames;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class
  */
 @WebServlet("/GetEvent")
 public class GetEvent extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private EventDataManager eventDataManager = new EventDataManager();
-    private static final String errormsg = "Internal Error occupied, while recieving an event";
+    private static final long   serialVersionUID = 1L;
+    private EventDataManager    eventDataManager = new EventDataManager();
+    private static final String errormsg         = "Internal Error occupied, while receiving an event";
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 

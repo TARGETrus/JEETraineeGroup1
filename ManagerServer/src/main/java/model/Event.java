@@ -140,17 +140,18 @@ public class Event {
 
             for (User user : users) {
                 eventData += "ID: " + user.getUserID() + ", Name: " + user.getUserName() +
-                        ", Password: " + user.getPassword() + "\n";
+                        ", Password: " + user.getPassword() + ", Role: " + user.getRole() + "\n";
             }
 
         }
 
-        eventData += "Groupp data: \n";
+        eventData += "Group data: \n";
 
         if (Hibernate.isInitialized(groups)) {
 
             for (Groupp group : groups) {
-                eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() + "\n";
+                eventData += "ID: " + group.getGroupID() + ", Title: " + group.getGroupName() +
+                        ", Group Admin: " + group.getGroupAdmin() + "\n";
             }
 
         }

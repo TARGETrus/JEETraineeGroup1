@@ -1,14 +1,18 @@
 package XMLModelReader;
 
+import model.Event;
+import model.Filter;
+import model.Groupp;
 import model.User;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import xmlModelWriter.XMLTagNames;
 
 import java.util.Stack;
 
 public class XMLUserReader extends DefaultHandler {
-    /*
+
     // Parsed data contains here:
     private User user = new User();
 
@@ -41,13 +45,34 @@ public class XMLUserReader extends DefaultHandler {
         // We push all start elements we find into elementStack:
         this.elementStack.push(qName);
 
-        // But in case of book element - we get it's id attr value and add it in objectStack as well:
-        if ("book".equals(qName)) {
+        // If user or event/group/filter - objectStack push
+        if (XMLTagNames.user.equals(qName)) {
 
-            Book book = new Book();
-            book.setBookId(attributes.getValue("id"));
-            this.objectStack.push(book);
-            this.books.add(book);
+            if (XMLTagNames.startTag.equals(currentElementParent())) {
+
+                this.objectStack.push(this.user);
+
+            } else if (XMLTagNames.filter.equals(currentElementParent())) {
+
+                User user = new User();
+                this.objectStack.push(user);
+
+            }
+
+        } else if (XMLTagNames.event.equals(qName)) {
+
+            Event event = new Event();
+            this.objectStack.push(event);
+
+        } else if (XMLTagNames.group.equals(qName)) {
+
+            Groupp group = new Groupp();
+            this.objectStack.push(group);
+
+        } else if (XMLTagNames.filter.equals(qName)) {
+
+            Filter filter = new Filter();
+            this.objectStack.push(filter);
 
         }
 
@@ -59,9 +84,37 @@ public class XMLUserReader extends DefaultHandler {
         // When closing element is found, remove the opening one from the elementStack:
         this.elementStack.pop();
 
-        // If it is a book closing element, remove it's object form objectStack as well:
-        if ("book".equals(qName)) {
-            Object object = this.objectStack.pop();
+        // If it is a user closing element, remove it's object form objectStack as well;
+        // If it is a event/group/filter closing element, remove it's object form objectStack and add to user:
+        if (XMLTagNames.user.equals(qName)) {
+
+            // If it is a user inside Entity, just pop it;
+            // If it is a user inside filter, add it:
+            if (XMLTagNames.startTag.equals(currentElement())) {
+
+                Object object = this.objectStack.pop();
+
+            } else if (XMLTagNames.filter.equals(currentElement())) {
+
+                User   user   = (User) this.objectStack.pop();
+                Filter filter = (Filter) this.objectStack.pop();
+                filter.setUser(user);
+                this.objectStack.push(filter);
+
+            }
+
+        } else if (XMLTagNames.event.equals(qName)) {
+
+            this.user.getEvents().add( (Event) this.objectStack.pop());
+
+        } else if (XMLTagNames.group.equals(qName)) {
+
+            this.user.getGroups().add( (Groupp) this.objectStack.pop());
+
+        } else if (XMLTagNames.filter.equals(qName)) {
+
+            this.user.getFilters().add( (Filter) this.objectStack.pop());
+
         }
 
     }
@@ -76,56 +129,120 @@ public class XMLUserReader extends DefaultHandler {
             return;
         }
 
-        if ("author".equals(currentElement()) && "book".equals(currentElementParent())) {
+        if (XMLTagNames.user_userID.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) { // Read User:
 
-            Book book = (Book) this.objectStack.peek();
-            book.setAuthor(value);
-
-        } else if ("title".equals(currentElement()) && "book".equals(currentElementParent())) {
-
-            Book book = (Book) this.objectStack.peek();
-            book.setTitle(value);
-
-        } else if ("genre".equals(currentElement()) && "book".equals(currentElementParent())) {
-
-            Book book = (Book) this.objectStack.peek();
-            book.setGenre(value);
-
-        } else if ("isbn".equals(currentElement()) && "book".equals(currentElementParent())) {
-
-            Book book = (Book) this.objectStack.peek();
-            book.setIsbn(value);
-
-        } else if ("price".equals(currentElement()) && "book".equals(currentElementParent())) {
-
-            Book book = (Book) this.objectStack.peek();
+            User user = (User) this.objectStack.peek();
 
             try {
-
-                book.setPrice(Float.parseFloat(value));
-
+                user.setUserID(Integer.parseInt(value));
             } catch (NumberFormatException e) {
                 System.out.println("exception: " + e.getMessage());
             }
 
-        } else if ("publish_date".equals(currentElement()) && "book".equals(currentElementParent())) {
+        } else if (XMLTagNames.user_userName.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
 
-            Book book = (Book) this.objectStack.peek();
-            Date date = null;
+            User user = (User) this.objectStack.peek();
+            user.setUserName(value);
+
+        } else if (XMLTagNames.user_password.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
+
+            User user = (User) this.objectStack.peek();
+            user.setPassword(value);
+
+        } else if (XMLTagNames.user_role.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
+
+            User user = (User) this.objectStack.peek();
+            user.setRole(value);
+
+        } else if (XMLTagNames.event_eventID.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) { // Read Event:
+
+            Event event = (Event) this.objectStack.peek();
 
             try {
-
-                date = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(value);
-                book.setPublishDate(value);
-
-            } catch (ParseException e) {
+                event.setEventID(Integer.parseInt(value));
+            } catch (NumberFormatException e) {
                 System.out.println("exception: " + e.getMessage());
             }
 
-        } else if ("description".equals(currentElement()) && "book".equals(currentElementParent())) {
+        } else if (XMLTagNames.event_eventName.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
 
-            Book book = (Book) this.objectStack.peek();
-            book.setDescription(value);
+            Event event = (Event) this.objectStack.peek();
+            event.setEventName(value);
+
+        } else if (XMLTagNames.event_coordinates.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
+
+            Event event = (Event) this.objectStack.peek();
+            event.setCoordinates(value);
+
+        } else if (XMLTagNames.event_latitude.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
+
+            Event event = (Event) this.objectStack.peek();
+
+            try {
+                event.setLatitude(Float.parseFloat(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.event_longitude.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
+
+            Event event = (Event) this.objectStack.peek();
+
+            try {
+                event.setLongitude(Float.parseFloat(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.event_date.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
+
+            Event event = (Event) this.objectStack.peek();
+            event.setDate(value);
+
+        } else if (XMLTagNames.event_admin.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) {
+
+            Event event = (Event) this.objectStack.peek();
+            event.setEventAdmin(value);
+
+        } else if (XMLTagNames.group_groupID.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) { // Read Group:
+
+            Groupp group = (Groupp) this.objectStack.peek();
+
+            try {
+                group.setGroupID(Integer.parseInt(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.group_groupName.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
+
+            Groupp group = (Groupp) this.objectStack.peek();
+            group.setGroupName(value);
+
+        } else if (XMLTagNames.group_groupAdmin.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
+
+            Groupp group = (Groupp) this.objectStack.peek();
+            group.setGroupAdmin(value);
+
+        } else if (XMLTagNames.filter_filterID.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) { // Read Filter:
+
+            Filter filter = (Filter) this.objectStack.peek();
+
+            try {
+                filter.setFilterID(Integer.parseInt(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.filter_filterName.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
+
+            Filter filter = (Filter) this.objectStack.peek();
+            filter.setFilterName(value);
+
+        } else if (XMLTagNames.filter_filterData.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
+
+            Filter filter = (Filter) this.objectStack.peek();
+            filter.setFilterData(value);
 
         }
 
@@ -146,5 +263,5 @@ public class XMLUserReader extends DefaultHandler {
         return this.elementStack.get(this.elementStack.size()-2);
 
     }
-    */
+
 }

@@ -13,11 +13,12 @@ public class XMLGroupWriter{
 
 	public static void write(XMLStreamWriter out, Groupp group) throws XMLStreamException{
 		if (group == null) throw new XMLStreamException();
-		
+
+        out.writeStartDocument();
 		out.writeStartElement(XMLTagNames.startTag);
 		out.writeStartElement(XMLTagNames.group);
 
-			out.writeStartElement(XMLTagNames.group_grouptID);
+			out.writeStartElement(XMLTagNames.group_groupID);
 			out.writeCharacters(new Integer (group.getGroupID()).toString());
 			out.writeEndElement();
 			
@@ -56,7 +57,7 @@ public class XMLGroupWriter{
 	
 	public static void writeLikeElement(XMLStreamWriter out, Groupp group) throws XMLStreamException{
 		
-		out.writeStartElement(XMLTagNames.group_grouptID);
+		out.writeStartElement(XMLTagNames.group_groupID);
 		out.writeCharacters(new Integer (group.getGroupID()).toString());
 		out.writeEndElement();
 		
@@ -65,6 +66,12 @@ public class XMLGroupWriter{
 			out.writeCharacters(group.getGroupName());
 			out.writeEndElement();
 		}
+
+        if (group.getGroupAdmin() != null){
+            out.writeStartElement(XMLTagNames.group_groupAdmin);
+            out.writeCharacters(group.getGroupAdmin());
+            out.writeEndElement();
+        }
 
 	}
 	

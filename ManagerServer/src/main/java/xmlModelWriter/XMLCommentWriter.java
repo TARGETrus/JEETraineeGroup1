@@ -9,7 +9,8 @@ public class XMLCommentWriter{
 
 	public static void write(XMLStreamWriter out,Comment comment) throws XMLStreamException{
 		if (comment == null) throw new XMLStreamException();
-		
+
+        out.writeStartDocument();
 		out.writeStartElement(XMLTagNames.startTag);
 		out.writeStartElement(XMLTagNames.comment);
 			
@@ -51,6 +52,18 @@ public class XMLCommentWriter{
 			out.writeCharacters(comment.getCommentName());
 			out.writeEndElement();
 		}
+
+        if (comment.getComment() != null){
+            out.writeStartElement(XMLTagNames.comment_comment);
+            out.writeCharacters(comment.getComment());
+            out.writeEndElement();
+        }
+
+        if (comment.getEvent() != null){
+            out.writeStartElement(XMLTagNames.comment_event);
+            XMLEventWriter.writeLikeElement(out, comment.getEvent());
+            out.writeEndElement();
+        }
 
 	}
 	

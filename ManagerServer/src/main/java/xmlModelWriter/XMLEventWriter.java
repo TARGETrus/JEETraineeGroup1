@@ -14,7 +14,8 @@ public class XMLEventWriter{
 	
 	public static void write(XMLStreamWriter out,Event event) throws XMLStreamException{
 		if (event == null) throw new XMLStreamException();
-		
+
+        out.writeStartDocument();
 		out.writeStartElement(XMLTagNames.startTag);
 		out.writeStartElement(XMLTagNames.event);
 		
@@ -86,7 +87,7 @@ public class XMLEventWriter{
 		out.writeEndElement();
 
 	}
-	
+
 	public static void writeLikeElement(XMLStreamWriter out,Event event) throws XMLStreamException{
 		
 		out.writeStartElement(XMLTagNames.event_eventID);
@@ -98,6 +99,36 @@ public class XMLEventWriter{
 			out.writeCharacters(event.getEventName());
 			out.writeEndElement();
 		}
+
+        if (event.getCoordinates() != null){
+            out.writeStartElement(XMLTagNames.event_coordinates);
+            out.writeCharacters(event.getCoordinates());
+            out.writeEndElement();
+        }
+
+        if (event.getLatitude() != null){
+            out.writeStartElement(XMLTagNames.event_latitude);
+            out.writeCharacters(event.getLatitude().toString());
+            out.writeEndElement();
+        }
+
+        if (event.getLongitude() != null){
+            out.writeStartElement(XMLTagNames.event_longitude);
+            out.writeCharacters(event.getLongitude().toString());
+            out.writeEndElement();
+        }
+
+        if (event.getDate() != null){
+            out.writeStartElement(XMLTagNames.event_date);
+            out.writeCharacters(event.getDate());
+            out.writeEndElement();
+        }
+
+        if (event.getEventAdmin() != null){
+            out.writeStartElement(XMLTagNames.event_admin);
+            out.writeCharacters(event.getEventAdmin());
+            out.writeEndElement();
+        }
 
 	}
 	
