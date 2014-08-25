@@ -72,7 +72,6 @@ public class CreateData extends HttpServlet{
         resp.getWriter().write(status);
     }
 
-
     private String parseUserJson(String json){
 
         JSONObject object = new JSONObject(json);
