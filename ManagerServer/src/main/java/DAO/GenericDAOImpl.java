@@ -16,9 +16,9 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         hibernateSession.save(entity);
     }
 
-    public void merge(T entity) {
+    public void update(T entity) {
         Session hibernateSession = this.getSession();
-        hibernateSession.merge(entity);
+        hibernateSession.update(entity);
     }
 
     public void delete(T entity) {

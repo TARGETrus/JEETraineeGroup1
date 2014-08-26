@@ -46,6 +46,7 @@ public class CreateUser extends HttpServlet {
             SAXParser     saxParser  = factory.newSAXParser();
             String        xmlInput   = request.getParameter("user_xml");
             //String        xmlInput   = "<Entity><user><userID>1</userID><userName>name</userName><password>password</password><role>admin</role><event><eventID>1</eventID><eventName>event2</eventName><coordinates>1444:2111</coordinates><latitude>100.0</latitude><longitude>100.0</longitude><date>1.10.2014</date><eventAdmin>name</eventAdmin></event><group><groupID>1</groupID><groupName>group2</groupName><groupAdmin>name</groupAdmin></group><filter><filterID>1</filterID><filterName>filter</filterName><filterData>asd:asd dsa:dsa</filterData><user><userID>1</userID><userName>name</userName><password>password</password><role>admin</role></user></filter></user></Entity>";
+            //<Entity><user><userName>name1</userName><password>password</password><role>admin</role><event><eventID>4</eventID><eventName>event1</eventName><coordinates>1444:2111</coordinates><latitude>100.0</latitude><longitude>100.0</longitude><date>11.10.2014</date><eventAdmin>name1</eventAdmin></event><group><groupID>2</groupID><groupName>group1</groupName><groupAdmin>name1</groupAdmin></group></user></Entity>
 
             saxParser.parse(new InputSource(new StringReader(xmlInput)), userReader);
             user = userReader.getUser();

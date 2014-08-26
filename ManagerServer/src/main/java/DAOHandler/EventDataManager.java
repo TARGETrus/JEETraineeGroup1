@@ -98,7 +98,7 @@ public class EventDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -121,7 +121,7 @@ public class EventDataManager {
 
             event.setEventName(name);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -144,7 +144,7 @@ public class EventDataManager {
 
             event.setCoordinates(coordinates);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -167,7 +167,7 @@ public class EventDataManager {
 
             event.setLatitude(latitude);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -190,7 +190,7 @@ public class EventDataManager {
 
             event.setLongitude(longitude);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -213,7 +213,7 @@ public class EventDataManager {
 
             event.setDate(date);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -236,7 +236,7 @@ public class EventDataManager {
 
             event.setEventAdmin(admin);
 
-            eventDAO.merge(event);
+            eventDAO.update(event);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -256,20 +256,6 @@ public class EventDataManager {
             HibernateUtil.beginTransaction();
 
             event = (Event) eventDAO.getCompleteEventData(event.getEventName());
-
-            for (User user : event.getUsers()) {
-
-                user.getEvents().remove(event);
-
-            }
-
-            for (Comment comment : event.getComments()) {
-
-                commentDAO.delete(comment);
-
-            }
-
-            event.getComments().remove(event);
 
             eventDAO.delete(event);
 

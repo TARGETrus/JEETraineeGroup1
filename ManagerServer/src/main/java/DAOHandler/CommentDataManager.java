@@ -75,7 +75,7 @@ public class CommentDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            commentDAO.merge(comment);
+            commentDAO.update(comment);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

@@ -46,6 +46,7 @@ public class CreateComment extends HttpServlet {
             SAXParser        saxParser     = factory.newSAXParser();
             String           xmlInput      = request.getParameter("comment_xml");
             //String           xmlInput      = "<Entity><comment><commentID>1</commentID><commentName>comment</commentName><commentDescription>comment description</commentDescription><event><eventID>1</eventID><eventName>event2</eventName><coordinates>1444:2111</coordinates><latitude>100.0</latitude><longitude>100.0</longitude><date>1.10.2014</date><eventAdmin>name</eventAdmin></event></comment></Entity>";
+            //<Entity><comment><commentName>comment1</commentName><commentDescription>comment description</commentDescription><event><eventID>4</eventID><eventName>event1</eventName><coordinates>1444:2111</coordinates><latitude>100.0</latitude><longitude>100.0</longitude><date>11.10.2014</date><eventAdmin>name1</eventAdmin></event></comment></Entity>
 
             saxParser.parse(new InputSource(new StringReader(xmlInput)), commentReader);
             comment = commentReader.getComment();

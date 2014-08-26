@@ -4,10 +4,9 @@ function addGroupOnPage() {
 
     $('#groupInfo').html('');
 
-//    $('#jsonGroupBtn').click(function(){
-    $.post('groupjson',document.cookie,function(responseText) {
+    if (window.location.href.indexOf("adminpanel") >= 0) {
 
-        if (window.location.href.indexOf("adminpanel") >= 0) {
+        $.post('admin_group_json',document.cookie,function(responseText) {
 
             for(i in responseText){
 
@@ -25,7 +24,11 @@ function addGroupOnPage() {
 
             }
 
-        } else {
+        })
+
+    } else {
+
+        $.post('groupjson',document.cookie,function(responseText) {
 
             for(i in responseText){
 
@@ -47,8 +50,8 @@ function addGroupOnPage() {
 
             }
 
-        }
+        })
 
-    });
+    }
 
 }

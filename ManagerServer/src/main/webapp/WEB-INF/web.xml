@@ -41,7 +41,6 @@
         <location>/error.html</location>
     </error-page>-->
 
-
     <servlet>
         <servlet-name>events</servlet-name>
         <jsp-file>/events.jsp</jsp-file>

@@ -46,6 +46,7 @@ public class CreateFilter extends HttpServlet {
             SAXParser       saxParser    = factory.newSAXParser();
             String          xmlInput     = request.getParameter("filter_xml");
             //String          xmlInput     = "<Entity><filter><filterID>1</filterID><filterName>filter</filterName><filterData>asd:asd dsa:dsa</filterData><user><userID>1</userID><userName>name</userName><password>password</password><role>admin</role></user></filter></Entity>";
+            //<Entity><filter><filterName>filter1</filterName><filterData>asd:asd dsa:dsa</filterData><user><userID>2</userID><userName>name1</userName><password>password1</password><role>admin</role></user></filter></Entity>
 
             saxParser.parse(new InputSource(new StringReader(xmlInput)), filterReader);
             filter = filterReader.getFilter();

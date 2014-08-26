@@ -46,6 +46,7 @@ public class CreateGroup extends HttpServlet {
             SAXParser      saxParser   = factory.newSAXParser();
             String         xmlInput    = request.getParameter("group_xml");
             //String         xmlInput    = "<Entity><group><groupID>2</groupID><groupName>group1</groupName><groupAdmin>name1</groupAdmin><user><userID>2</userID><userName>name1</userName><password>password</password><role>regular</role></user><event><eventID>2</eventID><eventName>event1</eventName><coordinates>1444:2111</coordinates><latitude>1100.0</latitude><longitude>1100.0</longitude><date>1.10.2014</date><eventAdmin>name1</eventAdmin></event></group></Entity>";
+            //<Entity><group><groupName>group1</groupName><groupAdmin>name1</groupAdmin></group></Entity>
 
             saxParser.parse(new InputSource(new StringReader(xmlInput)), groupReader);
             group = groupReader.getGroup();

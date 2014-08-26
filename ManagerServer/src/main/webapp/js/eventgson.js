@@ -4,10 +4,9 @@ function addEventOnPage() {
 
     $('#eventInfo').html('');
 
-//    $('#jsonEventBtn').click(function(){
-    $.post('eventjson',document.cookie,function(responseText) {
+    if (window.location.href.indexOf("adminpanel") >= 0) {
 
-        if (window.location.href.indexOf("adminpanel") >= 0) {
+        $.post('admin_event_json',document.cookie,function(responseText) {
 
             for(i in responseText){
 
@@ -25,7 +24,11 @@ function addEventOnPage() {
 
             }
 
-        } else {
+        })
+
+    } else {
+
+        $.post('eventjson',document.cookie,function(responseText) {
 
             for(i in responseText){
 
@@ -47,8 +50,8 @@ function addEventOnPage() {
 
             }
 
-        }
+        })
 
-    });
-//    });
+    }
+
 }

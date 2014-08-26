@@ -97,7 +97,7 @@ public class GroupDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            groupDAO.merge(group);
+            groupDAO.update(group);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -120,7 +120,7 @@ public class GroupDataManager {
 
             group.setGroupName(name);
 
-            groupDAO.merge(group);
+            groupDAO.update(group);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -143,7 +143,7 @@ public class GroupDataManager {
 
             group.setGroupAdmin(admin);
 
-            groupDAO.merge(group);
+            groupDAO.update(group);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -163,18 +163,6 @@ public class GroupDataManager {
             HibernateUtil.beginTransaction();
 
             group = (Groupp) groupDAO.getCompleteGroupData(group.getGroupName());
-
-            for (User user : group.getUsers()) {
-
-                user.getGroups().remove(group);
-
-            }
-
-            for (Event event : group.getEvents()) {
-
-                event.getGroups().remove(group);
-
-            }
 
             groupDAO.delete(group);
 

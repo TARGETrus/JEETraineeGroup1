@@ -120,7 +120,7 @@ public class UserDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            userDAO.merge(user);
+            userDAO.update(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -143,7 +143,7 @@ public class UserDataManager {
 
             user.setPassword(password);
 
-            userDAO.merge(user);
+            userDAO.update(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -166,7 +166,7 @@ public class UserDataManager {
 
             user.setUserName(name);
 
-            userDAO.merge(user);
+            userDAO.update(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -189,7 +189,7 @@ public class UserDataManager {
 
             user.setRole(role);
 
-            userDAO.merge(user);
+            userDAO.update(user);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {
@@ -209,12 +209,6 @@ public class UserDataManager {
             HibernateUtil.beginTransaction();
 
             user = (User) userDAO.getCompleteUserData(user.getUserName());
-
-            for (Filter filter : user.getFilters()) {
-
-                filterDAO.delete(filter);
-
-            }
 
             userDAO.delete(user);
 

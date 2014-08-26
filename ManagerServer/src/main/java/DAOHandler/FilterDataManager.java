@@ -1,7 +1,6 @@
 package DAOHandler;
 
 import DAO.*;
-import model.Event;
 import model.Filter;
 import org.hibernate.HibernateException;
 
@@ -77,7 +76,7 @@ public class FilterDataManager {
         try {
 
             HibernateUtil.beginTransaction();
-            filterDAO.merge(filter);
+            filterDAO.update(filter);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

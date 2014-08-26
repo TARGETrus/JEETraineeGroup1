@@ -1,8 +1,12 @@
 package model;
 
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,16 +37,20 @@ public class Event {
     @Column(name="event_admin", length=255, nullable=false)
     private String eventAdmin;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "events")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_events", schema="web_app_db",
+            joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)})
     private Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "events_groups", schema="web_app_db",
             joinColumns = {@JoinColumn(name = "event_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)})
     private Set<Groupp> groups = new HashSet<Groupp>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    @Cascade(CascadeType.ALL)
     private Set<Comment> comments = new HashSet<Comment>();
 
     public  Event() {}

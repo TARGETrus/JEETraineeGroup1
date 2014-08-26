@@ -17,25 +17,36 @@ public class HibernateTest {
         CommentDataManager commentDataManager = new CommentDataManager();
 
         Groupp group = new Groupp();
-        group.setGroupName("group2");
+        group.setGroupName("group");
         group.setGroupAdmin("name");
 
         Event event = new Event();
-        event.setEventName("event2");
+        event.setEventName("event");
         event.setDate("1.10.2014");
         event.setCoordinates("1444:2111");
         event.setLatitude(100F);
         event.setLongitude(100F);
         event.setEventAdmin("name");
-        event.getGroups().add(group);
 
-        User testUser = new User();
+        User user = new User();
         //testUser.setUserID(2);
-        testUser.setUserName("name");
-        testUser.setPassword("password");
-        testUser.setRole("admin");
-        testUser.getEvents().add(event);
-        testUser.getGroups().add(group);
+        user.setUserName("name");
+        user.setPassword("password");
+        user.setRole("admin");
+
+        event.getUsers().add(user);
+        group.getUsers().add(user);
+        group.getEvents().add(event);
+
+        Filter filter = new Filter();
+        filter.setFilterName("filter");
+        filter.setFilterData("asd:asd dsa:dsa");
+        filter.setUser(user);
+
+        Comment comment = new Comment();
+        comment.setCommentName("comment");
+        comment.setComment("comment description");
+        comment.setEvent(event);
 
         Groupp group1 = new Groupp();
         group1.setGroupName("group1");
@@ -48,51 +59,49 @@ public class HibernateTest {
         event1.setLatitude(1100F);
         event1.setLongitude(1100F);
         event1.setEventAdmin("name1");
-        event1.getGroups().add(group1);
 
-        User testUser1 = new User();
+        User user1 = new User();
         //testUser.setUserID(2);
-        testUser1.setUserName("name1");
-        testUser1.setPassword("password");
-        testUser1.setRole("regular");
-        testUser1.getEvents().add(event1);
-        testUser1.getGroups().add(group1);
+        user1.setUserName("name1");
+        user1.setPassword("password");
+        user1.setRole("regular");
 
-        Filter filter = new Filter();
-        filter.setFilterName("filter");
-        filter.setFilterData("asd:asd dsa:dsa");
-        filter.setUser(testUser);
+        event1.getGroups().add(group1);
+        user1.getGroups().add(group1);
+        user1.getEvents().add(event1);
 
         Filter filter1 = new Filter();
         filter1.setFilterName("filter1");
         filter1.setFilterData("asd:asd dsa:dsa");
-        filter1.setUser(testUser1);
-
-        Comment comment = new Comment();
-        comment.setCommentName("comment");
-        comment.setComment("comment description");
-        comment.setEvent(event);
+        filter1.setUser(user1);
 
         Comment comment1 = new Comment();
         comment1.setCommentName("comment1");
         comment1.setComment("comment description");
         comment1.setEvent(event1);
 
-        groupDataManager.saveNewGroup(group);
+        userDataManager.saveNewUser(user);
         eventDataManager.saveNewEvent(event);
-        userDataManager.saveNewUser(testUser);
+        groupDataManager.saveNewGroup(group);
         filterDataManager.saveNewFilter(filter);
         commentDataManager.saveNewComment(comment);
 
         groupDataManager.saveNewGroup(group1);
         eventDataManager.saveNewEvent(event1);
-        userDataManager.saveNewUser(testUser1);
+        userDataManager.saveNewUser(user1);
         filterDataManager.saveNewFilter(filter1);
         commentDataManager.saveNewComment(comment1);
 
         //User gotUser = userDataManager.getUserCompleteData("name");
+        //userDataManager.deleteUser(gotUser);
         //gotUser.getEvents().add(event);
         //userDataManager.modifyUser(gotUser);
+
+        //Event gotEvent = eventDataManager.getEventCompleteData("event1");
+        //eventDataManager.deleteEvent(gotEvent);
+
+        //Groupp gotGroup = groupDataManager.getGroupCompleteData("group1");
+        //groupDataManager.deleteGroup(gotGroup);
 
         //userDataManager.changeUserPassword("name", "password");
 
