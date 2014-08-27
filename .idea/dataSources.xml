@@ -19,6 +19,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/web_app_db</jdbc-url>
       <user-name>root</user-name>
       <user-password>dfdadfcbdfd9dfd9dfdddfc5dfd8dfce</user-password>
+      <schema-pattern>web_app_db.*</schema-pattern>
       <libraries>
         <library>
           <url>file://C:\Users\TARGETrus\.m2\repository\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar</url>

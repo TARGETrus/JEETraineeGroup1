@@ -1,28 +1,31 @@
-package XMLModelReader;
+package webAppAPI.xmlModelReader;
 
-import model.*;
+import model.Event;
+import model.Filter;
+import model.Groupp;
+import model.User;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import xmlModelWriter.XMLTagNames;
+import webAppAPI.xmlModelWriter.XMLTagNames;
 
 import java.util.Stack;
 
-public class XMLEventReader extends DefaultHandler {
+public class XMLUserReader extends DefaultHandler {
 
     // Parsed data contains here:
-    private Event event = new Event();
+    private User user = new User();
 
     // These stacks are used to get current/parent element names and current book object:
     private Stack<String> elementStack = new Stack<String>();
     private Stack<Object> objectStack  = new Stack<Object>();
 
-    public Event getEvent() {
-        return event;
+    public User getUser() {
+        return user;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // We should override default methods to suit our needs:
@@ -42,34 +45,34 @@ public class XMLEventReader extends DefaultHandler {
         // We push all start elements we find into elementStack:
         this.elementStack.push(qName);
 
-        // If event or user/group/comment - objectStack push
-        if (XMLTagNames.event.equals(qName)) {
+        // If user or event/group/filter - objectStack push
+        if (XMLTagNames.user.equals(qName)) {
 
             if (XMLTagNames.startTag.equals(currentElementParent())) {
 
-                this.objectStack.push(this.event);
+                this.objectStack.push(this.user);
 
-            } else if (XMLTagNames.comment.equals(currentElementParent())) {
+            } else if (XMLTagNames.filter.equals(currentElementParent())) {
 
-                Event event = new Event();
-                this.objectStack.push(event);
+                User user = new User();
+                this.objectStack.push(user);
 
             }
 
-        } else if (XMLTagNames.user.equals(qName)) {
+        } else if (XMLTagNames.event.equals(qName)) {
 
-            User user = new User();
-            this.objectStack.push(user);
+            Event event = new Event();
+            this.objectStack.push(event);
 
         } else if (XMLTagNames.group.equals(qName)) {
 
             Groupp group = new Groupp();
             this.objectStack.push(group);
 
-        } else if (XMLTagNames.comment.equals(qName)) {
+        } else if (XMLTagNames.filter.equals(qName)) {
 
-            Comment comment = new Comment();
-            this.objectStack.push(comment);
+            Filter filter = new Filter();
+            this.objectStack.push(filter);
 
         }
 
@@ -81,36 +84,36 @@ public class XMLEventReader extends DefaultHandler {
         // When closing element is found, remove the opening one from the elementStack:
         this.elementStack.pop();
 
-        // If it is a event closing element, remove it's object form objectStack as well;
-        // If it is a user/group/comment closing element, remove it's object form objectStack and add to event:
-        if (XMLTagNames.event.equals(qName)) {
+        // If it is a user closing element, remove it's object form objectStack as well;
+        // If it is a event/group/filter closing element, remove it's object form objectStack and add to user:
+        if (XMLTagNames.user.equals(qName)) {
 
-            // If it is a event inside Entity, just pop it;
-            // If it is a event inside comment, add it:
+            // If it is a user inside Entity, just pop it;
+            // If it is a user inside filter, add it:
             if (XMLTagNames.startTag.equals(currentElement())) {
 
                 Object object = this.objectStack.pop();
 
-            } else if (XMLTagNames.comment.equals(currentElement())) {
+            } else if (XMLTagNames.filter.equals(currentElement())) {
 
-                Event   event   = (Event) this.objectStack.pop();
-                Comment comment = (Comment) this.objectStack.pop();
-                comment.setEvent(event);
-                this.objectStack.push(comment);
+                User   user   = (User) this.objectStack.pop();
+                Filter filter = (Filter) this.objectStack.pop();
+                filter.setUser(user);
+                this.objectStack.push(filter);
 
             }
 
-        } else if (XMLTagNames.user.equals(qName)) {
+        } else if (XMLTagNames.event.equals(qName)) {
 
-            this.event.getUsers().add( (User) this.objectStack.pop());
+            this.user.getEvents().add( (Event) this.objectStack.pop());
 
         } else if (XMLTagNames.group.equals(qName)) {
 
-            this.event.getGroups().add( (Groupp) this.objectStack.pop());
+            this.user.getGroups().add( (Groupp) this.objectStack.pop());
 
-        } else if (XMLTagNames.comment.equals(qName)) {
+        } else if (XMLTagNames.filter.equals(qName)) {
 
-            this.event.getComments().add( (Comment) this.objectStack.pop());
+            this.user.getFilters().add( (Filter) this.objectStack.pop());
 
         }
 
@@ -126,7 +129,32 @@ public class XMLEventReader extends DefaultHandler {
             return;
         }
 
-        if (XMLTagNames.event_eventID.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) { // Read Event:
+        if (XMLTagNames.user_userID.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) { // Read User:
+
+            User user = (User) this.objectStack.peek();
+
+            try {
+                user.setUserID(Integer.parseInt(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.user_userName.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
+
+            User user = (User) this.objectStack.peek();
+            user.setUserName(value);
+
+        } else if (XMLTagNames.user_password.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
+
+            User user = (User) this.objectStack.peek();
+            user.setPassword(value);
+
+        } else if (XMLTagNames.user_role.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
+
+            User user = (User) this.objectStack.peek();
+            user.setRole(value);
+
+        } else if (XMLTagNames.event_eventID.equals(currentElement()) && XMLTagNames.event.equals(currentElementParent())) { // Read Event:
 
             Event event = (Event) this.objectStack.peek();
 
@@ -176,31 +204,6 @@ public class XMLEventReader extends DefaultHandler {
             Event event = (Event) this.objectStack.peek();
             event.setEventAdmin(value);
 
-        } else if (XMLTagNames.user_userID.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) { // Read User:
-
-            User user = (User) this.objectStack.peek();
-
-            try {
-                user.setUserID(Integer.parseInt(value));
-            } catch (NumberFormatException e) {
-                System.out.println("exception: " + e.getMessage());
-            }
-
-        } else if (XMLTagNames.user_userName.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
-
-            User user = (User) this.objectStack.peek();
-            user.setUserName(value);
-
-        } else if (XMLTagNames.user_password.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
-
-            User user = (User) this.objectStack.peek();
-            user.setPassword(value);
-
-        } else if (XMLTagNames.user_role.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) {
-
-            User user = (User) this.objectStack.peek();
-            user.setRole(value);
-
         } else if (XMLTagNames.group_groupID.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) { // Read Group:
 
             Groupp group = (Groupp) this.objectStack.peek();
@@ -221,25 +224,25 @@ public class XMLEventReader extends DefaultHandler {
             Groupp group = (Groupp) this.objectStack.peek();
             group.setGroupAdmin(value);
 
-        } else if (XMLTagNames.comment_commentID.equals(currentElement()) && XMLTagNames.comment.equals(currentElementParent())) { // Read Comment:
+        } else if (XMLTagNames.filter_filterID.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) { // Read Filter:
 
-            Comment comment = (Comment) this.objectStack.peek();
+            Filter filter = (Filter) this.objectStack.peek();
 
             try {
-                comment.setCommentID(Integer.parseInt(value));
+                filter.setFilterID(Integer.parseInt(value));
             } catch (NumberFormatException e) {
                 System.out.println("exception: " + e.getMessage());
             }
 
-        } else if (XMLTagNames.comment_commentName.equals(currentElement()) && XMLTagNames.comment.equals(currentElementParent())) {
+        } else if (XMLTagNames.filter_filterName.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
 
-            Comment comment = (Comment) this.objectStack.peek();
-            comment.setCommentName(value);
+            Filter filter = (Filter) this.objectStack.peek();
+            filter.setFilterName(value);
 
-        } else if (XMLTagNames.comment_comment.equals(currentElement()) && XMLTagNames.comment.equals(currentElementParent())) {
+        } else if (XMLTagNames.filter_filterData.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
 
-            Comment comment = (Comment) this.objectStack.peek();
-            comment.setComment(value);
+            Filter filter = (Filter) this.objectStack.peek();
+            filter.setFilterData(value);
 
         }
 

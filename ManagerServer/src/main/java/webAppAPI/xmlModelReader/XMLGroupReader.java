@@ -1,31 +1,30 @@
-package XMLModelReader;
+package webAppAPI.xmlModelReader;
 
 import model.Event;
-import model.Filter;
 import model.Groupp;
 import model.User;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import xmlModelWriter.XMLTagNames;
+import webAppAPI.xmlModelWriter.XMLTagNames;
 
 import java.util.Stack;
 
-public class XMLUserReader extends DefaultHandler {
+public class XMLGroupReader extends DefaultHandler {
 
     // Parsed data contains here:
-    private User user = new User();
+    private Groupp group = new Groupp();
 
     // These stacks are used to get current/parent element names and current book object:
     private Stack<String> elementStack = new Stack<String>();
     private Stack<Object> objectStack  = new Stack<Object>();
 
-    public User getUser() {
-        return user;
+    public Groupp getGroup() {
+        return group;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setGroup(Groupp group) {
+        this.group = group;
     }
 
     // We should override default methods to suit our needs:
@@ -45,34 +44,20 @@ public class XMLUserReader extends DefaultHandler {
         // We push all start elements we find into elementStack:
         this.elementStack.push(qName);
 
-        // If user or event/group/filter - objectStack push
-        if (XMLTagNames.user.equals(qName)) {
+        // If group or user/event - objectStack push
+        if (XMLTagNames.group.equals(qName)) {
 
-            if (XMLTagNames.startTag.equals(currentElementParent())) {
+            this.objectStack.push(this.group);
 
-                this.objectStack.push(this.user);
+        } else if (XMLTagNames.user.equals(qName)) {
 
-            } else if (XMLTagNames.filter.equals(currentElementParent())) {
-
-                User user = new User();
-                this.objectStack.push(user);
-
-            }
+            User user = new User();
+            this.objectStack.push(user);
 
         } else if (XMLTagNames.event.equals(qName)) {
 
             Event event = new Event();
             this.objectStack.push(event);
-
-        } else if (XMLTagNames.group.equals(qName)) {
-
-            Groupp group = new Groupp();
-            this.objectStack.push(group);
-
-        } else if (XMLTagNames.filter.equals(qName)) {
-
-            Filter filter = new Filter();
-            this.objectStack.push(filter);
 
         }
 
@@ -84,36 +69,19 @@ public class XMLUserReader extends DefaultHandler {
         // When closing element is found, remove the opening one from the elementStack:
         this.elementStack.pop();
 
-        // If it is a user closing element, remove it's object form objectStack as well;
-        // If it is a event/group/filter closing element, remove it's object form objectStack and add to user:
-        if (XMLTagNames.user.equals(qName)) {
-
-            // If it is a user inside Entity, just pop it;
-            // If it is a user inside filter, add it:
-            if (XMLTagNames.startTag.equals(currentElement())) {
+        // If it is a group closing element, remove it's object form objectStack as well;
+        // If it is a user/event closing element, remove it's object form objectStack and add to group:
+        if (XMLTagNames.group.equals(qName)) {
 
                 Object object = this.objectStack.pop();
 
-            } else if (XMLTagNames.filter.equals(currentElement())) {
+        } else if (XMLTagNames.user.equals(qName)) {
 
-                User   user   = (User) this.objectStack.pop();
-                Filter filter = (Filter) this.objectStack.pop();
-                filter.setUser(user);
-                this.objectStack.push(filter);
-
-            }
+            this.group.getUsers().add( (User) this.objectStack.pop());
 
         } else if (XMLTagNames.event.equals(qName)) {
 
-            this.user.getEvents().add( (Event) this.objectStack.pop());
-
-        } else if (XMLTagNames.group.equals(qName)) {
-
-            this.user.getGroups().add( (Groupp) this.objectStack.pop());
-
-        } else if (XMLTagNames.filter.equals(qName)) {
-
-            this.user.getFilters().add( (Filter) this.objectStack.pop());
+            this.group.getEvents().add( (Event) this.objectStack.pop());
 
         }
 
@@ -129,7 +97,27 @@ public class XMLUserReader extends DefaultHandler {
             return;
         }
 
-        if (XMLTagNames.user_userID.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) { // Read User:
+        if (XMLTagNames.group_groupID.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) { // Read Group:
+
+            Groupp group = (Groupp) this.objectStack.peek();
+
+            try {
+                group.setGroupID(Integer.parseInt(value));
+            } catch (NumberFormatException e) {
+                System.out.println("exception: " + e.getMessage());
+            }
+
+        } else if (XMLTagNames.group_groupName.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
+
+            Groupp group = (Groupp) this.objectStack.peek();
+            group.setGroupName(value);
+
+        } else if (XMLTagNames.group_groupAdmin.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
+
+            Groupp group = (Groupp) this.objectStack.peek();
+            group.setGroupAdmin(value);
+
+        } else if (XMLTagNames.user_userID.equals(currentElement()) && XMLTagNames.user.equals(currentElementParent())) { // Read User:
 
             User user = (User) this.objectStack.peek();
 
@@ -203,46 +191,6 @@ public class XMLUserReader extends DefaultHandler {
 
             Event event = (Event) this.objectStack.peek();
             event.setEventAdmin(value);
-
-        } else if (XMLTagNames.group_groupID.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) { // Read Group:
-
-            Groupp group = (Groupp) this.objectStack.peek();
-
-            try {
-                group.setGroupID(Integer.parseInt(value));
-            } catch (NumberFormatException e) {
-                System.out.println("exception: " + e.getMessage());
-            }
-
-        } else if (XMLTagNames.group_groupName.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
-
-            Groupp group = (Groupp) this.objectStack.peek();
-            group.setGroupName(value);
-
-        } else if (XMLTagNames.group_groupAdmin.equals(currentElement()) && XMLTagNames.group.equals(currentElementParent())) {
-
-            Groupp group = (Groupp) this.objectStack.peek();
-            group.setGroupAdmin(value);
-
-        } else if (XMLTagNames.filter_filterID.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) { // Read Filter:
-
-            Filter filter = (Filter) this.objectStack.peek();
-
-            try {
-                filter.setFilterID(Integer.parseInt(value));
-            } catch (NumberFormatException e) {
-                System.out.println("exception: " + e.getMessage());
-            }
-
-        } else if (XMLTagNames.filter_filterName.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
-
-            Filter filter = (Filter) this.objectStack.peek();
-            filter.setFilterName(value);
-
-        } else if (XMLTagNames.filter_filterData.equals(currentElement()) && XMLTagNames.filter.equals(currentElementParent())) {
-
-            Filter filter = (Filter) this.objectStack.peek();
-            filter.setFilterData(value);
 
         }
 

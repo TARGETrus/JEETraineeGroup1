@@ -1,4 +1,4 @@
-package xmlModelWriter;
+package webAppAPI.xmlModelWriter;
 
 public interface XMLTagNames {
 

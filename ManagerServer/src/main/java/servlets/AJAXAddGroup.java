@@ -37,7 +37,7 @@ public class AJAXAddGroup extends HttpServlet {
             Groupp group = new Groupp();
             group.setGroupName(groupName);
             group.setGroupAdmin(username);
-            //group.getEvents().add(eventDataManager.getEventData(addEvent));//TODO не заносит в базу
+            //group.getEvents().add(eventDataManager.getEventData(addEvent));//TODO теперь заносит
             //group.getUsers().add(userDataManager.getUserData(username));
             //group.getUsers().add(userDataManager.getUserData(addUser));
             manager.saveNewGroup(group);

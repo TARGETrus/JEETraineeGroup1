@@ -1,10 +1,10 @@
-package XMLModelReader;
+package webAppAPI.xmlModelReader;
 
 import model.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import xmlModelWriter.XMLTagNames;
+import webAppAPI.xmlModelWriter.XMLTagNames;
 
 import java.util.Stack;
 

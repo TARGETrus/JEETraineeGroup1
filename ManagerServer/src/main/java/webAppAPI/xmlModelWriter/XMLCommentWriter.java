@@ -1,4 +1,4 @@
-package xmlModelWriter;
+package webAppAPI.xmlModelWriter;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
