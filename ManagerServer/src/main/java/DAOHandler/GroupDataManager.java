@@ -71,7 +71,7 @@ public class GroupDataManager {
 
     }
 
-    public List<Groupp> getAllGroups() {
+    public List<Groupp> getAllGroupsJoin() {
 
         List<Groupp> group = null;
 
@@ -79,6 +79,26 @@ public class GroupDataManager {
 
             HibernateUtil.beginTransaction();
             group = (List<Groupp>) groupDAO.findAll();
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return group;
+
+    }
+
+    public List<Groupp> getAllGroups() {
+
+        List<Groupp> group = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            group = (List<Groupp>) groupDAO.findAll(Groupp.class);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

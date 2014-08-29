@@ -33,7 +33,7 @@ public class AJAXFilterGroup extends HttpServlet{
         JSONArray jsonarray = new JSONArray();
         if(username.length() != 0 && groupName.length() != 0){
 
-            ArrayList<Groupp> groups = new ArrayList<>(manager.getAllGroups());
+            ArrayList<Groupp> groups = new ArrayList<>(manager.getAllGroupsJoin());
             for(Groupp group: groups){
                 if(group.getGroupName().startsWith(groupName)){
                     ArrayList<String> gusers = new ArrayList<>();
@@ -49,7 +49,7 @@ public class AJAXFilterGroup extends HttpServlet{
             json = jsonarray.toJSONString();
 
         }else{
-            ArrayList<Groupp> groups = new ArrayList<>(manager.getAllGroups());
+            ArrayList<Groupp> groups = new ArrayList<>(manager.getAllGroupsJoin());
             for(Groupp group: groups){
                 ArrayList<String> gusers = new ArrayList<>();
                 JSONObject jsonGroup = new JSONObject();
