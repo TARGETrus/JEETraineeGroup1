@@ -2,7 +2,6 @@ package JsonAppAPI.jsonustil;
 
 
 import DAOHandler.EventDataManager;
-import DAOHandler.GroupDataManager;
 import model.Event;
 import model.Groupp;
 import model.User;
@@ -56,7 +55,7 @@ public class JsonEventModel {
 
     public String getJsonEventlist(){
         EventDataManager eventDataManager = new EventDataManager();
-        ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());
+        ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEventsJoin());
         for(Event event : events){
             JSONObject eventJson = new JSONObject();
             object.put("eventame", event.getEventName());

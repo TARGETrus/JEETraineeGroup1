@@ -35,7 +35,6 @@ public class AJAXAdminGetEvents extends HttpServlet {
 
         for(Event event : events){
 
-
             JSONObject jsonUser = new JSONObject();
 
             jsonUser.put("eventname", event.getEventName());

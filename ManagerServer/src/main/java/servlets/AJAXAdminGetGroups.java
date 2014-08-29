@@ -1,8 +1,6 @@
 package servlets;
 
-import DAOHandler.EventDataManager;
 import DAOHandler.GroupDataManager;
-import model.Event;
 
 import model.Groupp;
 import org.json.simple.JSONArray;
@@ -36,7 +34,6 @@ public class AJAXAdminGetGroups extends HttpServlet {
         ArrayList<Groupp> groups = new ArrayList<>(manager.getAllGroups());
 
         for(Groupp group : groups){
-
 
             JSONObject jsonUser = new JSONObject();
 

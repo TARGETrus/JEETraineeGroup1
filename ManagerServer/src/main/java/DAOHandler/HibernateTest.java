@@ -80,17 +80,17 @@ public class HibernateTest {
         comment1.setComment("comment description");
         comment1.setEvent(event1);
 
-        userDataManager.saveNewUser(user);
-        eventDataManager.saveNewEvent(event);
-        groupDataManager.saveNewGroup(group);
-        filterDataManager.saveNewFilter(filter);
-        commentDataManager.saveNewComment(comment);
+        //userDataManager.saveNewUser(user);
+        //eventDataManager.saveNewEvent(event);
+        //groupDataManager.saveNewGroup(group);
+        //filterDataManager.saveNewFilter(filter);
+        //commentDataManager.saveNewComment(comment);
 
-        groupDataManager.saveNewGroup(group1);
-        eventDataManager.saveNewEvent(event1);
-        userDataManager.saveNewUser(user1);
-        filterDataManager.saveNewFilter(filter1);
-        commentDataManager.saveNewComment(comment1);
+        //groupDataManager.saveNewGroup(group1);
+        //eventDataManager.saveNewEvent(event1);
+        //userDataManager.saveNewUser(user1);
+        //filterDataManager.saveNewFilter(filter1);
+        //commentDataManager.saveNewComment(comment1);
 
         //User gotUser = userDataManager.getUserCompleteData("name");
         //userDataManager.deleteUser(gotUser);
@@ -141,13 +141,13 @@ public class HibernateTest {
         }
         */
 
-        //List<Event> filtEvent = eventDataManager.getFilteredEventData(100.12F, 100.12F, 5.24F, null, null, null);
+        List<Event> filtEvent = eventDataManager.getFilteredEventData(100.12F, 100.12F, 5.24F, "name", "event", "group");
 
-        //if (filtEvent != null) {
-        //    System.out.println("filter " + filtEvent.toString());
-        //} else {
-        //    System.out.println("Nothing found!!!");
-        //}
+        if (filtEvent != null) {
+            System.out.println("filter " + filtEvent.toString());
+        } else {
+            System.out.println("Nothing found!!!");
+        }
 
         //Groupp groups = groupDataManager.getGroupCompleteData("group");
         //System.out.println(groups);

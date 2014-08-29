@@ -55,7 +55,7 @@ public class JsonGroupModel {
 
     public String getJsonGrouplist(){
         GroupDataManager groupDataManager = new GroupDataManager();
-        ArrayList<Groupp> groups = new ArrayList<>(groupDataManager.getAllGroups());
+        ArrayList<Groupp> groups = new ArrayList<>(groupDataManager.getAllGroupsJoin());
         for(Groupp group : groups){
             JSONObject groupJson = new JSONObject();
             groupJson.put("geoupname", group.getGroupName());

@@ -72,7 +72,7 @@ public class EventDataManager {
 
     }
 
-    public List<Event> getAllEvents() {
+    public List<Event> getAllEventsJoin() {
 
         List<Event> event = null;
 
@@ -80,6 +80,26 @@ public class EventDataManager {
 
             HibernateUtil.beginTransaction();
             event = (List<Event>) eventDAO.findAll();
+            HibernateUtil.commitTransaction();
+
+        } catch (HibernateException e) {
+
+            System.out.println("Hibernate exception: " + e.getMessage());
+
+        }
+
+        return event;
+
+    }
+
+    public List<Event> getAllEvents() {
+
+        List<Event> event = null;
+
+        try {
+
+            HibernateUtil.beginTransaction();
+            event = (List<Event>) eventDAO.findAll(Event.class);
             HibernateUtil.commitTransaction();
 
         } catch (HibernateException e) {

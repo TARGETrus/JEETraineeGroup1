@@ -72,7 +72,7 @@ public class AJAXFilterEvent extends HttpServlet{
 
         }else {
             EventDataManager eventDataManager = new EventDataManager();
-            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEvents());
+            ArrayList<Event> events = new ArrayList<>(eventDataManager.getAllEventsJoin());
             JSONArray jsonarray = new JSONArray();
             for(Event event: events){
                 ArrayList<String> eusers = new ArrayList<>();
