@@ -96,9 +96,9 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
 
         Session hibernateSession = this.getSession();
 
-        if (latitude != null)  latitude  = Math.abs(latitude);
-        if (longitude != null) longitude = Math.abs(longitude);
-        if (radius != null)    radius    = Math.abs(radius);
+        if (latitude != 0)  latitude  = Math.abs(latitude);
+        if (longitude != 0) longitude = Math.abs(longitude);
+        if (radius != 0)    radius    = Math.abs(radius);
 
         Map<String, Object> params = new HashMap<String, Object>();
 
@@ -125,7 +125,7 @@ public class EventDAOImpl extends GenericDAOImpl<Event> implements EventDAO {
             queryString.append("and (users.userName = :userName or groups.groupName = :groupName) ");
         }
 
-        if (latitude != null && longitude != null && radius != null) {
+        if (latitude != 0 && longitude != 0&& radius != 0) {
             queryString.append("and (pow((event.latitude - :latitude), 2) + pow((event.longitude - :longitude), 2)) <= pow(:radius, 2)");
         }
 

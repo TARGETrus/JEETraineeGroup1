@@ -31,6 +31,8 @@ function fillFilterForm(name) {
             $('#point').val(resp.point);
             $('#radius').val(resp.radius);
             $('#userFilter').val(resp.username);
+            latitude = resp.lat;
+            longitude = resp.lng;
 
 
     });
