@@ -27,10 +27,10 @@ function fillFilterForm(name) {
 //    $('#jsonEventBtn').click(function(){
     $.post('findfilter',"filtername=" + name + "&" + document.cookie,function(resp) {
 
-            $('#eventFilter').val(resp[0].eventname);
-            $('#point').val(resp[0].point);
-            $('#radius').val(resp[0].radius);
-            $('#userFilter').val(resp[0].username);
+            $('#eventFilter').val(resp.eventname);
+            $('#point').val(resp.point);
+            $('#radius').val(resp.radius);
+            $('#userFilter').val(resp.username);
 
 
     });

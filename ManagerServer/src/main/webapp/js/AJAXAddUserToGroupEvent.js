@@ -21,7 +21,7 @@ var qs = (function(a) {
 function AJAXEventAddUser(){
 
 
-$.post('follow',"flag=event&" + document.cookie + "&" + "event="+ qs["eventname"],function(resp) {
+    $.post('follow',"flag=event&" + document.cookie + "&" + "event="+ qs["eventname"],function(resp) {
         if(resp.message == "OK"){
             $("#").append("User add!");
         }else{

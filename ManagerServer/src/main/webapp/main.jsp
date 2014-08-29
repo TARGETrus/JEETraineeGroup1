@@ -26,10 +26,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <%--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">--%>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>--%>
-    <script src="js/jquery.min.js"></script>
     <%--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>--%>
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+<%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>--%>
     <script src="js/groupjson.js"></script>
     <script src="js/addEventAJAX.js"></script>
     <script src="js/addGroupAJAX.js"></script>
@@ -37,7 +37,6 @@
     <script src="js/AJAXEventsFilter.js"></script>
     <script src="js/AJAXGroupFilter.js"></script>
     <script src="js/AJAXFilterList.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css" />
     <link href="css/dopstyle.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -52,6 +51,15 @@
         var latitude;
         var longitude;
         var map;
+        var markersArray = [];
+
+        google.maps.Map.prototype.clearOverlays = function() {
+            for (var i = 0; i < markersArray.length; i++ ) {
+                markersArray[i].setMap(null);
+            }
+            markersArray.length = 0;
+        }
+
         function initialize() {
             var mapOptions = {
                 zoom: 10,
@@ -131,7 +139,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 head-block" style="background: url('img/logo_head.png') no-repeat; background-color: #F7F7F7;">
+        <div class="col-sm-12 head-block" style="background: url('img/logo_head.png') no-repeat; background-color: #F7F7F7;">
             <form action="LogoutServlet"  method="post">
 
                 <p style="text-align: right">
@@ -151,7 +159,7 @@
             </form>
 
         </div>
-        <div class="col-md-3 content" style="overflow:scroll">
+        <div class="col-sm-3 content" style="overflow:scroll">
             <ul class="nav pull-center" role="center">
                 <li class="dropdown" id="menuEvet">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addEvent" style="text-align: center; font-size: 15px">Add Event</a>
@@ -177,8 +185,8 @@
                 <%--<br><button id="jsonEventBtn">JSON</button></br>--%>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="col-md-12 map_content">
+        <div class="col-sm-6">
+            <div class="col-sm-12 map_content">
                 <%--<jsp:include page="map.jsp"/>--%>
                 <ul class="nav pull-center" role="center">
                     <li class="dropdown" id="filterMenu">
@@ -187,7 +195,7 @@
                             <form class="form pull-left" id="formFilter" style="margin: 5px">
                                 <div id="filterlog"></div>
 
-                                <select class="form-control" id="filterselector" style="margin: 5px">
+                                <select onchange="fillFilterForm(this.value)" class="form-control" id="filterselector" style="margin: 5px">
                                     <option  value="" disabled="disabled" selected="selected">Please select your filter</option>
                                 </select>
                                 <input class="form-control" name="eventFilter" id="eventFilter" type="text" placeholder="Event name" style="margin: 5px">
@@ -209,7 +217,7 @@
                 <div id="map-canvas"></div>
             </div>
         </div>
-        <div class="col-md-3 content" style="overflow:scroll">
+        <div class="col-sm-3 content" style="overflow:scroll">
             <ul class="nav pull-center" role="center">
                 <li class="dropdown" id="menuGroup">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="addGroup" style="text-align: center; font-size: 15px">Add Group</a>
