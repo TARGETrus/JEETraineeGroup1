@@ -22,6 +22,7 @@ $().ready(function() {
             data: $("#formFilter").serialize() + "&" + $.param({"lat": lat, "lng":lng}),
             dataType: 'JSON',
             success:function(data){
+                deleteMarkers();
                 for(i in data){
                     var list = "<li><a href=\"#\">Userlist:</a></li>";
                     for(ii in data[i].userlist){
@@ -37,7 +38,7 @@ $().ready(function() {
                         "<ul class=\"dropdown-menu\" role=\"menu\" style='position: relative;'>" + "<li><a href=\"#\">" + "<br />" + "address: " + data[i].address + "</a></li>" + list + "</ul>" + "</div><br />");
 
 
-                    var marker =+ new google.maps.Marker({
+                    var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(data[i].lat, data[i].lng),
                         map:map,
                         icon: pinImage,
@@ -45,6 +46,7 @@ $().ready(function() {
                         title:data[i].address
                     });
 
+                    markers.push(marker);
 
 
                 }

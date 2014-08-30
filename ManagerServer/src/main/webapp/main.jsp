@@ -51,14 +51,8 @@
         var latitude;
         var longitude;
         var map;
-        var markersArray = [];
+        var markers = [];
 
-        google.maps.Map.prototype.clearOverlays = function() {
-            for (var i = 0; i < markersArray.length; i++ ) {
-                markersArray[i].setMap(null);
-            }
-            markersArray.length = 0;
-        }
 
         function initialize() {
             var mapOptions = {
@@ -109,6 +103,9 @@
 
 
             <!-- add markers-->
+
+
+
             $.post('eventjson',document.cookie,function(responseText) {
                 var pinColor = "69fe75";
                 var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
@@ -120,17 +117,40 @@
                         new google.maps.Point(0, 0),
                         new google.maps.Point(12, 35));
                 for(i in responseText){
-                    var marker =+ new google.maps.Marker({
+                    var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(responseText[i].lat,responseText[i].lng),
                         map: map,
                         icon: pinImage,
                         shadow: pinShadow,
                         title:responseText[i].address
                     });
+                    markers.push(marker);
                 }
             });
 
         }
+
+        function setAllMap(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+
+        function clearMarkers() {
+            setAllMap(null);
+        }
+
+        function showMarkers() {
+            setAllMap(map);
+        }
+
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+        }
+
+
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
@@ -187,7 +207,6 @@
         </div>
         <div class="col-sm-6">
             <div class="col-sm-12 map_content">
-                <%--<jsp:include page="map.jsp"/>--%>
                 <ul class="nav pull-center" role="center">
                     <li class="dropdown" id="filterMenu">
                         <a class="dropdown-toggle" data-toggle="dropdown" id="addFilter" style="text-align: center; font-size: 15px">Add Event</a>

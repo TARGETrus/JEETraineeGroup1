@@ -12,7 +12,7 @@ function addEventOnPage() {
 
                 $('#eventInfo').append("" +
                     "<div class=\"btn-group col-sm-12\" style=\"padding-bottom: 10px;\">" +
-                    "<button type=\"button\" onclick=\"window.location.href='/events?eventname=" + responseText[i].eventname + "'\" class=\"btn btn-default pull-left\" style=\"width: 88%;\">" + responseText[i].eventname +"</button>" +
+                    "<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='/events?eventname=" + responseText[i].eventname + "'\" class=\"btn btn-default pull-left\" style=\"width: 88%;\">" + responseText[i].eventname +"</button>" +
                     "<button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">" +
                     "<span class=\"caret\"></span>" +
                     "<span class=\"sr-only\">Toggle Dropdown</span>" +
