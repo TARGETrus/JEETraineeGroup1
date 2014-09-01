@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns:mvc="http://www.springframework.org/schema/mvc" -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/jee
+                           http://www.springframework.org/schema/jee/spring-jee-3.2.xsd ">
+    <!--
+                               http://www.springframework.org/schema/mvc
+                               http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd ">
+     -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="DAO" />
+    <context:component-scan base-package="DAOHandler" />
+    <context:component-scan base-package="model" />
+
+    <context:property-placeholder location="classpath:properties/database.properties" />
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- jpaVendorAdapter Hibernate, injected into emf -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <!-- Data Definition Language script is generated and executed for each run -->
+                <property name="generateDdl" value="false"/>
+            </bean>
+        </property>
+        <property name="packagesToScan" value="model" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <!-- Set JTA -->
+                <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
+                <!-- C3PO connections pool manager -->
+                <prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+                <prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+                <prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+                <prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+                <prop key="hibernate.c3p0.idle_test_period">${hibernate.c3p0.idle_test_period}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <bean id="persistenceAnnotationBeanPostProcessor"
+          class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+</beans>

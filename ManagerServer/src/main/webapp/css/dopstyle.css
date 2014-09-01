@@ -1,0 +1,91 @@
+/*background: url(../img/wallpaper.jpg) no-repeat center center fixed;*/
+body {
+
+    background: #1A1516;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+/*ЦВЕТ И ОТСТУП СНИЗУ ДЛЯ БЛОКОВ*/
+.head-block,.top-menu,.top-material,.content,.map_content{
+    background:#ccc;
+    margin-bottom:2px;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/*ВЫСОТА ШАПКИ*/
+.head-block{
+    height: 100px;
+    border-radius: 2px;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/*ВЫСОТА МЕНЮ*/
+.top-menu{
+    height:60px;
+    border-radius: 2px;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/*ГРАНИЦА У КОНТЕНТА*/
+.content{
+	height:530px;
+    border-radius: 2px;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.content_admin{
+    height:530px;
+    border-radius: 2px;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin: 25px;
+    width: 29% !important;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/*ГРАНИЦЫ ДЛЯ КАРТЫ*/
+.map_content{
+	height: 530px;
+    border-radius: 2px;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+#messageEventAdded {
+    opacity: 0;
+    background: #90EE90;
+    height: 23px;
+    width: 110px;
+    position: relative;
+    border-radius: 8px;
+    margin: 20px;
+    text-align: center;
+}
+#messageError {
+    opacity: 0;
+    background: #FA8072;
+    height: 23px;
+    width: 55px;
+    position: relative;
+    border-radius: 8px;
+    margin: 20px;
+    text-align: center;
+}
+#messageServerError {
+    opacity: 0;
+    background: #FFD700;
+    height: 23px;
+    width: 110px;
+    position: relative;
+    border-radius: 8px;
+    margin: 20px;
+    text-align: center;
+}
