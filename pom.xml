@@ -6,7 +6,6 @@
   <packaging>pom</packaging>
   <name>EventManager</name>
   <modules>
-  	<module>ManagerAPI</module>
   	<module>ManagerServer</module>
   </modules>
   
